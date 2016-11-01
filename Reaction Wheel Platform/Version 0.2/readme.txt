@@ -1,0 +1,1 @@
+Brushless Motor Driver is just some code put together to drive a 3-phase brushless motor. Works, but fails when speed is too high.
