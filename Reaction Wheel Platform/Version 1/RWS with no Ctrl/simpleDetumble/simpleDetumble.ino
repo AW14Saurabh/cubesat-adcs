@@ -78,7 +78,7 @@ void loop(void){
   float k = 2.0;                    //proportional to strength of motor response; found by trial & error - want to stop asap but not oscillate
   float motorSpeed = k * wZ;        //proportional controller
   float cappedMotorSpeed = min(1.0, abs(motorSpeed)); //cap speed at 100%
-  int motorOut = int(255 * cappedMotorSpeed); //255 = 5V with analogWrite()
+  int motorOut = (int)(255 * cappedMotorSpeed); //255 = 5V with analogWrite()
 
   // Update motor speed
   if (motorSpeed < 0){
