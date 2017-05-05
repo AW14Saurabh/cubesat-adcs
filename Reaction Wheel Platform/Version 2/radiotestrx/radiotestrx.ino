@@ -1,4 +1,4 @@
-
+//Receives radio messages from Ctrl Box v1
 
 #include <Wire.h>
 #include <SPI.h>
@@ -8,13 +8,14 @@
 
 
 
-RF24 radio(19, 18);
+//RF24 radio(7,8);
+RF24 radio(19,18);
 const byte rxAddr[6] = "00001";
-
 
 
 void setup(void){
   //Set up pins
+  pinMode(9, OUTPUT);
 
 
   //Initialise Radio
@@ -23,9 +24,13 @@ void setup(void){
   radio.startListening();
 
   Serial.begin(9600);
+  Serial.println("starting radio");
+  digitalWrite(9, LOW);
+
 }
 
 
+int i = 0;
 
 
 void loop(void){
@@ -34,7 +39,16 @@ void loop(void){
   if (radio.available()){
     float rx;
     radio.read(&rx, sizeof(rx));
-    Serial.println(rx);
+    Serial.print("data in:");
+    Serial.print(rx);
+    Serial.print(" iteration: ");
+    Serial.println(i);
+    i++;
+    if (rx > 10.0){
+        digitalWrite(9, HIGH);
+    } else{
+        digitalWrite(9, LOW);
+    }
   }
 
   delay(40);
