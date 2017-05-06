@@ -9,8 +9,8 @@
 #include <nRF24L01.h>
 #include <RF24.h>
 
-RF24 radio(18, 19);
-//RF24 radio(9, 10);
+//RF24 radio(18, 19);
+RF24 radio(9, 10);
 const byte rxAddr[6] = "00001";
 
 void setup()
@@ -22,10 +22,22 @@ void setup()
   radio.stopListening();
 }
 
-float tx = 13.0;
+struct packet{
+  char h;
+  int d;
+};
+
+struct packet tx;
+
 void loop()
 {
-  Serial.println(tx);
-  radio.write(&tx, sizeof(tx));
-  delay(100);
+  tx.h = 'a';
+  tx.d = 1;
+  while (1){
+    radio.write(&tx, sizeof(tx));
+    tx.h++;
+    tx.d++;
+    
+    delay(100);
+  }
 }
