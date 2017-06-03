@@ -34,7 +34,7 @@ void setup() {
   rtc.begin();
   if (rtc.isrunning()) {
     Serial.println("RTC online");
-    rtc.adjust(DateTime(__DATE__, __TIME__));
+    //rtc.adjust(DateTime(__DATE__, __TIME__));
   } else {
     Serial.println("RTC is NOT running!");
   }
