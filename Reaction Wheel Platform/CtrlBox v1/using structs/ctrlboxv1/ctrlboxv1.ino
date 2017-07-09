@@ -11,7 +11,10 @@
 #define ANGLE A0
 #define MODE A1
 #define MOTOR_ENA A2
-
+#define DETUMBLE 0
+#define POINT 1
+#define DISABLED 0
+#define ENABLED 1
 
 
 //RF24 radio(18, 19);
@@ -37,8 +40,14 @@ struct packet tx;
 void loop()
 {
   float angle = analogRead(ANGLE)/1024.0 * 300.0;  //Angle of potentiometer (degrees) - calibrated to a pot that only turns 300deg
-  int mode = digitalRead(MODE);
-  int enable = digitalRead(MOTOR_ENA);
+  int mode = DETUMBLE;
+  if (digitalRead(MODE) == HIGH){
+    mode = POINT;
+  }
+  int enable = DISABLED;
+  if (digitalRead(MOTOR_ENA) == HIGH){
+    enable = ENABLED;
+  }
 
 
   tx.h = 'e';

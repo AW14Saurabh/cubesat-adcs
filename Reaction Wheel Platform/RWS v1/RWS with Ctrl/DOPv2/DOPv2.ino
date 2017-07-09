@@ -13,15 +13,14 @@
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
-#define ENABLED 1
 #define DISABLED 0
+#define ENABLED 1
 #define MOTOR_PIN_A 5
 #define MOTOR_PIN_B 6
 #define RED_LED 4
 #define GREEN_LED 7
-#define CHILL 0
-#define DETUMBLE 1
-#define POINT 2
+#define DETUMBLE 0
+#define POINT 1
 
 
 Adafruit_L3GD20_Unified gyro = Adafruit_L3GD20_Unified(20);
@@ -96,7 +95,7 @@ float angleTarg = 0;
 int i = 0;
 int motorEna = DISABLED;
 int updateTime = 40; //ms
-int mode = CHILL;
+int mode = DETUMBLE;
 
 void loop(void){
 
@@ -107,12 +106,12 @@ void loop(void){
 
     if (rx.h == 'a'){
       angleTarg = (2*PI) - (rx.d * 2*PI / 360.0);
+      Serial.println(angleTarg);
     } else if (rx.h == 'm'){
-      mode = 1 + rx.d;
+      mode = rx.d;
     } else if (rx.h == 'e'){
       motorEna = rx.d;
     }
-    
     i = 0; //radio 'watchdog' reset - see below
   }
 

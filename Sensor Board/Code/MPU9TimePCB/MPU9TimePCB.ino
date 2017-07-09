@@ -3,7 +3,7 @@
 #include "RTClib.h"
 
 #define MPU6_CS 8
-#define MPU9_CS 9
+#define MPU9_CS 7
 
 
 DS1307 rtc;
@@ -26,8 +26,9 @@ void setup() {
     Serial.println("MPU9250 online");
     fabo_9axis.setMPU(0x69); //set address of MPU9
   } else {
-    Serial.println("MPU9250 device error");
-    while(1);
+    while(1) {
+      Serial.println("MPU9250 device error");
+    }
   }
   digitalWrite(MPU6_CS, HIGH);
 
@@ -36,7 +37,9 @@ void setup() {
     Serial.println("RTC online");
     rtc.adjust(DateTime(__DATE__, __TIME__));
   } else {
-    Serial.println("RTC is NOT running!");
+    while(1) {
+      Serial.println("RTC is NOT running!");
+    }
   }
 }
 
@@ -86,5 +89,9 @@ void loop() {
   Serial.println(now.format(buf));
 
 
+  Serial.println("hello");
   delay(100);
+
+  
+
 }
