@@ -9,8 +9,8 @@
 
 
 //RF24 radio(7,8); //Ctrl Box v1
-RF24 radio(18,19); //RWSv1
-//RF24 radio(19,18); //RWSv2
+//RF24 radio(18,19); //RWSv1
+RF24 radio(19,18); //RWSv2
 const byte rxAddr[6] = "00001";
 
 
