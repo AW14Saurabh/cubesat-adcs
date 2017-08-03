@@ -7,10 +7,9 @@
 // - HMC5883L (Compass)
 // - DS3231 (Real Time Clock)
 // Author: James Ryan + Mark Yeo
-// Last Modified 2017-07-21
+// Last Modified 2017-08-03
 
 // TO DO:
-// - see what gyro scale best for rocket launch
 // Optional:
 // - check how to convert gathered data into metric values
 
@@ -27,33 +26,42 @@
 #include <Adafruit_BMP280.h>
 
 #define address 0x1E //0011110b, I2C 7bit address of HMC5883
-#define MPU6_CS 8
-#define MPU9_CS 7
-#define SD_CS 10
+#define PWR_RST 4
 #define RED_LED 5
 #define GRN_LED 6
-#define BUTTON 9
-#define FILE_NAME "data1.txt"
+#define MPU9_CS 7
+#define MPU6_CS 8
+#define PSH_BTN 9
+#define SD_CS 10
+#define FILE_NAME "data.txt"
+#define NORMAL 'n'
+#define RESET 'r'
+#define START 's'
+#define OFF 'o'
 
 
 File dataFile;
-//RTC_Millis rtc; //use if rtc bugging out - uses arduino's inbuilt clock, starts from 0 on powerup
 DS3231 rtc;
 FaBo9Axis fabo_9axis;
 MPU6050 accelgyro(0x69);
 Adafruit_BMP280 bmp;
+unsigned long pwrRstTimer;
+char pwrRstStatus = NORMAL;
 
 void setup() {
-  pinMode(MPU6_CS, OUTPUT);
-  pinMode(MPU9_CS, OUTPUT);
+  pinMode(PWR_RST, OUTPUT);
   pinMode(RED_LED, OUTPUT);
   pinMode(GRN_LED, OUTPUT);
+  pinMode(MPU9_CS, OUTPUT);
+  pinMode(MPU6_CS, OUTPUT);
+  pinMode(PSH_BTN, INPUT);
   pinMode(SD_CS, OUTPUT);
-  pinMode(BUTTON, INPUT);
-  digitalWrite(MPU6_CS, HIGH);
-  digitalWrite(MPU9_CS, HIGH);
+  digitalWrite(PWR_RST, HIGH);
   digitalWrite(RED_LED, HIGH);
   digitalWrite(GRN_LED, LOW);
+  digitalWrite(MPU9_CS, HIGH);
+  digitalWrite(MPU6_CS, HIGH);
+  digitalWrite(SD_CS, HIGH);
 
   //=================================
   // Join I2C bus (I2Cdev library doesn't do this automatically)
@@ -94,7 +102,7 @@ void setup() {
   digitalWrite(MPU9_CS, LOW);
   accelgyro.initialize();
   //Set Full-Scales
-  accelgyro.setFullScaleGyroRange(MPU6050_GYRO_FS_2000);
+  accelgyro.setFullScaleGyroRange(MPU6050_GYRO_FS_500);
   accelgyro.setFullScaleAccelRange(MPU6050_ACCEL_FS_16);
     //MPU6050_GYRO_FS_250   +-250deg/s
     //MPU6050_GYRO_FS_500   +-500deg/s
@@ -118,44 +126,22 @@ void setup() {
   Wire.endTransmission();
 
   //=================================
-  // Initialise Clock
+  // Initialise Clock + Reset Timer
   //=================================
   //Start the timer
   rtc.begin();
   if (!rtc.isrunning()) { //if the battery's run out, then just reset the clock to midnight 1st Jan 2000
     rtc.adjust(DateTime(0, 1, 1, 0, 0, 0));
   }
+  pwrRstTimer = millis();
 
   //=================================
   // Initialise SD card module
   //=================================
-  if(SD.begin()){
+  if(SD.begin(SD_CS)){ //correct?
   } else{
     return;
   }
-  /*
-  dataFile = SD.open(FILE_NAME, FILE_WRITE); 
-  if(dataFile){
-    dataFile.println("================================");
-    dataFile.close();
-  }*/
-  /*
-  dataFile = SD.open(FILE_NAME, FILE_WRITE); 
-  if(dataFile){
-    DateTime now = rtc.now();
-    char buf[100];
-    strncpy(buf,"DD.MM.YYYY  hh:mm:ss\0",100);
-    dataFile.println();
-    dataFile.println("================================");
-    dataFile.print("Power on at ");
-    dataFile.println(now.format(buf));
-    dataFile.println("--------------------------------");
-    dataFile.println();
-  } else {
-    Serial.println("Error initially writing to file");
-  }
-  dataFile.close();
-*/
   digitalWrite(RED_LED, LOW);
   digitalWrite(GRN_LED, HIGH);
 }
@@ -221,36 +207,38 @@ void loop() {
   
 
   //=================================
-  // Poll RTC
+  // Poll RTC + Inbuilt Clock
   //=================================
   DateTime now = rtc.now();
+  unsigned long mselapsed = millis();
 
 
   //=================================
   // DATA OUTPUT
   //=================================
 
-  //Format sensor data
+  //Format sensor data //too big
   //---MPU9 data---
-  String mpu9accel = "ax: " + String(ax,6) + " ay: " + String(ay,6) + " az: " + String(az,6);
-  String mpu9gyro = "gx: " + String(gx,3) + " gy: " + String(gy,3) + " gz: " + String(gz,3);
-  String mpu9mag = "mx: " + String(mx,3) + " my: " + String(my,3) + " mz: " + String(mz,3);
-  String mpu9temp = "temp: " + String(temp,3);
+  //String mpu9accel = "a:" + String(ax,6) + ":" + String(ay,6) + ":" + String(az,6);
+  //String mpu9gyro = "g:" + String(gx,3) + ":" + String(gy,3) + ":" + String(gz,3);
+  //String mpu9mag = "m:" + String(mx,3) + ":" + String(my,3) + ":" + String(mz,3);
+  //String mpu9temp = "t:" + String(temp,3);
   //---BMP data---
-  String bmptpe = "temp1: " + String(temp1,3) + " pa: " + String(pa,3) + " ele: " + String(ele,3);
+  //String bmptpe = "t1:" + String(temp1,3) + " p:" + String(pa,3) + " e:" + String(ele,3);
   //---MPU6 data---
-  String mpu6accel = "ax1: " + String(ax1,DEC) + " ay1: " + String(ay1,DEC) + " az1: " + String(az1,DEC);
-  String mpu6gyro = "gx1: " + String(gx1,DEC) + " gy1: " + String(gy1,DEC) + " gz1: " + String(gz1,DEC);
+  //String mpu6accel = "a1:" + String(ax1,DEC) + ":" + String(ay1,DEC) + ":" + String(az1,DEC);
+  //String mpu6gyro = "g1:" + String(gx1,DEC) + ":" + String(gy1,DEC) + ":" + String(gz1,DEC);
   //---HMC5 data---
-  String hmc5mag= "mx1: " + String(mx1) + " my1: " + String(my1) + " mz1: " + String(mz1);
+  //String hmc5mag= "m1:" + String(mx1) + ":" + String(my1) + ":" + String(mz1);
   //---Timestamp---
   char buf[100];
-  strncpy(buf,"DD.MM.YYYY  hh:mm:ss\n\0",100);
-  String rtctime = now.format(buf);
+  strncpy(buf,"DD.MM.YYYY  hh:mm:ss\0",100);
+  //String rtctime = now.format(buf);
+  //String mstime = "ms:" + String(mselapsed) + "\n";
 
   //Output to Serial when button is pressed
-  if (digitalRead(BUTTON) == HIGH){ //arduino doesn't like to upload when Serial is constantly in use
-    Serial.println(mpu9accel);
+  //if (digitalRead(PSH_BTN) == HIGH){ //arduino doesn't like to upload when Serial is constantly in use
+    //Serial.println(mpu9accel);
     //Serial.println(mpu9gyro);
     //Serial.println(mpu9mag);
     //Serial.println(mpu9temp);
@@ -259,42 +247,76 @@ void loop() {
     //Serial.println(mpu6gyro);
     //Serial.println(hmc5mag);  
     //Serial.println(rtctime);
+    //Serial.println(mstime);
     //Serial.println();
-  
-    /*
-    Serial.println(mpu9accel);
-    Serial.println(mpu9gyro);
-    Serial.println(mpu9mag);
-    Serial.println(mpu9temp);
-    Serial.println(bmptpe);
-    Serial.println(mpu6accel);
-    Serial.println(mpu6gyro);
-    Serial.println(hmc5mag);  
-    Serial.println(rtctime);
-    Serial.println();
-    */
-  }
+ 
+  //}
 
   //Write to SD card
   dataFile = SD.open(FILE_NAME, FILE_WRITE);
   if(dataFile){
-    dataFile.println(mpu9accel);
-    dataFile.println(mpu9gyro);
-    dataFile.println(mpu9mag);
-    dataFile.println(mpu9temp);
-    dataFile.println(bmptpe);
-    dataFile.println(mpu6accel);
-    dataFile.println(mpu6gyro);
-    dataFile.println(hmc5mag);
-    dataFile.println(rtctime);
-    
+
+    dataFile.println(ax,6);
+    dataFile.println(ay,6);
+    dataFile.println(az,6);
+    dataFile.println(gx,3);
+    dataFile.println(gy,3);
+    dataFile.println(gz,3);
+    dataFile.println(mx,3);
+    dataFile.println(my,3);
+    dataFile.println(mz,3);
+    dataFile.println(temp,3);
+    dataFile.println(temp1,3);
+    dataFile.println(pa,3);
+    dataFile.println(ele,3);
+    dataFile.println(ax1);
+    dataFile.println(ay1);
+    dataFile.println(az1);
+    dataFile.println(gx1);
+    dataFile.println(gy1);
+    dataFile.println(gz1);
+    dataFile.println(mx1);
+    dataFile.println(my1);
+    dataFile.println(mz1);
+    dataFile.println(now.format(buf));
+    dataFile.println(mselapsed);
+    if (pwrRstStatus == RESET){
+      dataFile.println("Power boards reset");
+      pwrRstStatus = OFF;
+    }
+    if (pwrRstStatus == START){
+      dataFile.println("Power boards startup");
+      pwrRstStatus = NORMAL;
+    }
+    dataFile.println();
     dataFile.close();
-    digitalWrite(RED_LED, LOW);
     digitalWrite(GRN_LED, HIGH);
   } else {
-    digitalWrite(RED_LED, HIGH);
     digitalWrite(GRN_LED, LOW);
   }
 
+
+
+
+  //=================================
+  // RESET POWER BOARDS
+  //=================================
+
+  if (pwrRstStatus == NORMAL && (millis() - pwrRstTimer > (unsigned long) (5*60000))){
+    digitalWrite(PWR_RST, LOW);
+    digitalWrite(RED_LED, HIGH);
+    pwrRstStatus = RESET;
+    Serial.println("RESET");
+  }
+  Serial.println((unsigned long) (5*60000) - (millis() - pwrRstTimer));
+  if (pwrRstStatus == OFF && (millis() - pwrRstTimer > (unsigned long) (5*60000+1000))){
+    digitalWrite(PWR_RST, HIGH);
+    digitalWrite(RED_LED, LOW);
+    pwrRstTimer = millis();
+    pwrRstStatus = START;
+    Serial.println("START");
+  }
+
+  //delay(500);
 }
 
