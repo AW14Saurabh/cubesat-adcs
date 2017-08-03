@@ -7,7 +7,7 @@
 // - HMC5883L (Compass)
 // - DS3231 (Real Time Clock)
 // Author: James Ryan + Mark Yeo
-// Last Modified 2017-08-03
+// Last Modified 2017-08-04
 
 // TO DO:
 // Optional:
@@ -35,9 +35,7 @@
 #define SD_CS 10
 #define FILE_NAME "data.txt"
 #define NORMAL 'n'
-#define RESET 'r'
-#define START 's'
-#define OFF 'o'
+#define RESET 'o'
 
 
 File dataFile;
@@ -45,8 +43,12 @@ DS3231 rtc;
 FaBo9Axis fabo_9axis;
 MPU6050 accelgyro(0x69);
 Adafruit_BMP280 bmp;
-unsigned long pwrRstTimer;
+//unsigned long pwrRstTimer;
+int startMin = 0;
+int startSec = 0;
 char pwrRstStatus = NORMAL;
+bool printReset = false;
+bool printStart = true;
 
 void setup() {
   pinMode(PWR_RST, OUTPUT);
@@ -130,11 +132,15 @@ void setup() {
   //=================================
   //Start the timer
   rtc.begin();
+  //rtc.adjust(DateTime(__DATE__, __TIME__));
   if (!rtc.isrunning()) { //if the battery's run out, then just reset the clock to midnight 1st Jan 2000
+    //rtc.adjust(DateTime(__DATE__, __TIME__));
     rtc.adjust(DateTime(0, 1, 1, 0, 0, 0));
   }
-  pwrRstTimer = millis();
-
+  DateTime now = rtc.now();
+  startMin = now.minute();
+  startSec = now.second();
+  
   //=================================
   // Initialise SD card module
   //=================================
@@ -213,6 +219,30 @@ void loop() {
   unsigned long mselapsed = millis();
 
 
+
+
+  //=================================
+  // RESET POWER BOARDS
+  //=================================
+
+//  if (pwrRstStatus == NORMAL && (millis() - pwrRstTimer > (unsigned long) 120000)){
+  if (pwrRstStatus == NORMAL && (now.minute() - startMin) % 5 == 0 && now.second() - startSec == 0){
+    digitalWrite(PWR_RST, LOW);
+    digitalWrite(RED_LED, HIGH);
+    pwrRstStatus = RESET;
+    printReset = true;
+  }
+  //Serial.println((unsigned long) (5*60000) - (millis() - pwrRstTimer));
+//  if (pwrRstStatus == RESET && (millis() - pwrRstTimer > (unsigned long) 121000)){
+  if (pwrRstStatus == RESET && now.second() - startSec >= 1){
+    digitalWrite(PWR_RST, HIGH);
+    digitalWrite(RED_LED, LOW);
+    pwrRstStatus = NORMAL;
+    printStart = true;
+  }
+
+
+
   //=================================
   // DATA OUTPUT
   //=================================
@@ -252,6 +282,10 @@ void loop() {
  
   //}
 
+
+
+  
+  
   //Write to SD card
   dataFile = SD.open(FILE_NAME, FILE_WRITE);
   if(dataFile){
@@ -280,13 +314,14 @@ void loop() {
     dataFile.println(mz1);
     dataFile.println(now.format(buf));
     dataFile.println(mselapsed);
-    if (pwrRstStatus == RESET){
+    //dataFile.println((unsigned long) 120000 - (millis() - pwrRstTimer));
+    if (printReset){
       dataFile.println("Power boards reset");
-      pwrRstStatus = OFF;
+      printReset = false;
     }
-    if (pwrRstStatus == START){
+    if (printStart){
       dataFile.println("Power boards startup");
-      pwrRstStatus = NORMAL;
+      printStart = false;
     }
     dataFile.println();
     dataFile.close();
@@ -298,25 +333,7 @@ void loop() {
 
 
 
-  //=================================
-  // RESET POWER BOARDS
-  //=================================
 
-  if (pwrRstStatus == NORMAL && (millis() - pwrRstTimer > (unsigned long) (5*60000))){
-    digitalWrite(PWR_RST, LOW);
-    digitalWrite(RED_LED, HIGH);
-    pwrRstStatus = RESET;
-    Serial.println("RESET");
-  }
-  Serial.println((unsigned long) (5*60000) - (millis() - pwrRstTimer));
-  if (pwrRstStatus == OFF && (millis() - pwrRstTimer > (unsigned long) (5*60000+1000))){
-    digitalWrite(PWR_RST, HIGH);
-    digitalWrite(RED_LED, LOW);
-    pwrRstTimer = millis();
-    pwrRstStatus = START;
-    Serial.println("START");
-  }
-
-  //delay(500);
+  //delay(10);
 }
 
