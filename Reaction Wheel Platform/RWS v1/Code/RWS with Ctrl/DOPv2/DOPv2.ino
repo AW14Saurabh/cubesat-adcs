@@ -105,7 +105,7 @@ void loop(void){
     radio.read(&rx, sizeof(rx));
 
     if (rx.h == 'a'){
-      angleTarg = (2*PI) - (rx.d * 2*PI / 360.0);
+      angleTarg = rx.d * 2*PI / 360.0; //updated to reflect ctrl box sending angle of pot measured around z+ axis (CCW)
       Serial.println(angleTarg);
     } else if (rx.h == 'm'){
       mode = rx.d;
