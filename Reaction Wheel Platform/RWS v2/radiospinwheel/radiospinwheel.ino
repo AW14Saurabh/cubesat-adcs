@@ -8,7 +8,11 @@
 #define VR 5
 #define ZF 7
 
+#define CCW 0
+#define CW 1
 
+#define RED_LED 8
+#define GREEN_LED 9
 
 
 //RF24 radio(7,8); //Ctrl Box v1
@@ -54,14 +58,15 @@ void loop(void){
     } else if (rx.h == 'e'){
       enable = rx.d;
     }
+    Serial.print("Angle: ");
+    Serial.print(angle);
+    Serial.print(" Mode: ");
+    Serial.print(mode);
+    Serial.print(" Enable: ");
+    Serial.println(enable);
+
   }
   
-  Serial.print("Angle: ");
-  Serial.print(angle);
-  Serial.print(" Mode: ");
-  Serial.print(mode);
-  Serial.print(" Enable: ");
-  Serial.println(enable);
 
 
   if (angle > 255){
@@ -71,10 +76,22 @@ void loop(void){
   }
 
   if (enable){
-    analogWrite(VR, angle/5);
+    analogWrite(VR, angle);
   }
+  if (mode == CW){
+    digitalWrite(ZF, LOW);
+    Serial.print("ZF LOW ");
+    Serial.println(mode);
+  } else {
+    digitalWrite(ZF, HIGH);
+    Serial.print("ZF HI ");
+    Serial.println(mode);
+  }
+
+  
   delay(200);
 }
+
 
 
 
