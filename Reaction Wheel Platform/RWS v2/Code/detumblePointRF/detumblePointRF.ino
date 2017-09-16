@@ -1,6 +1,6 @@
 //Program to detumble/point Reaction Wheel System v2 using Control Box
 //Mark Yeo; mark.yeo@student.unsw.edu.au
-//Last Modified 2017-09-12
+//Last Modified 2017-09-16
 
 //Libraries
 #include <Wire.h>
@@ -55,8 +55,8 @@ FaBo9Axis fabo_9axis;
 RF24 radio(19,18);
 const byte rxAddr[6] = "00001";
 double g_PIDSetpoint, g_PIDInput, g_PIDOutput;  //PID variables
-double g_dKp=2, g_dKi=0, g_dKd=0;  //PID tuning constants for detumbling
-double g_pKp=2, g_pKi=0, g_pKd=0;  //PID tuning constants for pointing
+double g_dKp=0.1, g_dKi=0.001, g_dKd=0.01;  //PID tuning constants for detumbling
+double g_pKp=0.1, g_pKi=0, g_pKd=0;  //PID tuning constants for pointing
 PID PIDCtrl(&g_PIDInput, &g_PIDOutput, &g_PIDSetpoint, g_dKp, g_dKi, g_dKd, DIRECT);
 struct Bias g_gyroBias;
 unsigned long g_prevPollTime = 0;
@@ -80,6 +80,7 @@ void setup(){
 }
 
 
+int mtrVel = 0;
 
 void loop(){
   //=== Get data from gyro ===
@@ -101,7 +102,7 @@ void loop(){
   }
 
   //=== Calculate + output speed to motor ===
-  int mtrVel = 0;
+  
   if (boxConnected && box.mtrEna == ENABLED){
     if (box.mode == DETUMBLE){
       g_PIDInput = wz;
@@ -112,8 +113,8 @@ void loop(){
       g_PIDSetpoint = box.angle;
       PIDCtrl.SetTunings(g_pKp, g_pKi, g_pKd);
     }
-    PIDCtrl.Compute();
-    mtrVel = g_PIDOutput;
+    PIDCtrl.Compute(); //accel. req'd
+    mtrVel = mtrVel + g_PIDOutput;
   }
   driveMotor(mtrVel);
   Serial.println(mtrVel);
