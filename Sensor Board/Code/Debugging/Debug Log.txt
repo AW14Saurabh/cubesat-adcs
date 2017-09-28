@@ -1,0 +1,171 @@
+Sensor board debugging
+
+
+Test #1
+    Conditions:
+    - Full code
+    - Powered by USB AC charger
+    - Sensor board only
+    - Duration: 1hr20min
+
+    Result:
+    - PASSED
+
+    Details:
+    - Start time: 26th        23:49:30
+    - End time:   27th        01:09:30
+    - Start RTC:  26.09.2017  23:49:19 (-11s)
+    - End RTC:    27.09.2017  01:09:18 (-12s)
+    - Srt millis: 1041
+    - End millis: 4799,512 (Target: 4800,000)
+    - Power Board Resets: 16: 1041,       300052, 600078, 900083,..., 4500137
+    - Power Board Starts: 17: 1041, 1142, 301085, 601054, 901095,..., 4501159
+
+
+Test #2
+    Conditions:
+    - Full code
+    - Powered by USB AC charger
+    - Sensor board only
+    - Duration: 11hrs13min
+
+    Result:
+    - PASSED
+
+    Details:
+    - Start time: 27th        01:29:15
+    - End time:   27th        12:42:15
+    - Start RTC:  27.09.2017  01:29:04
+    - End RTC:    27.09.2017  12:42:01
+    - Srt millis: 1042
+    - End millis: 40,379,082 (Target: 40,380,000)
+    - Power Board Resets: 135: 1042,       300692, 600715, 900712,...,39901465, 40201335
+    - Power Board Starts: 136: 1042, 1713, 301726, 601746, 901723,...,39902452, 40202334
+
+
+
+Test #3
+    Conditions:
+    - Full code
+    - Powered by USB AC charger
+    - Sensor board + Power Boards
+    - Duration: 1hr20min
+
+    Result:
+    - (semi-)FAILED
+     - millis resets (but RTC fine)
+    - seems like uC is resetting randomly
+    - To do: plot resets, maybe give printout when startup?
+
+    Details:
+    - Start time: 27th        14:20:40
+    - End time:   27th        15:40:40
+    - Start RTC:  27.09.2017  14:20:27
+    - End RTC:    27.09.2017  15:40:27
+    - Srt millis: 1089
+    - End millis: 114432 (Target: 4800,000)
+    - Power Board Resets: 22: 1089,       300269, 600282, 900272, 849,       300017,...,1128, 864
+    - Power Board Starts: 44: 1089, 1284, 301300, 601267, 901281, 849, 1030, 301034,...,1497, 864, 1409
+
+
+Test #4
+    Conditions:
+    - Time-only code
+    - Powered by USB AC charger
+    - Sensor board + Power boards
+    - Duration: 1hr44min
+
+    Result:
+    - FAILED
+    - Sensor board didn't start logging until 17min after plugged in
+    - Sensor board resetted 24x, concentrated roughly around 35min mark
+    ==> To do:
+        - test with delay() in code
+        - put giant cap between power + ground just before sensor board arduino
+        - test with 2A power supply
+
+    Details:
+    - Start time: 28th        14:44:30
+    - End time:   28th        16:28:30
+    - Start RTC:  28.09.2017  15:01:40 (+17min)
+    - End RTC:    28.09.2017  16:28:10 (-20s)
+    - Sensor Board Resets: 24x @ minute 16+{10,14,15,16,17,17,19,19,20,21,23,24,26,26,27,29,31,33,42,54,66,70,75}
+
+
+Test #5
+    Conditions:
+    - Time-only code with 1000ms cycle delay
+    - Powered by USB AC charger
+    - Sensor board + Power boards
+    - Duration: 
+
+    Result:
+    - 
+
+    Details:
+    - Start time: 28th        16:50:30
+    - End time:   28th        
+    - Start RTC:  
+    - End RTC:    
+    - Srt millis: 
+    - End millis:  (Target: )
+    - Power Board Resets: : 
+    - Power Board Starts: : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Test #
+    Conditions:
+    - Full code
+    - Powered by USB AC charger
+    - Sensor board only
+    - Duration: 
+
+    Result:
+    - 
+
+    Details:
+    - Start time: 27th        
+    - End time:   27th        
+    - Start RTC:  
+    - End RTC:    
+    - Srt millis: 
+    - End millis:  (Target: )
+    - Power Board Resets: : 
+    - Power Board Starts: : 
