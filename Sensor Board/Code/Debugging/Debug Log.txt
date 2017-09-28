@@ -97,25 +97,38 @@ Test #5
     - Time-only code with 1000ms cycle delay
     - Powered by USB AC charger
     - Sensor board + Power boards
-    - Duration: 
+    - Duration: 1hr42min
 
     Result:
-    - 
+    - FAILED
+    - Sensor board stopped logging 10min into test
 
     Details:
     - Start time: 28th        16:50:30
-    - End time:   28th        
-    - Start RTC:  
-    - End RTC:    
-    - Srt millis: 
-    - End millis:  (Target: )
-    - Power Board Resets: : 
-    - Power Board Starts: : 
+    - End time:   28th        18:32:00
+    - Start RTC:  28.09.2017  16:50:10
+    - End RTC:    28.09.2017  17:00:38
+    - Sensor Board Resets: 2x @ minute {0,5}
 
 
+Test #6
+    Conditions:
+    - Time-only code with 10ms cycle delay
+    - Powered by USB AC charger
+    - Sensor board + Power boards
+    - Duration: 1hr36min
 
+    Result:
+    - FAILED
+    - Sensor board stopped logging 16min into test
 
-
+    Details:
+    - Start time: 28th        18:43:30
+    - End time:   28th        21:19:30
+    - Start RTC:  28.09.2017  18:43:09
+    - End RTC:    28.09.2017  18:59:31
+    - Sensor Board Resets: x @ minute {0,10 (18:53:19)}
+    - clicking at 18:51:15, 19:07:39
 
 
 
