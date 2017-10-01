@@ -127,9 +127,114 @@ Test #6
     - End time:   28th        21:19:30
     - Start RTC:  28.09.2017  18:43:09
     - End RTC:    28.09.2017  18:59:31
-    - Sensor Board Resets: x @ minute {0,10 (18:53:19)}
+    - Sensor Board Resets: 2x @ minute {0,10 (18:53:19)}
     - clicking at 18:51:15, 19:07:39
 
+    
+Test #7
+    Conditions:
+    - Time-only code with 10ms cycle delay
+    - Powered by USB AC charger
+    - Sensor board w/ Power cap + Power boards
+    - Duration: 31min30s
+
+    Result:
+    - PASSED
+
+    Details:
+    - Start time: 30th        17:18:10
+    - End time:   30th        17:49:40
+    - Start RTC:  30.09.2017  17:17:39
+    - End RTC:    30.09.2017  17:49:08
+    - Sensor Board Resets: 1x @ minute {0}
+
+
+Test #8
+    Conditions:
+    - Time-only code with 10ms cycle delay
+    - Powered by USB AC charger
+    - Sensor board w/ Power cap + Power boards
+    - Duration: 1hr35min
+
+    Result:
+    - PASSED
+
+    Details:
+    - Start time: 30th        20:40:15
+    - End time:   30th        22:15:45
+    - Start RTC:  30.09.2017  20:39:43
+    - End RTC:    30.09.2017  22:15:13
+    - Sensor Board Resets: 1x @ minute {0}
+    - clicking at 9:22:30
+
+    
+Test #9
+    Conditions:
+    - Full code with no cycle delay
+    - Powered by USB AC charger
+    - Sensor board w/ Power cap + Power boards
+    - Duration: 
+
+    Result:
+    - FAILED
+    - Resetted 26x, concentrated in 15-20min bursts 30min apart
+    - To do: solder more caps on Arduino
+
+    Details:
+    - Start time: 30th        22:48:30
+    - End time:   1st         00:47:30
+    - Start RTC:  30.09.2017  22:48:26
+    - End RTC:    01.10.2017  00:47:25
+    - Sensor Board Resets: 26x @ minute 12+{-12,1,5,7,12,16,21,25,31,32,34,35,36,36,38,38,39,40,43,61,62,62,65,70,71,74}
+
+
+Test #10
+    Conditions:
+    - Full code with no cycle delay
+    - Powered by USB AC charger
+    - Sensor board w/ 4x Power caps + Power boards
+    - Duration: 2hr48min
+
+    Result:
+    - PASSED!
+
+    Details:
+    - Start time: 1st         20:43:30
+    - End time:   1st         23:31:30
+    - Start RTC:  01.10.2017  19:43:21 (daylight savings)
+    - End RTC:    01.10.2017  22:31:19
+    - Srt millis: 1117
+    - End millis: 10,079,523 (Target: 10,080,000)
+    - Power Board Resets: 34: 1x start, 300506, 600483, 900519,...,9600588,9900588
+    - Power Board Starts: 35: 2x start, 301469, 601517, 901479,...,9601612,9901639
+    - Sensor Board Resets: 1x @ minute {0}
+    - Clicking at 9:33:00
+
+
+
+
+
+    
+Test #11
+    Conditions:
+    - Full code with no cycle delay
+    - Powered by USB AC charger
+    - Sensor board w/ 4x Power caps + Power boards
+    - Duration: 
+
+    Result:
+    - 
+
+    Details:
+    - Start time: 1st         11:52:30
+    - End time:   1st         
+    - Start RTC:  
+    - End RTC:    
+    - Srt millis: 
+    - End millis:  (Target: )
+    - Power Board Resets: : 
+    - Power Board Starts: : 
+    - Sensor Board Resets: x @ minute {}
 
 
 
@@ -144,21 +249,27 @@ Test #6
 
 
 
+    
+Test #7
+    Conditions:
+    - Time-only code with 10ms cycle delay
+    - Powered by USB AC charger
+    - Sensor board w/ Power cap + Power boards
+    - Duration: 
 
+    Result:
+    - 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Details:
+    - Start time: 30th        
+    - End time:   30th        
+    - Start RTC:  
+    - End RTC:    
+    - Srt millis: 
+    - End millis:  (Target: )
+    - Power Board Resets: : 
+    - Power Board Starts: : 
+    - Sensor Board Resets: 1x @ minute {}
 
 
 

@@ -3,7 +3,7 @@
 // Sensors used:
 // - DS3231 (Real Time Clock)
 // Author: Mark Yeo
-// Last Modified 2017-09-28
+// Last Modified 2017-09-30
 
 
 #include <Wire.h>
@@ -74,7 +74,7 @@ void setup() {
   //=================================
   // Initialise SD card module
   //=================================
-  if(SD.begin(SD_CS)){ //correct?
+  if(SD.begin(SD_CS)){
   } else{
     return;
   }
@@ -176,6 +176,6 @@ void loop() {
 
 
 
-  delay(10);
+  //delay(10);
 }
 

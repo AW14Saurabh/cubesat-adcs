@@ -7,11 +7,10 @@
 // - HMC5883L (Compass)
 // - DS3231 (Real Time Clock)
 // Author: James Ryan + Mark Yeo
-// Last Modified 2017-08-04
+// Last Modified 2017-09-30
 
 // TO DO:
-// Optional:
-// - check how to convert gathered data into metric values
+// - (opt.) check how to convert gathered data into metric values
 
 
 
@@ -134,7 +133,6 @@ void setup() {
   rtc.begin();
   //rtc.adjust(DateTime(__DATE__, __TIME__));
   if (!rtc.isrunning()) { //if the battery's run out, then just reset the clock to midnight 1st Jan 2000
-    //rtc.adjust(DateTime(__DATE__, __TIME__));
     rtc.adjust(DateTime(0, 1, 1, 0, 0, 0));
   }
   DateTime now = rtc.now();
@@ -144,12 +142,26 @@ void setup() {
   //=================================
   // Initialise SD card module
   //=================================
-  if(SD.begin(SD_CS)){ //correct?
+  if(SD.begin(SD_CS)){
   } else{
     return;
   }
   digitalWrite(RED_LED, LOW);
   digitalWrite(GRN_LED, HIGH);
+
+  //---Startup Timestamp---
+  char buf[100];
+  strncpy(buf,"DD.MM.YYYY  hh:mm:ss\0",100);
+  //Write to SD card
+  dataFile = SD.open(FILE_NAME, FILE_WRITE);
+  if(dataFile){
+    dataFile.print("SBStartup ");
+    dataFile.print(now.format(buf));
+    dataFile.print(" ");
+    dataFile.println(millis());
+    dataFile.println();
+    dataFile.close();
+  }
 }
 
 
