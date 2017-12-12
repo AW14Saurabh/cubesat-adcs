@@ -12,7 +12,7 @@ void setup(void){
 
 void loop(void){
   digitalWrite(ZF, HIGH); //LOW == anti-clockwise; HIGH == clockwise
-  analogWrite(VR, 50);
+  analogWrite(VR, 20);
   delay(5000);
 }
 
