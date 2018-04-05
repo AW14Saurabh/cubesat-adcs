@@ -1,0 +1,606 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD16\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">2018-04-05</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">10:52:13 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc" class="file"><acronym title="C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc">C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">82</td></tr>
+</table>
+</td>
+</table><a name="IDQGXOIXHX2V4UG1M3BITCIXBY3G3C4SFU44X0VNP34N2GQO53EPK"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRZSMHJP40B53OHM0BKVSDVUJNJZQUPCBQGINE5OT5KFUOFVLMIKN">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">5</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDCTTBITCMG4UNPJI2USTJCB1LGIZEQGELF4PU50CUL0MF50302PSM">Hole To Hole Clearance (Gap=8mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDSDMSWJQ0GT1XJ0L4YDZ3CTDAUO5U1DMJXAXELJMXFTQXVKCVNPJP">Hole Size Constraint (Min=24mil) (Max=100000mil) (All)</a></td>
+<td class="column2">60</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDG453Q0EAI0PALBPQN1AXEVRRKPOIUIYZDWMJ3HMVY4TEWRV2ABUI">Width Constraint (Min=6mil) (Max=100000mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDEFHC4RURC1RYHK2XIYDC2U2J1EN1GFQY3WDAUXIOIDEC4CS05HAN">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID5DN2JXXN1ZNXEXMMZ0G1THDRWLC1D3QGJX5K0ANC5T3BZXWK4S1O">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDLCVS2ZICZ11GIEZR5GUANYZFBG21VVJGYUOQXVL5GI22CKBGSKSC">Silk primitive without silk layer</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBYKUQMVX0SNMLYYEK5MKPMG3TLA42EHCI0ENYUKC1U55H0P5MYMN">Silk to Silk (Clearance=10mil) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDIBOR03TAUC5UOLMQZTGPOBWVSGFVXOH21WPU2FNU54LNMKT2DVO">Silk To Solder Mask (Clearance=10mil) (Disabled)(IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTUBD5JD5BIPKDW5GGMGFOO4P5KNQ5FOYZ3CPWBJARFNVQNTODH3O">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">17</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDDOINONCUZHTYMQHWIINKEUBUBGLNGTHN50NY5EBNO5W4JEKKTU3D">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDCMWA5NE1EN2VJ4YA3YGFVHSSQF2RCIX5AYI2FPJZ13IGDLSGP41K">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDHJQEELDBRFQKHKJCOVMA1GFWPZ3FG5OQ5LX0PKZ0QZC3VX5QW5G">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID2FL5BXG3ETRBFUQAUJCSHCHYCN3VSPXUG1BWGZGG334LVY1EDNDL">Width Constraint (Min=8mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDPXZW032005BCQTK3E41DDAXE0OXO0EKGZWSXPNJNJ5NN0FTLRJ">Power Plane Connect Rule(Direct Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (IsVia AND InNet('GND'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBX2HYZB5AVMKODEWEYLNKPTP5DM3HMI355W2G0BO3VZR1H4ZBWM">Clearance Constraint (Gap=0mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDEHWC1KCCFZXOECXNDSX3VLVGDHOFWOE3RD1BWXECQ3BQ1ZIQ2PXE">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLGO0PENOM1NXFKGTRQPNEGU3KBBPUB0VJLIPQ0POTT3BJG0UBH5N">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDESLEZZIROUDEEX3BVHIV1CX0PBOKDDQ1F4I0G2GGU20BE3FTTRLK">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">82</td>
+</tr>
+</table><br><a name="IDRZSMHJP40B53OHM0BKVSDVUJNJZQUPCBQGINE5OT5KFUOFVLMIKN"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4299.966mil|Location2.Y=4311.216mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4299.966mil|Location2.Y=4311.216mil|Absolute=True">Clearance Constraint: (9.843mil &lt; 10mil) Between Pad U1-2(-687.677mil,3322.795mil) on Component Side And Pad U1-1(-687.677mil,3348.386mil) on Component Side </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4274.375mil|Location2.Y=4285.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4274.375mil|Location2.Y=4285.625mil|Absolute=True">Clearance Constraint: (9.842mil &lt; 10mil) Between Pad U1-3(-687.677mil,3297.205mil) on Component Side And Pad U1-2(-687.677mil,3322.795mil) on Component Side </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4248.784mil|Location2.Y=4260.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4248.784mil|Location2.Y=4260.034mil|Absolute=True">Clearance Constraint: (9.843mil &lt; 10mil) Between Pad U1-4(-687.677mil,3271.614mil) on Component Side And Pad U1-3(-687.677mil,3297.205mil) on Component Side </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4274.375mil|Location2.Y=4285.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4274.375mil|Location2.Y=4285.625mil|Absolute=True">Clearance Constraint: (9.842mil &lt; 10mil) Between Pad U1-6(-522.323mil,3297.205mil) on Component Side And Pad U1-7(-522.323mil,3322.795mil) on Component Side </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4248.784mil|Location2.Y=4260.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4248.784mil|Location2.Y=4260.034mil|Absolute=True">Clearance Constraint: (9.843mil &lt; 10mil) Between Pad U1-5(-522.323mil,3271.614mil) on Component Side And Pad U1-6(-522.323mil,3297.205mil) on Component Side </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDSDMSWJQ0GT1XJ0L4YDZ3CTDAUO5U1DMJXAXELJMXFTQXVKCVNPJP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=24mil) (Max=100000mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2046.564mil|Location2.X=2071.436mil|Location1.Y=1657.564mil|Location2.Y=1682.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2046.564mil|Location2.X=2071.436mil|Location1.Y=1657.564mil|Location2.Y=1682.436mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D1-1(-2700mil,700mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2046.564mil|Location2.X=2071.436mil|Location1.Y=1574.887mil|Location2.Y=1599.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2046.564mil|Location2.X=2071.436mil|Location1.Y=1574.887mil|Location2.Y=1599.759mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D1-2(-2700mil,617.323mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2246.564mil|Location2.X=2271.436mil|Location1.Y=1457.564mil|Location2.Y=1482.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2246.564mil|Location2.X=2271.436mil|Location1.Y=1457.564mil|Location2.Y=1482.436mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D3-1(-2500mil,500mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2246.564mil|Location2.X=2271.436mil|Location1.Y=1374.887mil|Location2.Y=1399.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2246.564mil|Location2.X=2271.436mil|Location1.Y=1374.887mil|Location2.Y=1399.759mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D3-2(-2500mil,417.323mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2046.564mil|Location2.X=2071.436mil|Location1.Y=1457.564mil|Location2.Y=1482.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2046.564mil|Location2.X=2071.436mil|Location1.Y=1457.564mil|Location2.Y=1482.436mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D2-1(-2700mil,500mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2046.564mil|Location2.X=2071.436mil|Location1.Y=1374.887mil|Location2.Y=1399.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2046.564mil|Location2.X=2071.436mil|Location1.Y=1374.887mil|Location2.Y=1399.759mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D2-2(-2700mil,417.323mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2818.375mil|Location2.X=2839.625mil|Location1.Y=1674.375mil|Location2.Y=1695.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2818.375mil|Location2.X=2839.625mil|Location1.Y=1674.375mil|Location2.Y=1695.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1930mil,715mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=1254.375mil|Location2.Y=1275.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=1254.375mil|Location2.Y=1275.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-200mil,295mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=1064.375mil|Location2.Y=1085.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=1064.375mil|Location2.Y=1085.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-200mil,105mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=1209.375mil|Location2.Y=1230.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=1209.375mil|Location2.Y=1230.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-280mil,250mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=1109.375mil|Location2.Y=1130.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=1109.375mil|Location2.Y=1130.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-280mil,150mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=1209.375mil|Location2.Y=1230.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=1209.375mil|Location2.Y=1230.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-120mil,250mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=1109.375mil|Location2.Y=1130.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=1109.375mil|Location2.Y=1130.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-120mil,150mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=4404.375mil|Location2.Y=4425.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=4404.375mil|Location2.Y=4425.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-200mil,3445mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=4214.375mil|Location2.Y=4235.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=4214.375mil|Location2.Y=4235.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-200mil,3255mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=4359.375mil|Location2.Y=4380.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=4359.375mil|Location2.Y=4380.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-280mil,3400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-280mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=4359.375mil|Location2.Y=4380.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=4359.375mil|Location2.Y=4380.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-120mil,3400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-120mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=4304.375mil|Location2.Y=4325.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=4304.375mil|Location2.Y=4325.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3575mil,3345mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=4114.375mil|Location2.Y=4135.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=4114.375mil|Location2.Y=4135.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3575mil,3155mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3655mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=4159.375mil|Location2.Y=4180.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=4159.375mil|Location2.Y=4180.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3655mil,3200mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3495mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=4159.375mil|Location2.Y=4180.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=4159.375mil|Location2.Y=4180.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3495mil,3200mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1174.375mil|Location2.X=1195.625mil|Location1.Y=1404.375mil|Location2.Y=1425.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1174.375mil|Location2.X=1195.625mil|Location1.Y=1404.375mil|Location2.Y=1425.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3574mil,445mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1174.375mil|Location2.X=1195.625mil|Location1.Y=1214.375mil|Location2.Y=1235.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1174.375mil|Location2.X=1195.625mil|Location1.Y=1214.375mil|Location2.Y=1235.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3574mil,255mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1094.375mil|Location2.X=1115.625mil|Location1.Y=1359.375mil|Location2.Y=1380.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1094.375mil|Location2.X=1115.625mil|Location1.Y=1359.375mil|Location2.Y=1380.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3654mil,400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1094.375mil|Location2.X=1115.625mil|Location1.Y=1259.375mil|Location2.Y=1280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1094.375mil|Location2.X=1115.625mil|Location1.Y=1259.375mil|Location2.Y=1280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3654mil,300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1254.375mil|Location2.X=1275.625mil|Location1.Y=1359.375mil|Location2.Y=1380.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1254.375mil|Location2.X=1275.625mil|Location1.Y=1359.375mil|Location2.Y=1380.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3494mil,400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1254.375mil|Location2.X=1275.625mil|Location1.Y=1259.375mil|Location2.Y=1280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1254.375mil|Location2.X=1275.625mil|Location1.Y=1259.375mil|Location2.Y=1280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3494mil,300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2673.375mil|Location2.X=2694.625mil|Location1.Y=1879.375mil|Location2.Y=1900.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2673.375mil|Location2.X=2694.625mil|Location1.Y=1879.375mil|Location2.Y=1900.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2075mil,920mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2573.375mil|Location2.X=2594.625mil|Location1.Y=1879.375mil|Location2.Y=1900.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2573.375mil|Location2.X=2594.625mil|Location1.Y=1879.375mil|Location2.Y=1900.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2175mil,920mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1558.375mil|Location2.X=1579.625mil|Location1.Y=2689.375mil|Location2.Y=2710.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1558.375mil|Location2.X=1579.625mil|Location1.Y=2689.375mil|Location2.Y=2710.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3190mil,1730mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2623.375mil|Location2.X=2644.625mil|Location1.Y=1674.375mil|Location2.Y=1695.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2623.375mil|Location2.X=2644.625mil|Location1.Y=1674.375mil|Location2.Y=1695.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2125mil,715mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2548.375mil|Location2.X=2569.625mil|Location1.Y=2754.375mil|Location2.Y=2775.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2548.375mil|Location2.X=2569.625mil|Location1.Y=2754.375mil|Location2.Y=2775.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2200mil,1795mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2473.375mil|Location2.X=2494.625mil|Location1.Y=2709.375mil|Location2.Y=2730.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2473.375mil|Location2.X=2494.625mil|Location1.Y=2709.375mil|Location2.Y=2730.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2275mil,1750mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2719.387mil|Location2.X=2740.637mil|Location1.Y=1592.961mil|Location2.Y=1614.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2719.387mil|Location2.X=2740.637mil|Location1.Y=1592.961mil|Location2.Y=1614.211mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2028.988mil,633.586mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2923.375mil|Location2.X=2944.625mil|Location1.Y=1674.375mil|Location2.Y=1695.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2923.375mil|Location2.X=2944.625mil|Location1.Y=1674.375mil|Location2.Y=1695.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1825mil,715mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1618.375mil|Location2.X=1639.625mil|Location1.Y=2529.375mil|Location2.Y=2550.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1618.375mil|Location2.X=1639.625mil|Location1.Y=2529.375mil|Location2.Y=2550.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3130mil,1570mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1618.375mil|Location2.X=1639.625mil|Location1.Y=2424.375mil|Location2.Y=2445.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1618.375mil|Location2.X=1639.625mil|Location1.Y=2424.375mil|Location2.Y=2445.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3130mil,1465mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.273mil|Location2.X=4133.523mil|Location1.Y=4255.477mil|Location2.Y=4276.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4112.273mil|Location2.X=4133.523mil|Location1.Y=4255.477mil|Location2.Y=4276.727mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-636.102mil,3296.102mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4003.375mil|Location2.X=4024.625mil|Location1.Y=4204.375mil|Location2.Y=4225.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4003.375mil|Location2.X=4024.625mil|Location1.Y=4204.375mil|Location2.Y=4225.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-745mil,3245mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4633.375mil|Location2.X=4654.625mil|Location1.Y=3529.375mil|Location2.Y=3550.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4633.375mil|Location2.X=4654.625mil|Location1.Y=3529.375mil|Location2.Y=3550.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-115mil,2570mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3393.375mil|Location2.X=3414.625mil|Location1.Y=1734.375mil|Location2.Y=1755.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3393.375mil|Location2.X=3414.625mil|Location1.Y=1734.375mil|Location2.Y=1755.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1355mil,775mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3618.375mil|Location2.X=3639.625mil|Location1.Y=1864.375mil|Location2.Y=1885.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3618.375mil|Location2.X=3639.625mil|Location1.Y=1864.375mil|Location2.Y=1885.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1130mil,905mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4068.375mil|Location2.X=4089.625mil|Location1.Y=3239.375mil|Location2.Y=3260.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4068.375mil|Location2.X=4089.625mil|Location1.Y=3239.375mil|Location2.Y=3260.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-680mil,2280mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4218.375mil|Location2.X=4239.625mil|Location1.Y=3294.375mil|Location2.Y=3315.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4218.375mil|Location2.X=4239.625mil|Location1.Y=3294.375mil|Location2.Y=3315.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-530mil,2335mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3653.375mil|Location2.X=3674.625mil|Location1.Y=1819.375mil|Location2.Y=1840.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3653.375mil|Location2.X=3674.625mil|Location1.Y=1819.375mil|Location2.Y=1840.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1095mil,860mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.375mil|Location2.X=3669.625mil|Location1.Y=1764.375mil|Location2.Y=1785.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.375mil|Location2.X=3669.625mil|Location1.Y=1764.375mil|Location2.Y=1785.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1100mil,805mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1903.375mil|Location2.X=1924.625mil|Location1.Y=2149.375mil|Location2.Y=2170.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1903.375mil|Location2.X=1924.625mil|Location1.Y=2149.375mil|Location2.Y=2170.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2845mil,1190mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1823.375mil|Location2.X=1844.625mil|Location1.Y=2079.375mil|Location2.Y=2100.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1823.375mil|Location2.X=1844.625mil|Location1.Y=2079.375mil|Location2.Y=2100.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2925mil,1120mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1723.375mil|Location2.X=1744.625mil|Location1.Y=2079.375mil|Location2.Y=2100.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1723.375mil|Location2.X=1744.625mil|Location1.Y=2079.375mil|Location2.Y=2100.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3025mil,1120mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4218.375mil|Location2.X=4239.625mil|Location1.Y=3859.375mil|Location2.Y=3880.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4218.375mil|Location2.X=4239.625mil|Location1.Y=3859.375mil|Location2.Y=3880.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-530mil,2900mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4058.375mil|Location2.X=4079.625mil|Location1.Y=3984.375mil|Location2.Y=4005.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4058.375mil|Location2.X=4079.625mil|Location1.Y=3984.375mil|Location2.Y=4005.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-690mil,3025mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4060.698mil|Location2.X=4081.948mil|Location1.Y=4336.698mil|Location2.Y=4357.948mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4060.698mil|Location2.X=4081.948mil|Location1.Y=4336.698mil|Location2.Y=4357.948mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-687.677mil,3377.323mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4493.375mil|Location2.X=4514.625mil|Location1.Y=2569.375mil|Location2.Y=2590.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4493.375mil|Location2.X=4514.625mil|Location1.Y=2569.375mil|Location2.Y=2590.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-255mil,1610mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.375mil|Location2.X=3669.625mil|Location1.Y=3544.375mil|Location2.Y=3565.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3648.375mil|Location2.X=3669.625mil|Location1.Y=3544.375mil|Location2.Y=3565.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1100mil,2585mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3548.375mil|Location2.X=3569.625mil|Location1.Y=3599.375mil|Location2.Y=3620.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3548.375mil|Location2.X=3569.625mil|Location1.Y=3599.375mil|Location2.Y=3620.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1200mil,2640mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4008.375mil|Location2.X=4029.625mil|Location1.Y=3414.375mil|Location2.Y=3435.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4008.375mil|Location2.X=4029.625mil|Location1.Y=3414.375mil|Location2.Y=3435.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-740mil,2455mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDTUBD5JD5BIPKDW5GGMGFOO4P5KNQ5FOYZ3CPWBJARFNVQNTODH3O"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2707.495mil|Location2.X=2718.745mil|Location1.Y=1615.252mil|Location2.Y=1626.502mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2707.495mil|Location2.X=2718.745mil|Location1.Y=1615.252mil|Location2.Y=1626.502mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.345mil &lt; 10mil) Between Via (-2028.988mil,633.586mil) from Component Side to Bottom Layer And Pad R3-2(-2075mil,675mil) on Component Side [Top Solder] Mask Sliver [0.345mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2648.42mil|Location2.X=2659.67mil|Location1.Y=1664.102mil|Location2.Y=1675.352mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2648.42mil|Location2.X=2659.67mil|Location1.Y=1664.102mil|Location2.Y=1675.352mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.401mil &lt; 10mil) Between Via (-2125mil,715mil) from Component Side to Bottom Layer And Pad R3-2(-2075mil,675mil) on Component Side [Top Solder] Mask Sliver [2.401mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2747.245mil|Location2.X=2758.495mil|Location1.Y=1584.619mil|Location2.Y=1595.869mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2747.245mil|Location2.X=2758.495mil|Location1.Y=1584.619mil|Location2.Y=1595.869mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.933mil &lt; 10mil) Between Via (-2028.988mil,633.586mil) from Component Side to Bottom Layer And Pad R6-2(-1975mil,595mil) on Component Side [Top Solder] Mask Sliver [4.934mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2746.726mil|Location2.X=2757.976mil|Location1.Y=1613.529mil|Location2.Y=1624.779mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2746.726mil|Location2.X=2757.976mil|Location1.Y=1613.529mil|Location2.Y=1624.779mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.457mil &lt; 10mil) Between Via (-2028.988mil,633.586mil) from Component Side to Bottom Layer And Pad R6-1(-1975mil,675mil) on Component Side [Top Solder] Mask Sliver [6.457mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2846.595mil|Location2.X=2857.845mil|Location1.Y=1665.086mil|Location2.Y=1676.336mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2846.595mil|Location2.X=2857.845mil|Location1.Y=1665.086mil|Location2.Y=1676.336mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (6.529mil &lt; 10mil) Between Via (-1930mil,715mil) from Component Side to Bottom Layer And Pad R5-1(-1875mil,675mil) on Component Side [Top Solder] Mask Sliver [6.529mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2908.33mil|Location2.X=2919.58mil|Location1.Y=1664.102mil|Location2.Y=1675.352mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2908.33mil|Location2.X=2919.58mil|Location1.Y=1664.102mil|Location2.Y=1675.352mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.401mil &lt; 10mil) Between Via (-1825mil,715mil) from Component Side to Bottom Layer And Pad R5-1(-1875mil,675mil) on Component Side [Top Solder] Mask Sliver [2.401mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2608.33mil|Location2.X=2619.58mil|Location1.Y=1664.102mil|Location2.Y=1675.352mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2608.33mil|Location2.X=2619.58mil|Location1.Y=1664.102mil|Location2.Y=1675.352mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.401mil &lt; 10mil) Between Via (-2125mil,715mil) from Component Side to Bottom Layer And Pad R4-1(-2175mil,675mil) on Component Side [Top Solder] Mask Sliver [2.401mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4299.966mil|Location2.Y=4311.216mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4299.966mil|Location2.Y=4311.216mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-2(-687.677mil,3322.795mil) on Component Side And Pad U1-1(-687.677mil,3348.386mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4095.582mil|Location2.X=4106.832mil|Location1.Y=4277.577mil|Location2.Y=4288.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4095.582mil|Location2.X=4106.832mil|Location1.Y=4277.577mil|Location2.Y=4288.827mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.241mil &lt; 10mil) Between Via (-636.102mil,3296.102mil) from Component Side to Bottom Layer And Pad U1-2(-687.677mil,3322.795mil) on Component Side [Top Solder] Mask Sliver [7.241mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4274.375mil|Location2.Y=4285.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4274.375mil|Location2.Y=4285.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-3(-687.677mil,3297.205mil) on Component Side And Pad U1-2(-687.677mil,3322.795mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4248.784mil|Location2.Y=4260.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4047.981mil|Location2.X=4059.231mil|Location1.Y=4248.784mil|Location2.Y=4260.034mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-4(-687.677mil,3271.614mil) on Component Side And Pad U1-3(-687.677mil,3297.205mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4095.431mil|Location2.X=4106.681mil|Location1.Y=4244.68mil|Location2.Y=4255.93mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4095.431mil|Location2.X=4106.681mil|Location1.Y=4244.68mil|Location2.Y=4255.93mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.912mil &lt; 10mil) Between Via (-636.102mil,3296.102mil) from Component Side to Bottom Layer And Pad U1-4(-687.677mil,3271.614mil) on Component Side [Top Solder] Mask Sliver [5.912mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4299.966mil|Location2.Y=4311.216mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4299.966mil|Location2.Y=4311.216mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-7(-522.323mil,3322.795mil) on Component Side And Pad U1-8(-522.323mil,3348.386mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4274.375mil|Location2.Y=4285.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4274.375mil|Location2.Y=4285.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-6(-522.323mil,3297.205mil) on Component Side And Pad U1-7(-522.323mil,3322.795mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4248.784mil|Location2.Y=4260.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4213.336mil|Location2.X=4224.586mil|Location1.Y=4248.784mil|Location2.Y=4260.034mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U1-5(-522.323mil,3271.614mil) on Component Side And Pad U1-6(-522.323mil,3297.205mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3640.875mil|Location2.X=3652.125mil|Location1.Y=1846.875mil|Location2.Y=1858.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3640.875mil|Location2.X=3652.125mil|Location1.Y=1846.875mil|Location2.Y=1858.125mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (9.009mil &lt; 10mil) Between Via (-1095mil,860mil) from Component Side to Bottom Layer And Via (-1130mil,905mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [9.009mil] / [Solder Side] Mask Sliver [9.009mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3655.875mil|Location2.X=3667.125mil|Location1.Y=1796.875mil|Location2.Y=1808.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Sensor Board\PCB Files v2\SensorBoardv2\SensorBoardv2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3655.875mil|Location2.X=3667.125mil|Location1.Y=1796.875mil|Location2.Y=1808.125mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.227mil &lt; 10mil) Between Via (-1100mil,805mil) from Component Side to Bottom Layer And Via (-1095mil,860mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [7.227mil] / [Solder Side] Mask Sliver [7.227mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

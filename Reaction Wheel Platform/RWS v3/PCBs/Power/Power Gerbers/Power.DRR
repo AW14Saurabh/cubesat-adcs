@@ -1,0 +1,21 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: Power.PcbDoc   2018-04-05  10:48:19 PM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Component Side to Bottom Layer
+ASCII RoundHoles File : Power.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      20mil (0.508mm)                                           Round             63        PTH        21.64inch (549.70mm)
+T2      24mil (0.6mm)                                             Round             8         PTH        0.93inch (23.64mm)
+T3      30mil (0.762mm)                                           Round             4         PTH        0.30inch (7.62mm)
+T4      40mil (1.016mm)                                           Round             158       PTH        20.41inch (518.51mm)
+T5      50mil (1.27mm)                                            Round             1         PTH        0.00inch (0.00mm)
+T6      79mil (2mm)                                               Round             2         PTH        3.45inch (87.58mm)
+T7      118mil (3mm)                                              Round             2         PTH        1.18inch (30.00mm)
+T8      125mil (3.175mm)                                          Round             4         PTH        11.30inch (287.12mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              242
+
+Total Processing Time (hh:mm:ss) : 00:00:00

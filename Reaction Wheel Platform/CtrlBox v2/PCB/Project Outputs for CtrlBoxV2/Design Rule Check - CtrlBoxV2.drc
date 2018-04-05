@@ -1,0 +1,96 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\CtrlBox v2\PCB\CtrlBoxV2.PcbDoc
+Date     : 2018-04-05
+Time     : 11:01:22 PM
+
+Processing Rule : Clearance Constraint (Gap=10mil) (All),(All)
+   Violation between Clearance Constraint: (9.843mil < 10mil) Between Pad U2-2(1077.677mil,527.205mil) on Component Side And Pad U2-1(1077.677mil,501.614mil) on Component Side 
+   Violation between Clearance Constraint: (9.842mil < 10mil) Between Pad U2-3(1077.677mil,552.795mil) on Component Side And Pad U2-2(1077.677mil,527.205mil) on Component Side 
+   Violation between Clearance Constraint: (9.843mil < 10mil) Between Pad U2-4(1077.677mil,578.386mil) on Component Side And Pad U2-3(1077.677mil,552.795mil) on Component Side 
+   Violation between Clearance Constraint: (9.842mil < 10mil) Between Pad U2-6(912.323mil,552.795mil) on Component Side And Pad U2-7(912.323mil,527.205mil) on Component Side 
+   Violation between Clearance Constraint: (9.843mil < 10mil) Between Pad U2-5(912.323mil,578.386mil) on Component Side And Pad U2-6(912.323mil,552.795mil) on Component Side 
+Rule Violations :5
+
+Processing Rule : Hole To Hole Clearance (Gap=8mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=24mil) (Max=100000mil) (All)
+   Violation between Hole Size Constraint: (23.622mil < 24mil) Pad D1-2(1487.677mil,95mil) on Multi-Layer Actual Hole Size = 23.622mil
+   Violation between Hole Size Constraint: (23.622mil < 24mil) Pad D1-1(1405mil,95mil) on Multi-Layer Actual Hole Size = 23.622mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (855mil,435mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (853.386mil,578.386mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (1850mil,550mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (1920mil,450mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (502mil,175mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (592mil,85mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (690mil,210mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (1410mil,1150mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (1085mil,430mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (1755mil,497.5mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (1355mil,1065mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+Rule Violations :13
+
+Processing Rule : Width Constraint (Min=6mil) (Max=100000mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+Processing Rule : Silk primitive without silk layer
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=10mil) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=10mil) (Disabled)(IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=10mil) (All),(All)
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (690mil,210mil) from Component Side to Bottom Layer And Pad R3-2(740mil,220mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (4.231mil < 10mil) Between Via (855mil,435mil) from Component Side to Bottom Layer And Pad R2-2(820mil,490mil) on Component Side [Top Solder] Mask Sliver [4.231mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7mil < 10mil) Between Via (1410mil,1150mil) from Component Side to Bottom Layer And Pad C3-2(1470mil,1150mil) on Component Side [Top Solder] Mask Sliver [7mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Pad U1-3(1420mil,1475mil) on Multi-Layer And Pad C2-1(1490mil,1465mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Pad U1-2(1420mil,1375mil) on Multi-Layer And Pad C2-2(1490mil,1385mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (1.843mil < 10mil) Between Pad U2-2(1077.677mil,527.205mil) on Component Side And Pad U2-1(1077.677mil,501.614mil) on Component Side [Top Solder] Mask Sliver [1.843mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (1.843mil < 10mil) Between Pad U2-3(1077.677mil,552.795mil) on Component Side And Pad U2-2(1077.677mil,527.205mil) on Component Side [Top Solder] Mask Sliver [1.843mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (1.843mil < 10mil) Between Pad U2-4(1077.677mil,578.386mil) on Component Side And Pad U2-3(1077.677mil,552.795mil) on Component Side [Top Solder] Mask Sliver [1.843mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (1.843mil < 10mil) Between Pad U2-7(912.323mil,527.205mil) on Component Side And Pad U2-8(912.323mil,501.614mil) on Component Side [Top Solder] Mask Sliver [1.843mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (1.843mil < 10mil) Between Pad U2-6(912.323mil,552.795mil) on Component Side And Pad U2-7(912.323mil,527.205mil) on Component Side [Top Solder] Mask Sliver [1.843mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (1.843mil < 10mil) Between Pad U2-5(912.323mil,578.386mil) on Component Side And Pad U2-6(912.323mil,552.795mil) on Component Side [Top Solder] Mask Sliver [1.843mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (5.346mil < 10mil) Between Via (853.386mil,578.386mil) from Component Side to Bottom Layer And Pad U2-5(912.323mil,578.386mil) on Component Side [Top Solder] Mask Sliver [5.346mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (1085mil,430mil) from Component Side to Bottom Layer And Pad C5-2(1035mil,435mil) on Component Side [Top Solder] Mask Sliver [2mil]
+Rule Violations :13
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=8mil) (Max=10mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Direct Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (IsVia AND InNet('GND'))
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+
+Violations Detected : 31
+Time Elapsed        : 00:00:00

@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [CtrlBoxV2.PrjPcb]
+   Generated File[CtrlBoxV2.TXT]
+   Generated File[CtrlBoxV2.LDP]
+   Generated File[CtrlBoxV2.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 11:05:13 PM On 2018-04-05

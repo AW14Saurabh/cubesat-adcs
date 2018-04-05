@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [RWSv3.PrjPcb]
+   Generated File[RWSv3.TXT]
+   Generated File[RWSv3.LDP]
+   Generated File[RWSv3.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 10:06:05 PM On 2018-04-05
