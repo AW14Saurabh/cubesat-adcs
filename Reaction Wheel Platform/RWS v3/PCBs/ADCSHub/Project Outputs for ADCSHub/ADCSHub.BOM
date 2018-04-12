@@ -1,0 +1,22 @@
+Bill of Material for 
+On 2018-04-12 at 11:52:28 PM
+
+ Comment             Pattern     Quantity  Components
+------------------------------------------------------------------------------
+ 10uF                0805C-GENERIC    2    C4, C5                       CAPACITOR 0805 CERAMIC 
+ 10uF                0805C-TBD        2    C1, C2                       CAPACITOR 0805 CERAMIC 
+ 150R                0805R-150        3    R4, R5, R6                   RESISTOR 0805 1/4 WATT THIN FILM 
+ 200K                0805R-4K7        1    R11                          RESISTOR 0805 1/4 WATT THIN FILM 
+ 26X2 Header         26X2 Header      2    H1, H2                                            
+ 4K7                 0805R-4K7        7    R1, R2, R3, R7, R8, R9, R10  RESISTOR 0805 1/4 WATT THIN FILM 
+ Arduino Pro Mini    Arduino Pro Mini    1    H5                           Arduino Pro Mini     
+ BNO055              BNO055           1    H4                           Accel+Gyro+Mag       
+ Header 6            HDR1X6           1    H3                           Header, 6-Pin        
+ HEADER-1X2          HEADER-1X2       1    K1                                                
+ HMC5883L            HMC5883L         1    H6                           Magnetometer         
+ L3GD20H             L3GD20H          1    H7                           Gyroscope            
+ LED                 LED              3    D1, D2, D3                   Small LED            
+ PCA9306             PCA9306          1    U2                           Dual Bidirectional I2C Voltage Level Translator 
+ PushButton          PushButton       1    PB1                                               
+ ToggleSwitch        SWITCHFOOTPRINT    2    SW1, SW2                                          
+ uSD Card Module     uSD Card Module    1    H8                           uSD Card Module      

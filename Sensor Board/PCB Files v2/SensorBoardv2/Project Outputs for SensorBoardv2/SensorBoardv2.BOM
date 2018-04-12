@@ -1,0 +1,26 @@
+Bill of Material for 
+On 2018-04-12 at 11:49:29 PM
+
+ Comment             Pattern     Quantity  Components
+------------------------------------------------------------------------------
+ 10uF                0805C-GENERIC    4    C3, C4, C5, C6               CAPACITOR 0805 CERAMIC 
+ 10uF                0805C-TBD        2    C1, C2                       CAPACITOR 0805 CERAMIC 
+ 150R                0805R-150        3    R4, R5, R6                   RESISTOR 0805 1/4 WATT THIN FILM 
+ 200K                0805R-4K7        1    R11                          RESISTOR 0805 1/4 WATT THIN FILM 
+ 26X2 Header         26X2 Header      2    H1, H2                                            
+ 4K7                 0805R-4K7        7    R1, R2, R3, R7, R8, R9, R10  RESISTOR 0805 1/4 WATT THIN FILM 
+ ADXL345             ADXL345          1    H4                           Accelerometer        
+ Arduino Pro Mini    Arduino Pro Mini    1    H7                           Arduino Pro Mini     
+ BMP280              BMP280           1    H5                           Temp + Pa Sensor     
+ BNO055              BNO055           1    H6                           Accel+Gyro+Mag       
+ DS3231              RTC              1    H8                           RTC                  
+ Header 6            HDR1X6           1    H3                           Header, 6-Pin        
+ HEADER-1X2          HEADER-1X2       1    H12                                               
+ HMC5883L            HMC5883L         1    H9                           Magnetometer         
+ L3GD20H             L3GD20H          1    H10                          Gyroscope            
+ LED                 LED              3    D1, D2, D3                   Small LED            
+ LM2936              LM2936           1    H13                          3V3 Voltage Regulator 
+ PCA9306             PCA9306          1    U1                           Dual Bidirectional I2C Voltage Level Translator 
+ PushButton          PushButton       1    PB1                                               
+ ToggleSwitch        SWITCHFOOTPRINT    2    SW1, SW2                                          
+ uSD Card Module     uSD Card Module    1    H11                          uSD Card Module      

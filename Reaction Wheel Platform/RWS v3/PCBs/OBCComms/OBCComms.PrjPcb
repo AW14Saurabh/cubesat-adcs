@@ -213,95 +213,11 @@ DocumentPath=Project Outputs for OBCComms\Design Rule Check - OBCComms.html
 DItemRevisionGUID=
 
 [GeneratedDocument2]
-DocumentPath=Project Outputs for OBCComms\OBCComms.1
+DocumentPath=Project Outputs for OBCComms\OBCComms.BOM
 DItemRevisionGUID=
 
 [GeneratedDocument3]
-DocumentPath=Project Outputs for OBCComms\OBCComms.DRR
-DItemRevisionGUID=
-
-[GeneratedDocument4]
-DocumentPath=Project Outputs for OBCComms\OBCComms.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument5]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GBL
-DItemRevisionGUID=
-
-[GeneratedDocument6]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GBO
-DItemRevisionGUID=
-
-[GeneratedDocument7]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GBP
-DItemRevisionGUID=
-
-[GeneratedDocument8]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GBS
-DItemRevisionGUID=
-
-[GeneratedDocument9]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GKO
-DItemRevisionGUID=
-
-[GeneratedDocument10]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GM1
-DItemRevisionGUID=
-
-[GeneratedDocument11]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GM13
-DItemRevisionGUID=
-
-[GeneratedDocument12]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GM15
-DItemRevisionGUID=
-
-[GeneratedDocument13]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GM16
-DItemRevisionGUID=
-
-[GeneratedDocument14]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GML
-DItemRevisionGUID=
-
-[GeneratedDocument15]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GPB
-DItemRevisionGUID=
-
-[GeneratedDocument16]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GPT
-DItemRevisionGUID=
-
-[GeneratedDocument17]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GTL
-DItemRevisionGUID=
-
-[GeneratedDocument18]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GTO
-DItemRevisionGUID=
-
-[GeneratedDocument19]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GTP
-DItemRevisionGUID=
-
-[GeneratedDocument20]
-DocumentPath=Project Outputs for OBCComms\OBCComms.GTS
-DItemRevisionGUID=
-
-[GeneratedDocument21]
-DocumentPath=Project Outputs for OBCComms\OBCComms.LDP
-DItemRevisionGUID=
-
-[GeneratedDocument22]
-DocumentPath=Project Outputs for OBCComms\OBCComms.REP
-DItemRevisionGUID=
-
-[GeneratedDocument23]
-DocumentPath=Project Outputs for OBCComms\OBCComms.RUL
-DItemRevisionGUID=
-
-[GeneratedDocument24]
-DocumentPath=Project Outputs for OBCComms\OBCComms.TXT
+DocumentPath=Project Outputs for OBCComms\OBCComms.CSV
 DItemRevisionGUID=
 
 [Configuration1]
@@ -721,6 +637,8 @@ OutputName5=Simple BOM
 OutputDocumentPath5=
 OutputVariantName5=[No Variations]
 OutputDefault5=0
+Configuration5_Name1=OutputConfigurationParameter1
+Configuration5_Item1=Record=SimpleBOMView|SimpleBOMMode=0
 OutputType6=SinglePinNetReporter
 OutputName6=Report Single Pin Nets
 OutputDocumentPath6=

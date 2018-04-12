@@ -1,0 +1,11 @@
+Output: Simple BOM
+Type  : SimpleBOM
+From  : Variant [[No Variations]] of Project [ADCSHub.PrjPcb]
+   Generated File[ADCSHub.BOM]
+   Generated File[ADCSHub.CSV]
+
+
+Files Generated   : 2
+Documents Printed : 0
+
+Finished Output Generation At 11:52:28 PM On 2018-04-12
