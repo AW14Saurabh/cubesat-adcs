@@ -1,0 +1,9 @@
+I2C device found at address 0x0D  ! 0001101 QMC5883L (MAG)
+I2C device found at address 0x53  ! 1010011 ADXL345 (ACCEL)
+I2C device found at address 0x57  ! 1010111 DS3231  (RTC EEPROM)
+I2C device found at address 0x68  ! 1101000 DS3231  (RTC)
+I2C device found at address 0x6B  ! 1101011 L3GD20H (GYRO)
+I2C device found at address 0x76  ! 1110110 BMP280  (TEMP/PA)
+
+
+
