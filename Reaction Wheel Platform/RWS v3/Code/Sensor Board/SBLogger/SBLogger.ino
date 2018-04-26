@@ -50,8 +50,6 @@ Adafruit_BMP280 bmp;
 Adafruit_ADXL345_Unified accel = Adafruit_ADXL345_Unified(12345);
 MechaQMC5883 qmc;
 File dataFile;
-int startMin = 0;
-int startSec = 0;
 
 
 void setup() {
@@ -92,8 +90,6 @@ void setup() {
   // STARTUP ROUTINE
   //=================================
   DateTime now = rtc.now();
-  startMin = now.minute();
-  startSec = now.second();
   char buf[25];
   strncpy(buf,"YYYY-MM-DD hh:mm:ss\0",25);
   dataFile = SD.open(FILE_NAME, FILE_WRITE);
