@@ -154,7 +154,7 @@ void loop() {
   //=================================
   char buf[25];
   strncpy(buf,"YYYY-MM-DD hh:mm:ss \0",25);
-  char strT[100];
+  char strT[25];
   sprintf(strT, "%lu %d ", currentMillis, maxDt);
   String strW = "g:" + String(wx,4) + "," + String(wy,4) + "," + String(wz,4) + " ";
   String strTP = "t:" + String(temp,2) + " p:" + String(pa,2) + " e:" + String(ele,2) + " ";

@@ -19,7 +19,7 @@ end
 
 function Pr = initParams() % things that don't change
     Pr.satThStart = angle2quat(0,0,0);	% initial heading angle of RWS (quaternion)
-    Pr.satWStart = [0,0,200/180*pi];             % initial angular velocity of RWS
+    Pr.satWStart = [-0.5,2.5,3.0];             % initial angular velocity of RWS
     Pr.motorWsStart = [0,0,0,0];        % initial motor speeds (1x scalar per motor)
     Pr.motorI = 1.41E-05;               % mass moment of inertia of motor + wheel
     Pr.satI = 2.2E-03;                	% mass moment of inertia of 1U satellite (approximated as a uniform 1.33kg 10cm^3 cube)

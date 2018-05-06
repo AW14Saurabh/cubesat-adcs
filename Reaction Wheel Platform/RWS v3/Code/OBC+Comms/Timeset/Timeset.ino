@@ -13,7 +13,7 @@ void setup(void){
   Wire.begin();
 
   rtc.begin();  // Initialise DS3231  (Real Time Clock)
-  //rtc.adjust(DateTime(__DATE__, __TIME__)); //use this to set RTC time
+  rtc.adjust(DateTime(__DATE__, __TIME__)); //use this to set RTC time
 }
 
 
