@@ -1,0 +1,211 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\RWSv3a\RWSv3a.PcbDoc
+Date     : 2018-05-08
+Time     : 4:29:07 AM
+
+Processing Rule : Room M4 (Bounding Region = (3774mil, 1155mil, 4384mil, 1780mil) (InComponentClass('M4'))
+Rule Violations :0
+
+Processing Rule : Room M3 (Bounding Region = (3114mil, 1885mil, 3724mil, 2510mil) (InComponentClass('M3'))
+Rule Violations :0
+
+Processing Rule : Room M2 (Bounding Region = (2351.717mil, 3425mil, 2976.717mil, 4035mil) (InComponentClass('M2'))
+Rule Violations :0
+
+Processing Rule : Room M1 (Bounding Region = (3704mil, 3025mil, 4314mil, 3650mil) (InComponentClass('M1'))
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Direct Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (IsVia AND InNet('GND'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=8mil) (Max=10mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=100mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=10mil) (All),(All)
+   Violation between Minimum Solder Mask Sliver Constraint: (6.33mil < 10mil) Between Via (-3205mil,675mil) from Component Side to Bottom Layer And Pad H1-3(-3275mil,650mil) on Multi-Layer [Top Solder] Mask Sliver [6.33mil] / [Solder Side] Mask Sliver [6.33mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (9.421mil < 10mil) Between Via (-2420mil,2535mil) from Component Side to Bottom Layer And Pad R8-1(-2470mil,2485mil) on Component Side [Top Solder] Mask Sliver [9.421mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7mil < 10mil) Between Via (-970mil,675mil) from Component Side to Bottom Layer And Pad M4R5-1(-910mil,675mil) on Component Side [Top Solder] Mask Sliver [7mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (-615mil,755mil) from Component Side to Bottom Layer And Pad M4C1-2(-670mil,755mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (-430mil,655mil) from Component Side to Bottom Layer And Pad M4C3-2(-430mil,605mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (3.575mil < 10mil) Between Via (-965mil,255mil) from Component Side to Bottom Layer And Pad M4D4-2(-908.819mil,255mil) on Component Side [Top Solder] Mask Sliver [3.575mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M4H5-2(-655mil,424.37mil) on Component Side And Pad M4H5-1(-655mil,385mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M4H5-3(-655mil,463.74mil) on Component Side And Pad M4H5-2(-655mil,424.37mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M4H5-4(-655mil,503.11mil) on Component Side And Pad M4H5-3(-655mil,463.74mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M4H5-5(-655mil,542.48mil) on Component Side And Pad M4H5-4(-655mil,503.11mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M4H5-6(-655mil,581.85mil) on Component Side And Pad M4H5-5(-655mil,542.48mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (-1275mil,1485mil) from Component Side to Bottom Layer And Pad M3C1-2(-1330mil,1485mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (0.343mil < 10mil) Between Via (-1283.787mil,1363.787mil) from Component Side to Bottom Layer And Pad M3C1-1(-1330mil,1405mil) on Component Side [Top Solder] Mask Sliver [0.343mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (-1090mil,1385mil) from Component Side to Bottom Layer And Pad M3C3-2(-1090mil,1335mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (3.575mil < 10mil) Between Via (-1625mil,985mil) from Component Side to Bottom Layer And Pad M3D4-2(-1568.819mil,985mil) on Component Side [Top Solder] Mask Sliver [3.575mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M3H5-2(-1315mil,1154.37mil) on Component Side And Pad M3H5-1(-1315mil,1115mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M3H5-3(-1315mil,1193.74mil) on Component Side And Pad M3H5-2(-1315mil,1154.37mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M3H5-4(-1315mil,1233.11mil) on Component Side And Pad M3H5-3(-1315mil,1193.74mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M3H5-5(-1315mil,1272.48mil) on Component Side And Pad M3H5-4(-1315mil,1233.11mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M3H5-6(-1315mil,1311.85mil) on Component Side And Pad M3H5-5(-1315mil,1272.48mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (5.265mil < 10mil) Between Via (-1283.787mil,1363.787mil) from Component Side to Bottom Layer And Pad M3Q2-E(-1235mil,1330mil) on Component Side [Top Solder] Mask Sliver [5.266mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (9mil < 10mil) Between Via (-1220mil,1385mil) from Component Side to Bottom Layer And Pad M3Q2-E(-1235mil,1330mil) on Component Side [Top Solder] Mask Sliver [9mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (-2352.283mil,2825mil) from Component Side to Bottom Layer And Pad M2C1-2(-2352.283mil,2770mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (-2252.283mil,3010mil) from Component Side to Bottom Layer And Pad M2C3-2(-2202.283mil,3010mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (3.575mil < 10mil) Between Via (-1852.283mil,2475mil) from Component Side to Bottom Layer And Pad M2D4-2(-1852.283mil,2531.181mil) on Component Side [Top Solder] Mask Sliver [3.575mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M2H5-2(-2021.653mil,2785mil) on Component Side And Pad M2H5-1(-1982.283mil,2785mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M2H5-3(-2061.024mil,2785mil) on Component Side And Pad M2H5-2(-2021.653mil,2785mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M2H5-4(-2100.394mil,2785mil) on Component Side And Pad M2H5-3(-2061.024mil,2785mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M2H5-5(-2139.764mil,2785mil) on Component Side And Pad M2H5-4(-2100.394mil,2785mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M2H5-6(-2179.134mil,2785mil) on Component Side And Pad M2H5-5(-2139.764mil,2785mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (3.457mil < 10mil) Between Via (-2140mil,2725mil) from Component Side to Bottom Layer And Pad M2H5-5(-2139.764mil,2785mil) on Component Side [Top Solder] Mask Sliver [3.457mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (-1825mil,2795mil) from Component Side to Bottom Layer And Pad M2R4-1(-1822.283mil,2850mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (-685mil,2625mil) from Component Side to Bottom Layer And Pad M1C1-2(-740mil,2625mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (3.575mil < 10mil) Between Via (-1035mil,2125mil) from Component Side to Bottom Layer And Pad M1D4-2(-978.819mil,2125mil) on Component Side [Top Solder] Mask Sliver [3.575mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M1H5-2(-725mil,2294.37mil) on Component Side And Pad M1H5-1(-725mil,2255mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M1H5-3(-725mil,2333.74mil) on Component Side And Pad M1H5-2(-725mil,2294.37mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M1H5-4(-725mil,2373.11mil) on Component Side And Pad M1H5-3(-725mil,2333.74mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M1H5-5(-725mil,2412.48mil) on Component Side And Pad M1H5-4(-725mil,2373.11mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.748mil < 10mil) Between Pad M1H5-6(-725mil,2451.85mil) on Component Side And Pad M1H5-5(-725mil,2412.48mil) on Component Side [Top Solder] Mask Sliver [7.748mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (2mil < 10mil) Between Via (-500mil,2525mil) from Component Side to Bottom Layer And Pad M1C3-2(-500mil,2475mil) on Component Side [Top Solder] Mask Sliver [2mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (4.202mil < 10mil) Between Via (-1235mil,1435mil) from Component Side to Bottom Layer And Via (-1220mil,1385mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [4.202mil] / [Solder Side] Mask Sliver [4.202mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (8.364mil < 10mil) Between Via (-2092.283mil,2695mil) from Component Side to Bottom Layer And Via (-2140mil,2725mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [8.364mil] / [Solder Side] Mask Sliver [8.364mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.902mil < 10mil) Between Via (-745mil,495mil) from Component Side to Bottom Layer And Via (-720mil,445mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [7.902mil] / [Solder Side] Mask Sliver [7.902mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.902mil < 10mil) Between Via (-1405mil,1225mil) from Component Side to Bottom Layer And Via (-1380mil,1175mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [7.902mil] / [Solder Side] Mask Sliver [7.902mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.902mil < 10mil) Between Via (-815mil,2365mil) from Component Side to Bottom Layer And Via (-790mil,2315mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [7.902mil] / [Solder Side] Mask Sliver [7.902mil]
+   Violation between Minimum Solder Mask Sliver Constraint: (7.902mil < 10mil) Between Via (-2092.283mil,2695mil) from Component Side to Bottom Layer And Via (-2042.283mil,2720mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [7.902mil] / [Solder Side] Mask Sliver [7.902mil]
+Rule Violations :46
+
+Processing Rule : Silk To Solder Mask (Clearance=10mil) (Disabled)(IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=10mil) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Silk primitive without silk layer
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=6mil) (Max=100000mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=24mil) (Max=100000mil) (All)
+   Violation between Hole Size Constraint: (23.622mil < 24mil) Pad D1-2(-1940mil,412.323mil) on Multi-Layer Actual Hole Size = 23.622mil
+   Violation between Hole Size Constraint: (23.622mil < 24mil) Pad D1-1(-1940mil,495mil) on Multi-Layer Actual Hole Size = 23.622mil
+   Violation between Hole Size Constraint: (23.622mil < 24mil) Pad D2-2(-1760mil,412.323mil) on Multi-Layer Actual Hole Size = 23.622mil
+   Violation between Hole Size Constraint: (23.622mil < 24mil) Pad D2-1(-1760mil,495mil) on Multi-Layer Actual Hole Size = 23.622mil
+   Violation between Hole Size Constraint: (23.622mil < 24mil) Pad D3-2(-1580mil,412.323mil) on Multi-Layer Actual Hole Size = 23.622mil
+   Violation between Hole Size Constraint: (23.622mil < 24mil) Pad D3-1(-1580mil,495mil) on Multi-Layer Actual Hole Size = 23.622mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-408.682mil,2696.318mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2420mil,2535mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1070mil,2015mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1175mil,2090mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1335mil,2050mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1700mil,2015mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1820mil,715mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2000mil,1465mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1740mil,730mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1940mil,1425mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2095mil,1170mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-860mil,920mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1940mil,3425mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2430mil,3355mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1875mil,3355mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-410mil,2145mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-725mil,2145mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1905mil,2785mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1160mil,1100mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1675mil,880mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1609.811mil,1109.308mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1385mil,880mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1055mil,710mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-949.811mil,389.308mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1220mil,1385mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-700mil,1080mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-680mil,230.503mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1283.787mil,1363.787mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-970mil,675mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1235mil,1435mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1070mil,2450mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1825mil,2795mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2140mil,2725mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2075mil,2500mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1967.283mil,2940mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-615mil,755mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-430mil,655mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-965mil,255mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-720mil,445mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-745mil,495mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-500mil,370mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1275mil,1485mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1090mil,1385mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1625mil,985mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1380mil,1175mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1405mil,1225mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-685mil,2625mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-500mil,2525mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1035mil,2125mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-790mil,2315mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-815mil,2365mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-570mil,2240mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2042.283mil,2720mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2092.283mil,2695mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3205mil,675mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2352.283mil,2825mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-2252.283mil,3010mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-1852.283mil,2475mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3575mil,445mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3575mil,255mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3655mil,400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3655mil,300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3495mil,400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3495mil,300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-120mil,150mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-120mil,250mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-280mil,150mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-280mil,250mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-200mil,105mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-200mil,295mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3495mil,3200mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3495mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3655mil,3200mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3655mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3575mil,3155mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-3575mil,3345mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-120mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-120mil,3400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-280mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-280mil,3400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-200mil,3255mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+   Violation between Hole Size Constraint: (20mil < 24mil) Via (-200mil,3445mil) from Component Side to Bottom Layer Actual Hole Size = 20mil
+Rule Violations :88
+
+Processing Rule : Hole To Hole Clearance (Gap=8mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=10mil) (All),(All)
+Rule Violations :0
+
+
+Violations Detected : 134
+Time Elapsed        : 00:00:03

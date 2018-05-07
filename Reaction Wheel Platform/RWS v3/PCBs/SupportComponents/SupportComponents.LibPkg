@@ -56,6 +56,40 @@ GenerateClassCluster=0
 DocumentUniqueId=MPGHIQJP
 
 [Document2]
+DocumentPath=RWSComponents.SchLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=SCMSQOFE
+
+[Document3]
+DocumentPath=RWSComponents.PcbLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=QJXWTEPW
+
+[Document4]
 DocumentPath=SBv1Components.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -72,7 +106,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=DVERRLQD
 
-[Document3]
+[Document5]
 DocumentPath=CubeSatHeaders.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -89,7 +123,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=QKTENRXF
 
-[Document4]
+[Document6]
 DocumentPath=CubeSatHeaders.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -106,7 +140,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=KNRHUSTM
 
-[Document5]
+[Document7]
 DocumentPath=SupportComponents.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -123,7 +157,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=UVMJROPI
 
-[Document6]
+[Document8]
 DocumentPath=SupportComponents.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1

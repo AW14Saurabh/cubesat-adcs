@@ -1,0 +1,22 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: PowerV2.PcbDoc   2018-05-08  4:43:37 AM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Component Side to Bottom Layer
+ASCII RoundHoles File : PowerV2.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      20mil (0.508mm)                                           Round             61        PTH        19.99inch (507.62mm)
+T2      24mil (0.6mm)                                             Round             8         PTH        0.93inch (23.64mm)
+T3      30mil (0.762mm)                                           Round             7         PTH        3.40inch (86.45mm)
+T4      40mil (1.016mm)                                           Round             152       PTH        19.71inch (500.61mm)
+T5      50mil (1.27mm)                                            Round             1         PTH        0.00inch (0.00mm)
+T6      79mil (2mm)                                               Round             2         PTH        3.45inch (87.58mm)
+T7      118mil (3mm)                                              Round             2         PTH        1.18inch (30.00mm)
+T8      125mil (3.175mm)                                          Round             4         PTH        11.30inch (287.12mm)
+T9      236mil (6mm)                                              Round             1         PTH        0.00inch (0.00mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              238
+
+Total Processing Time (hh:mm:ss) : 00:00:00

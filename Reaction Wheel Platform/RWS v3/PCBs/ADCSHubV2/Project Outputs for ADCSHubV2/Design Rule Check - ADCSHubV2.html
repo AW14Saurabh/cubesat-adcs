@@ -1,0 +1,573 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD16\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">2018-05-08</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">4:38:06 AM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:04</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc" class="file"><acronym title="C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc">C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">71</td></tr>
+</table>
+</td>
+</table><a name="IDRHE01EOU5JZGEMDEU4AH0JB12BDIDX2PBP0ERFDT011MIWHUABAP"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDL22TMXW44QBCMCABZCD2K42LX2WETKFEZCGPHK2BAOQ0ZYVLML">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLT4CL0AARVIRHCF4VE5YAQAM0OV0UOJ3YCSAL3JCL1HAWNVKWMXI">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDK4F2N4FABXIRKFHIE02IANAZ3EU4GBQV5BQKNJKLPCOJW4EG2TJN">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID5IJFJSKZJQMMOURVNCWPAKKK0LICG0S2MSRMJ3D25YBOWXVUEXAG">Clearance Constraint (Gap=0mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDDUZAWLJTMCRZKFMUILL3K4S5LG3VQTWFMVWIVCMFR1SNN4W2DE5D">Power Plane Connect Rule(Direct Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (IsVia AND InNet('GND'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDNCAVYFHZRCLCO0T1RW3NXO3BEKQH0BN3LLWIPGDJ5Z4XC340G3CL">Width Constraint (Min=8mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDVAORUTTO1D1RI0LMY2RSKZTEBGIMSFRCUL5XKXJN0DGWQT1BD5GG">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDXGWGJ5ANZIMMMIZJDQEBLCSSEFCYHXM5JDY200NXD2GVJ2UBYBEM">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDR5ZHB4IJ4RZSP1Z2MEE2BU3CHHO0OM40OCSBRGEBYKYAGZ3UOFSO">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID04YV51UL2VUUMWWA3RGLZMBQWL1F4F22FGHLNABSVKOQ2NNATNQF">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">11</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDUN2KHEYM4MJQCKM03143HHBYH45FH4ULFI3VMF4NTIBLMLBCQ2B">Silk To Solder Mask (Clearance=10mil) (Disabled)(IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVRKO33OICSUPDDIRC04AJ0V422QR2UQUB4H4HPYS4YATXZXE3LI">Silk to Silk (Clearance=10mil) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID3JBR52GZBGSMKZ43T3IZYKLS2FMCGJAA4SN5OSNMA2GICCAHB5YN">Silk primitive without silk layer</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDOIWTNF2PAYU1N1TNVP5M4BQBFKFN35M31TN4MFOY02ANPVM0LTKO">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDDWQO2J5SFEFJDVA2A52Y2LF3YCIRIGJVRXNPXXB0GTWJYQVZGHWO">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVNKIRAA2ERITFNP5PFGO1JCBLCH2IJMRIIDEHKNVVPEOISQ331QD">Width Constraint (Min=6mil) (Max=100000mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDU2O5Q5FQDH1AIVPNOYLRQIOIQHXUKLB4RUDG1OOP32BY2HVOE1OC">Hole Size Constraint (Min=24mil) (Max=100000mil) (All)</a></td>
+<td class="column2">55</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID4KZJKOI5VNMOBZIGKWEJHLVGMBAMPUHQNZKPIDIBZCG4TZUXBQBH">Hole To Hole Clearance (Gap=8mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDSCG3ONFTNH2ZLQKQ2JCLNAV5HMQYEUAOTFMRRGOJWBXVNRBXXRLP">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">5</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">71</td>
+</tr>
+</table><br><a name="ID04YV51UL2VUUMWWA3RGLZMBQWL1F4F22FGHLNABSVKOQ2NNATNQF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2720.639mil|Location2.X=2731.889mil|Location1.Y=1414.375mil|Location2.Y=1425.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2720.639mil|Location2.X=2731.889mil|Location1.Y=1414.375mil|Location2.Y=1425.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.473mil &lt; 10mil) Between Pad SW1-6(-1995mil,450mil) on Multi-Layer And Pad H3-1(-2070mil,425mil) on Multi-Layer [Top Solder] Mask Sliver [7.473mil] / [Solder Side] Mask Sliver [7.473mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2157.784mil|Location2.X=2169.034mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2157.784mil|Location2.X=2169.034mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U2-6(-2582.795mil,2462.323mil) on Component Side And Pad U2-5(-2608.386mil,2462.323mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2157.784mil|Location2.X=2169.034mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2157.784mil|Location2.X=2169.034mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U2-3(-2582.795mil,2627.677mil) on Component Side And Pad U2-4(-2608.386mil,2627.677mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.375mil|Location2.X=2194.625mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.375mil|Location2.X=2194.625mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U2-2(-2557.205mil,2627.677mil) on Component Side And Pad U2-3(-2582.795mil,2627.677mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.965mil|Location2.X=2220.215mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.965mil|Location2.X=2220.215mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U2-7(-2557.205mil,2462.323mil) on Component Side And Pad U2-8(-2531.614mil,2462.323mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.375mil|Location2.X=2194.625mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.375mil|Location2.X=2194.625mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U2-7(-2557.205mil,2462.323mil) on Component Side And Pad U2-6(-2582.795mil,2462.323mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.965mil|Location2.X=2220.215mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.965mil|Location2.X=2220.215mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.843mil &lt; 10mil) Between Pad U2-1(-2531.614mil,2627.677mil) on Component Side And Pad U2-2(-2557.205mil,2627.677mil) on Component Side [Top Solder] Mask Sliver [1.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2118.375mil|Location2.X=2129.625mil|Location1.Y=3349.375mil|Location2.Y=3360.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2118.375mil|Location2.X=2129.625mil|Location1.Y=3349.375mil|Location2.Y=3360.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2mil &lt; 10mil) Between Via (-2660mil,2385mil) from Component Side to Bottom Layer And Pad R1-2(-2610mil,2390mil) on Component Side [Top Solder] Mask Sliver [2mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2143.375mil|Location2.X=2154.625mil|Location1.Y=3239.375mil|Location2.Y=3250.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2143.375mil|Location2.X=2154.625mil|Location1.Y=3239.375mil|Location2.Y=3250.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2mil &lt; 10mil) Between Via (-2610mil,2250mil) from Component Side to Bottom Layer And Pad R2-2(-2610mil,2305mil) on Component Side [Top Solder] Mask Sliver [2mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2554.766mil|Location2.X=2566.016mil|Location1.Y=3241.875mil|Location2.Y=3253.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2554.766mil|Location2.X=2566.016mil|Location1.Y=3241.875mil|Location2.Y=3253.125mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (7.07mil &lt; 10mil) Between Via (-2200mil,2305mil) from Component Side to Bottom Layer And Via (-2197.218mil,2250mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [7.07mil] / [Solder Side] Mask Sliver [7.07mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2415.875mil|Location2.X=2427.125mil|Location1.Y=1756.875mil|Location2.Y=1768.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2415.875mil|Location2.X=2427.125mil|Location1.Y=1756.875mil|Location2.Y=1768.125mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (9.009mil &lt; 10mil) Between Via (-2315mil,810mil) from Component Side to Bottom Layer And Via (-2360mil,775mil) from Component Side to Bottom Layer [Top Solder] Mask Sliver [9.009mil] / [Solder Side] Mask Sliver [9.009mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDU2O5Q5FQDH1AIVPNOYLRQIOIQHXUKLB4RUDG1OOP32BY2HVOE1OC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=24mil) (Max=100000mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3356.564mil|Location2.X=3381.436mil|Location1.Y=1369.887mil|Location2.Y=1394.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3356.564mil|Location2.X=3381.436mil|Location1.Y=1369.887mil|Location2.Y=1394.759mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D3-2(-1390mil,412.323mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3356.564mil|Location2.X=3381.436mil|Location1.Y=1452.564mil|Location2.Y=1477.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3356.564mil|Location2.X=3381.436mil|Location1.Y=1452.564mil|Location2.Y=1477.436mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D3-1(-1390mil,495mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3171.564mil|Location2.X=3196.436mil|Location1.Y=1369.887mil|Location2.Y=1394.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3171.564mil|Location2.X=3196.436mil|Location1.Y=1369.887mil|Location2.Y=1394.759mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D2-2(-1575mil,412.323mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3171.564mil|Location2.X=3196.436mil|Location1.Y=1452.564mil|Location2.Y=1477.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3171.564mil|Location2.X=3196.436mil|Location1.Y=1452.564mil|Location2.Y=1477.436mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D2-1(-1575mil,495mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2986.564mil|Location2.X=3011.436mil|Location1.Y=1369.887mil|Location2.Y=1394.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2986.564mil|Location2.X=3011.436mil|Location1.Y=1369.887mil|Location2.Y=1394.759mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D1-2(-1760mil,412.323mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2986.564mil|Location2.X=3011.436mil|Location1.Y=1452.564mil|Location2.Y=1477.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2986.564mil|Location2.X=3011.436mil|Location1.Y=1452.564mil|Location2.Y=1477.436mil|Absolute=True">Hole Size Constraint: (23.622mil &lt; 24mil) Pad D1-1(-1760mil,495mil) on Multi-Layer Actual Hole Size = 23.622mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=1404.375mil|Location2.Y=1425.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=1404.375mil|Location2.Y=1425.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3575mil,445mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=1214.375mil|Location2.Y=1235.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=1214.375mil|Location2.Y=1235.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3575mil,255mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=1359.375mil|Location2.Y=1380.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=1359.375mil|Location2.Y=1380.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3655mil,400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=1259.375mil|Location2.Y=1280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=1259.375mil|Location2.Y=1280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3655mil,300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=1359.375mil|Location2.Y=1380.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=1359.375mil|Location2.Y=1380.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3495mil,400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=1259.375mil|Location2.Y=1280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=1259.375mil|Location2.Y=1280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3495mil,300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=1109.375mil|Location2.Y=1130.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=1109.375mil|Location2.Y=1130.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-120mil,150mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=1209.375mil|Location2.Y=1230.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=1209.375mil|Location2.Y=1230.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-120mil,250mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=1109.375mil|Location2.Y=1130.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=1109.375mil|Location2.Y=1130.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-280mil,150mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=1209.375mil|Location2.Y=1230.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=1209.375mil|Location2.Y=1230.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-280mil,250mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=1064.375mil|Location2.Y=1085.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=1064.375mil|Location2.Y=1085.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-200mil,105mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=1254.375mil|Location2.Y=1275.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=1254.375mil|Location2.Y=1275.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-200mil,295mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=4159.375mil|Location2.Y=4180.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=4159.375mil|Location2.Y=4180.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3495mil,3200mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1253.375mil|Location2.X=1274.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3495mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=4159.375mil|Location2.Y=4180.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=4159.375mil|Location2.Y=4180.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3655mil,3200mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.375mil|Location2.X=1114.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3655mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=4114.375mil|Location2.Y=4135.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=4114.375mil|Location2.Y=4135.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3575mil,3155mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=4304.375mil|Location2.Y=4325.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1173.375mil|Location2.X=1194.625mil|Location1.Y=4304.375mil|Location2.Y=4325.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3575mil,3345mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-120mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=4359.375mil|Location2.Y=4380.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4628.375mil|Location2.X=4649.625mil|Location1.Y=4359.375mil|Location2.Y=4380.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-120mil,3400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=4259.375mil|Location2.Y=4280.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-280mil,3300mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=4359.375mil|Location2.Y=4380.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4468.375mil|Location2.X=4489.625mil|Location1.Y=4359.375mil|Location2.Y=4380.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-280mil,3400mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=4214.375mil|Location2.Y=4235.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=4214.375mil|Location2.Y=4235.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-200mil,3255mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=4404.375mil|Location2.Y=4425.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4548.375mil|Location2.X=4569.625mil|Location1.Y=4404.375mil|Location2.Y=4425.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-200mil,3445mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3298.375mil|Location2.X=3319.625mil|Location1.Y=3154.375mil|Location2.Y=3175.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3298.375mil|Location2.X=3319.625mil|Location1.Y=3154.375mil|Location2.Y=3175.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1450mil,2195mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3348.375mil|Location2.X=3369.625mil|Location1.Y=3229.375mil|Location2.Y=3250.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3348.375mil|Location2.X=3369.625mil|Location1.Y=3229.375mil|Location2.Y=3250.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1400mil,2270mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4278.375mil|Location2.X=4299.625mil|Location1.Y=3299.375mil|Location2.Y=3320.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4278.375mil|Location2.X=4299.625mil|Location1.Y=3299.375mil|Location2.Y=3320.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-470mil,2340mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3903.375mil|Location2.X=3924.625mil|Location1.Y=3149.375mil|Location2.Y=3170.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3903.375mil|Location2.X=3924.625mil|Location1.Y=3149.375mil|Location2.Y=3170.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-845mil,2190mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2293.375mil|Location2.X=2314.625mil|Location1.Y=3679.375mil|Location2.Y=3700.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2293.375mil|Location2.X=2314.625mil|Location1.Y=3679.375mil|Location2.Y=3700.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2455mil,2720mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2088.375mil|Location2.X=2109.625mil|Location1.Y=3344.375mil|Location2.Y=3365.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2088.375mil|Location2.X=2109.625mil|Location1.Y=3344.375mil|Location2.Y=3365.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2660mil,2385mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2138.375mil|Location2.X=2159.625mil|Location1.Y=3209.375mil|Location2.Y=3230.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2138.375mil|Location2.X=2159.625mil|Location1.Y=3209.375mil|Location2.Y=3230.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2610mil,2250mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1888.375mil|Location2.X=1909.625mil|Location1.Y=3174.375mil|Location2.Y=3195.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1888.375mil|Location2.X=1909.625mil|Location1.Y=3174.375mil|Location2.Y=3195.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2860mil,2215mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1833.375mil|Location2.X=1854.625mil|Location1.Y=3129.375mil|Location2.Y=3150.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1833.375mil|Location2.X=1854.625mil|Location1.Y=3129.375mil|Location2.Y=3150.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2915mil,2170mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2551.157mil|Location2.X=2572.407mil|Location1.Y=3209.375mil|Location2.Y=3230.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2551.157mil|Location2.X=2572.407mil|Location1.Y=3209.375mil|Location2.Y=3230.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2197.218mil,2250mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2548.375mil|Location2.X=2569.625mil|Location1.Y=3264.375mil|Location2.Y=3285.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2548.375mil|Location2.X=2569.625mil|Location1.Y=3264.375mil|Location2.Y=3285.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2200mil,2305mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1628.375mil|Location2.X=1649.625mil|Location1.Y=1659.375mil|Location2.Y=1680.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1628.375mil|Location2.X=1649.625mil|Location1.Y=1659.375mil|Location2.Y=1680.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3120mil,700mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.375mil|Location2.X=1594.625mil|Location1.Y=1599.375mil|Location2.Y=1620.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.375mil|Location2.X=1594.625mil|Location1.Y=1599.375mil|Location2.Y=1620.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-3175mil,640mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2388.375mil|Location2.X=2409.625mil|Location1.Y=1734.375mil|Location2.Y=1755.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2388.375mil|Location2.X=2409.625mil|Location1.Y=1734.375mil|Location2.Y=1755.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2360mil,775mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2433.375mil|Location2.X=2454.625mil|Location1.Y=1769.375mil|Location2.Y=1790.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2433.375mil|Location2.X=2454.625mil|Location1.Y=1769.375mil|Location2.Y=1790.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2315mil,810mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3273.375mil|Location2.X=3294.625mil|Location1.Y=1844.375mil|Location2.Y=1865.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3273.375mil|Location2.X=3294.625mil|Location1.Y=1844.375mil|Location2.Y=1865.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1475mil,885mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3783.375mil|Location2.X=3804.625mil|Location1.Y=2794.375mil|Location2.Y=2815.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3783.375mil|Location2.X=3804.625mil|Location1.Y=2794.375mil|Location2.Y=2815.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-965mil,1835mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4433.375mil|Location2.X=4454.625mil|Location1.Y=2749.375mil|Location2.Y=2770.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4433.375mil|Location2.X=4454.625mil|Location1.Y=2749.375mil|Location2.Y=2770.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-315mil,1790mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3308.375mil|Location2.X=3329.625mil|Location1.Y=2569.375mil|Location2.Y=2590.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3308.375mil|Location2.X=3329.625mil|Location1.Y=2569.375mil|Location2.Y=2590.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1440mil,1610mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3398.375mil|Location2.X=3419.625mil|Location1.Y=2569.375mil|Location2.Y=2590.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3398.375mil|Location2.X=3419.625mil|Location1.Y=2569.375mil|Location2.Y=2590.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1350mil,1610mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4178.375mil|Location2.X=4199.625mil|Location1.Y=3334.375mil|Location2.Y=3355.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4178.375mil|Location2.X=4199.625mil|Location1.Y=3334.375mil|Location2.Y=3355.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-570mil,2375mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.375mil|Location2.X=3614.625mil|Location1.Y=3459.375mil|Location2.Y=3480.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3593.375mil|Location2.X=3614.625mil|Location1.Y=3459.375mil|Location2.Y=3480.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1155mil,2500mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3283.375mil|Location2.X=3304.625mil|Location1.Y=3374.375mil|Location2.Y=3395.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3283.375mil|Location2.X=3304.625mil|Location1.Y=3374.375mil|Location2.Y=3395.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-1465mil,2415mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2503.375mil|Location2.X=2524.625mil|Location1.Y=3374.375mil|Location2.Y=3395.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2503.375mil|Location2.X=2524.625mil|Location1.Y=3374.375mil|Location2.Y=3395.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2245mil,2415mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2213.375mil|Location2.X=2234.625mil|Location1.Y=2659.375mil|Location2.Y=2680.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2213.375mil|Location2.X=2234.625mil|Location1.Y=2659.375mil|Location2.Y=2680.625mil|Absolute=True">Hole Size Constraint: (20mil &lt; 24mil) Via (-2535mil,1700mil) from Component Side to Bottom Layer Actual Hole Size = 20mil</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDSCG3ONFTNH2ZLQKQ2JCLNAV5HMQYEUAOTFMRRGOJWBXVNRBXXRLP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2157.784mil|Location2.X=2169.034mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2157.784mil|Location2.X=2169.034mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True">Clearance Constraint: (9.843mil &lt; 10mil) Between Pad U2-6(-2582.795mil,2462.323mil) on Component Side And Pad U2-5(-2608.386mil,2462.323mil) on Component Side </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2157.784mil|Location2.X=2169.034mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2157.784mil|Location2.X=2169.034mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True">Clearance Constraint: (9.843mil &lt; 10mil) Between Pad U2-3(-2582.795mil,2627.677mil) on Component Side And Pad U2-4(-2608.386mil,2627.677mil) on Component Side </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.375mil|Location2.X=2194.625mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.375mil|Location2.X=2194.625mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True">Clearance Constraint: (9.842mil &lt; 10mil) Between Pad U2-2(-2557.205mil,2627.677mil) on Component Side And Pad U2-3(-2582.795mil,2627.677mil) on Component Side </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.375mil|Location2.X=2194.625mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2183.375mil|Location2.X=2194.625mil|Location1.Y=3408.981mil|Location2.Y=3420.231mil|Absolute=True">Clearance Constraint: (9.842mil &lt; 10mil) Between Pad U2-7(-2557.205mil,2462.323mil) on Component Side And Pad U2-6(-2582.795mil,2462.323mil) on Component Side </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.965mil|Location2.X=2220.215mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\mnyeo\Documents\cubesat-adcs\Reaction Wheel Platform\RWS v3\PCBs\ADCSHubV2\ADCSHubV2.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2208.965mil|Location2.X=2220.215mil|Location1.Y=3574.336mil|Location2.Y=3585.586mil|Absolute=True">Clearance Constraint: (9.843mil &lt; 10mil) Between Pad U2-1(-2531.614mil,2627.677mil) on Component Side And Pad U2-2(-2557.205mil,2627.677mil) on Component Side </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
