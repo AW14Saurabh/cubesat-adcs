@@ -1,0 +1,31 @@
+Bill of Material for 
+On 2018-05-08 at 4:10:37 PM
+
+ Comment             Pattern     Quantity  Components
+------------------------------------------------------------------------------
+ 100K                0805R-100K       4    M1R2, M2R2, M3R2, M4R2       RESISTOR 0805 1/4 WATT THIN FILM 
+ 10K                 0805R-10K       12    M1R4, M1R5, M1R12, M2R4, M2R5 RESISTOR 0805 1/4 WATT THIN FILM 
+                                           M2R12, M3R4, M3R5, M3R12
+                                           M4R4, M4R5, M4R12
+ 10nF                0805C-TBD        4    M1C1, M2C1, M3C1, M4C1       CAPACITOR 0805 CERAMIC 
+ 10uF                0805C-TBD        2    C4, C5                       CAPACITOR 0805 CERAMIC 
+ 150K                0805R-150K       4    M1R3, M2R3, M3R3, M4R3       RESISTOR 0805 1/4 WATT THIN FILM 
+ 150R                0805R-150        2    R10, R11                     RESISTOR 0805 1/4 WATT THIN FILM 
+ 1K                  0805R-1K         4    M1R1, M2R1, M3R1, M4R1       RESISTOR 0805 1/4 WATT THIN FILM 
+ 1uF                 0805C-GENERIC    4    M1C2, M2C2, M3C2, M4C2       CAPACITOR 0805 CERAMIC 
+ 26X2 Header         26X2 Header      2    H1, H2                                            
+ 2u2                 0805C-GENERIC    4    M1C3, M2C3, M3C3, M4C3       CAPACITOR 0805 CERAMIC 
+ 300R                0805R-150        1    R9                           RESISTOR 0805 1/4 WATT THIN FILM 
+ 4K7                 0805R-4K7        3    R6, R7, R8                   RESISTOR 0805 1/4 WATT THIN FILM 
+ Arduino Pro Mini    Arduino Pro Mini    1    H6                           Arduino Pro Mini     
+ HEADER-1X2          HEADER-1X2       1    H7                                                
+ HEADER-1X3          HEADER-1X3       1    H4                                                
+ HEADER-1X6          HEADER-1X6       1    H3                                                
+ LED                 LED              3    D1, D2, D3                   Small LED            
+ LL4148              LL4148           4    M1D4, M2D4, M3D4, M4D4       Signal Diode         
+ LM2907              LM2907           4    M1U1, M2U1, M3U1, M4U1       Freq to Voltage Converter 
+ MMBT3904            SOT23-BCE        8    M1Q1, M1Q2, M2Q1, M2Q2, M3Q1 BC847 SMALL SIGNAL NPN TRANSISTOR 
+                                           M3Q2, M4Q1, M4Q2
+ Motor Header        Motor Header     4    M1H5, M2H5, M3H5, M4H5                            
+ PushButton          PushButton       1    PB1                                               
+ ToggleSwitch        SWITCHFOOTPRINT    1    SW1                                               

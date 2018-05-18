@@ -132,90 +132,98 @@ DocumentPath=Project Outputs for RWSv3a\RWSv3a.1
 DItemRevisionGUID=
 
 [GeneratedDocument3]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.DRR
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.BOM
 DItemRevisionGUID=
 
 [GeneratedDocument4]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.EXTREP
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.CSV
 DItemRevisionGUID=
 
 [GeneratedDocument5]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GBL
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument6]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GBO
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument7]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GBP
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GBL
 DItemRevisionGUID=
 
 [GeneratedDocument8]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GBS
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GBO
 DItemRevisionGUID=
 
 [GeneratedDocument9]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GKO
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GBP
 DItemRevisionGUID=
 
 [GeneratedDocument10]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GM1
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GBS
 DItemRevisionGUID=
 
 [GeneratedDocument11]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GM13
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GKO
 DItemRevisionGUID=
 
 [GeneratedDocument12]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GM15
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GM1
 DItemRevisionGUID=
 
 [GeneratedDocument13]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GM16
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GM13
 DItemRevisionGUID=
 
 [GeneratedDocument14]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GML
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GM15
 DItemRevisionGUID=
 
 [GeneratedDocument15]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GPB
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GM16
 DItemRevisionGUID=
 
 [GeneratedDocument16]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GPT
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GML
 DItemRevisionGUID=
 
 [GeneratedDocument17]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GTL
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GPB
 DItemRevisionGUID=
 
 [GeneratedDocument18]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GTO
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GPT
 DItemRevisionGUID=
 
 [GeneratedDocument19]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GTP
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GTL
 DItemRevisionGUID=
 
 [GeneratedDocument20]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.GTS
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GTO
 DItemRevisionGUID=
 
 [GeneratedDocument21]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.LDP
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GTP
 DItemRevisionGUID=
 
 [GeneratedDocument22]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.REP
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.GTS
 DItemRevisionGUID=
 
 [GeneratedDocument23]
-DocumentPath=Project Outputs for RWSv3a\RWSv3a.RUL
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.LDP
 DItemRevisionGUID=
 
 [GeneratedDocument24]
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.REP
+DItemRevisionGUID=
+
+[GeneratedDocument25]
+DocumentPath=Project Outputs for RWSv3a\RWSv3a.RUL
+DItemRevisionGUID=
+
+[GeneratedDocument26]
 DocumentPath=Project Outputs for RWSv3a\RWSv3a.TXT
 DItemRevisionGUID=
 
@@ -532,7 +540,7 @@ OutputDefault3=0
 [OutputGroup5]
 Name=Fabrication Outputs
 Description=
-TargetPrinter=HP LaserJet 2200 Series PCL 5
+TargetPrinter=Brother HL-5470DW series
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=CompositeDrill
 OutputName1=Composite Drill Drawing
@@ -608,38 +616,38 @@ Configuration12_Item1=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLaye
 [OutputGroup6]
 Name=Report Outputs
 Description=
-TargetPrinter=Microsoft Print to PDF
+TargetPrinter=Brother HL-5470DW series
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
-OutputType1=Script
-OutputName1=Script Output
+OutputType1=BOM_PartType
+OutputName1=Bill of Materials
 OutputDocumentPath1=
 OutputVariantName1=[No Variations]
 OutputDefault1=0
-OutputType2=SimpleBOM
-OutputName2=Simple BOM
+PageOptions1=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=1.00|XCorrection=1.00|YCorrection=1.00|PrintKind=1|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-3|MediaType=1|DitherType=10|PrintScaleMode=1|PaperKind=A4|PaperIndex=9
+OutputType2=ComponentCrossReference
+OutputName2=Component Cross Reference Report
 OutputDocumentPath2=
 OutputVariantName2=[No Variations]
 OutputDefault2=0
-Configuration2_Name1=OutputConfigurationParameter1
-Configuration2_Item1=Record=SimpleBOMView|SimpleBOMMode=0
-OutputType3=SinglePinNetReporter
-OutputName3=Report Single Pin Nets
+OutputType3=ReportHierarchy
+OutputName3=Report Project Hierarchy
 OutputDocumentPath3=
 OutputVariantName3=[No Variations]
 OutputDefault3=0
-OutputType4=BOM_PartType
-OutputName4=Bill of Materials
+OutputType4=Script
+OutputName4=Script Output
 OutputDocumentPath4=
 OutputVariantName4=[No Variations]
 OutputDefault4=0
-PageOptions4=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintScale=1.00|XCorrection=1.00|YCorrection=1.00|PrintKind=1|BorderSize=5000000|LeftOffset=0|BottomOffset=0|Orientation=2|PaperLength=1000|PaperWidth=1000|Scale=100|PaperSource=7|PrintQuality=-3|MediaType=1|DitherType=10|PrintScaleMode=1|PaperKind=A4|PaperIndex=9
-OutputType5=ComponentCrossReference
-OutputName5=Component Cross Reference Report
+OutputType5=SimpleBOM
+OutputName5=Simple BOM
 OutputDocumentPath5=
 OutputVariantName5=[No Variations]
 OutputDefault5=0
-OutputType6=ReportHierarchy
-OutputName6=Report Project Hierarchy
+Configuration5_Name1=OutputConfigurationParameter1
+Configuration5_Item1=Record=SimpleBOMView|SimpleBOMMode=0
+OutputType6=SinglePinNetReporter
+OutputName6=Report Single Pin Nets
 OutputDocumentPath6=
 OutputVariantName6=[No Variations]
 OutputDefault6=0
