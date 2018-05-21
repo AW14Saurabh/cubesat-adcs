@@ -203,12 +203,12 @@ void loop() {
     previousMillis = currentMillis;
     sensors_event_t eventG; 
     gyro.getEvent(&eventG);
-    wx = eventG.gyro.x;
-    wy = eventG.gyro.y;
-    wz = eventG.gyro.z;
+    wx = eventG.gyro.x - biasX;
+    wy = eventG.gyro.y - biasY;
+    wz = eventG.gyro.z - biasZ;
 
 
-    updateHeading(eventG.gyro.x - biasX, eventG.gyro.y - biasY, eventG.gyro.z - biasZ, dt);
+    updateHeading(wx, wy, wz, dt);
   
     rollDeg = getRoll();
     pitchDeg = getPitch();

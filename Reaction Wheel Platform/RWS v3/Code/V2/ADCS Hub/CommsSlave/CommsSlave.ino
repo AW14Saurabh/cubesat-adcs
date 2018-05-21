@@ -30,6 +30,16 @@
 #define POINT 1
 #define FILE_NAME "OBCdata.txt"
 
+#define NUM_GYRO_RX_FLOATS 7
+#define NUM_RWS_RX_INTS 4
+#define NUM_PWR_RX_INTS 2
+#define NUM_COMMS_TX_UINTS 1
+#define SIZE_FLOAT 4
+#define SIZE_UINT 2
+#define SIZE_INT 2
+#define TRANSMISSION_0 0
+#define TRANSMISSION_1 1
+
 
 RF24 radio(NRF_CE, NRF_CS);
 const byte rxAddr[6] = "00002";
@@ -42,43 +52,95 @@ float q0 = 0;
 float q1 = 0;
 float q2 = 0;
 float q3 = 0;
+int w1 = 0;
+int w2 = 0;
+int w3 = 0;
+int w4 = 0;
+int current = 0;
+int voltage = 0;
 
 
 
-union u_byte_uint {
- byte b[2];
+
+union uByteSevenFloat {
+ byte b[NUM_GYRO_RX_FLOATS*SIZE_FLOAT];
+ float val[NUM_GYRO_RX_FLOATS];
+} uGyroRx;
+
+union uByteFourInt {
+ byte b[NUM_RWS_RX_INTS*SIZE_INT];
+ int val[NUM_RWS_RX_INTS];
+} uRwsRx;
+
+union uByteTwoInt {
+  byte b[NUM_PWR_RX_INTS*SIZE_INT];
+  int val[NUM_PWR_RX_INTS];
+} uPwrRx;
+
+union uByteOneUInt {
+ byte b[NUM_COMMS_TX_UINTS*SIZE_UINT];
  unsigned int val;
-} uComms;
+} uCommsTx;
 
 
-union u_byte_float {
- byte b[28];
- float val[7];
-} uAtt;
 
-int uAttNumFloats = 7;
+
+
 
 void requestEvent() {
-  uComms.val = messageIn;
+  uCommsTx.val = messageIn;
   int i;
   for (i=0; i<2; i++){
-    Wire.write(uComms.b[i]); //2 bytes
+    Wire.write(uCommsTx.b[i]); //2 bytes
   }
 }
 
 void receiveEvent(int bytesIn) {
-  int i = 0;
-  while (Wire.available()) { // slave may send less than requested
-    uAtt.b[i] = Wire.read(); // receive a byte as character
+  int i;
+  byte data[100]; //big array to store input bytes
+  int offset;
+
+  i = 0;
+  while (Wire.available()) {
+    data[i] = Wire.read();
     i = i + 1;
   }
-  wx = uAtt.val[0];
-  wy = uAtt.val[1];
-  wz = uAtt.val[2];
-  q0 = uAtt.val[3];
-  q1 = uAtt.val[4];
-  q2 = uAtt.val[5];
-  q3 = uAtt.val[6];
+  
+  if (data[0] == TRANSMISSION_0){
+    offset = 1;
+    for (i=0; i<NUM_GYRO_RX_FLOATS*SIZE_FLOAT; i++){
+      uGyroRx.b[i] = data[i + offset];
+    }
+    wx = uGyroRx.val[0];
+    wy = uGyroRx.val[1];
+    wz = uGyroRx.val[2];
+    q0 = uGyroRx.val[3];
+    q1 = uGyroRx.val[4];
+    q2 = uGyroRx.val[5];
+    q3 = uGyroRx.val[6];
+    
+  } else if (data[0] == TRANSMISSION_1){
+    offset = 1;
+    for (i=0; i<NUM_RWS_RX_INTS*SIZE_INT; i++){
+      uRwsRx.b[i] = data[offset+i];
+    }
+    offset += i;
+    for (i=0; i<NUM_PWR_RX_INTS*SIZE_INT; i++){
+      uPwrRx.b[i] = data[offset+i];
+    }
+    w1 = uRwsRx.val[0];
+    w2 = uRwsRx.val[1];
+    w3 = uRwsRx.val[2];
+    w4 = uRwsRx.val[3];
+    
+    current = uPwrRx.val[0];
+    voltage = uPwrRx.val[1];
+  }
+  
+  
+  
+
+  
 }
 
 
@@ -98,7 +160,7 @@ void setup(void){
   digitalWrite(SD_CS, HIGH);
   
   Serial.begin(9600);
-  Wire.begin(ARDUINO_COMMS);                // join i2c bus with address #10
+  Wire.begin(ARDUINO_COMMS);
   Wire.onRequest(requestEvent); // register event
   Wire.onReceive(receiveEvent); // register event
   
@@ -110,9 +172,6 @@ void setup(void){
   SD.begin(SD_CS);
 
   
-  //=================================
-  // STARTUP ROUTINE
-  //=================================
   dataFile = SD.open(FILE_NAME, FILE_WRITE);
   if(dataFile){
     dataFile.println();
@@ -153,6 +212,8 @@ void loop(void){
     mode = message >> 14;
     message = message & ((unsigned int)B10111111*256 + B11111111);    
     angleTarg = constrain(message*2*PI/16383.0,0,2*PI);
+
+    //toggle Green LED when radio message received
     if (ledGOn){
       digitalWrite(LED_G, LOW);
       ledGOn = false;
@@ -161,30 +222,21 @@ void loop(void){
       ledGOn = true;
     }
   }
-/*
-    //i = 0; //radio 'watchdog' reset - see below
-    if (mode == DETUMBLE){
-      digitalWrite(LED_B, LOW);
-    } else {
-      digitalWrite(LED_B, HIGH);
-    }
-    if (enableState == DISABLED){
-      digitalWrite(LED_G, LOW);
-    } else {
-      digitalWrite(LED_G, HIGH);
-    }
-*/
 
 
 
   String strC = "c:" + String(angleTarg,4) + "," + String(mode) + "," + String(enableState) + " ";
   String strW = "w:" + String(wx,4) + "," + String(wy,4) + "," + String(wz,4) + " ";
   String strQ = "q:" + String(q0,6) + "," + String(q1,6) + "," + String(q2,6) + " " + String(q3,6) + " ";
+  String strWh = "wh:" + String(w1) + "," + String(w2) + "," + String(w3) + "," + String(w4) + " ";
+  String strP = "p:" + String(current) + "," + String(voltage) + " ";
   Serial.print(currentMillis);
   Serial.print(" ");
   Serial.print(strC);
   Serial.print(strW);
   Serial.print(strQ);
+  Serial.print(strWh);
+  Serial.print(strP);
   Serial.println();
 
 
@@ -196,6 +248,8 @@ void loop(void){
     dataFile.print(strC);
     dataFile.print(strW);
     dataFile.print(strQ);
+    dataFile.print(strWh);
+    dataFile.print(strP);
     dataFile.println();
     dataFile.close();
     if (ledBOn){
