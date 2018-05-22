@@ -27,7 +27,7 @@ function Pr = initParams() % things that don't change
     Pr.satI = 2.2E-03;                	% mass moment of inertia of 1U satellite (approximated as a uniform 1.33kg 10cm^3 cube)
     Pr.simDt = 0.001;                     % simulation time step (s)
     Pr.simDuration = 0.5;                 % length of simulation (s)
-    Pr.motorMaxW = 6700/60*360/180*pi;  % 2610T006B SC motor max speed (rad/s) %update this from characterisation data
+    Pr.motorMaxW = 13300/60*360/180*pi;  % 2610T006B SC motor max speed (rad/s) %update this from characterisation data
     Pr.targetTh = 90/180*pi;
     Pr.motorMaxT = 6*0.001;         % max torque of motor (N)
     %implied parameters

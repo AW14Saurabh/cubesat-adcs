@@ -1,14 +1,14 @@
-// Program for ADCS Hub Arduino 1 (linked to Gyro + Magnetometer)
-// Gathers data from gyro using SoftI2C Library + keeps track of orientation by dead reckoning
-// Yellow LED toggles each time the gyro is polled; push button resets orientation to 0,0,180
-// Sensors:
-// - L3GD20H (Gyro)
 // Author: Mark Yeo
 // Last Modified 2018-05-18
+// Program for ADCS Hub Arduino 1 (linked to Gyro + Magnetometer)
+// Gathers data from a L3GD20H gyro using SoftI2C Library + keeps track of orientation by dead reckoning
+// Yellow LED toggles each time the gyro is polled; push button resets orientation to [0,0,180]
 
 //Note: The L3GD20H gyro library has been modified to work with SoftI2C.
-//Side note: Arduino 1 is also hooked up to a QMC5883 compass (cheap Chinese version of the HMC5883). I don't actually need it but it's there for future use.
-//           You'll probably need to modify a QMC5883 library to work with SoftI2C if you want to use it. Btw HMC5883 libraries don't work w/ the QMC5883 out of the box
+//Side note: Arduino 1 on the ADCS Hub is also hooked up to a QMC5883 compass (cheap Chinese version of the HMC5883).
+//  RWS doesn't actually need it but it's there for future use - if you want to use it you'll probably
+//  need to modify a QMC5883 library to work with SoftI2C . Btw HMC5883 libraries don't work w/ the
+//  QMC5883 out of the box.
 
 
 #include <Wire.h>
@@ -16,7 +16,7 @@
 #include <Adafruit_L3GD20_U_SOFTI2C.h>
 
 
-#define ARDUINO_GYRO  8
+#define ARDUINO_GYRO  1
 #define MIN_SAMPLE_TIME 30  //sets the minimum amount of time to wait between measurements
 #define LED_Y 6
 #define PB    5
@@ -40,6 +40,9 @@ float pitchDeg = 0;
 float yawDeg = 0;
 char messageOut[60];
 int dt = 0;
+
+
+
 
 void initHeading(){
   q0 = 1.0f;

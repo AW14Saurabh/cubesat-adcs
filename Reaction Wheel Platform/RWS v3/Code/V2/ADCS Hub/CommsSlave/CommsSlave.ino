@@ -5,7 +5,6 @@
 // - turns on/off LEDs based on rx'd messages
 // Message structure: unsigned int ABCCCCCC CCCCCCCC where A = enableState; B = mode; C = constrain(map(yawRad, 0, PI, 0, 16383),0,16383);
 
-
 // Note: blue eBay uSD card modules don't implement CS properly for MISO (MISO becomes high impedance when CS is high)
 //    To fix - the SN74LVC's pin 13 (MISO enable') needs to be lifted off the PCB (PCB grounds it) and connected to pin 8 (3v3-levelled CS)
 //    Pics:   https://forum.arduino.cc/index.php?PHPSESSID=ad30vsgq95h1dmu6gnp0m0udi2&action=dlattach;topic=360718.0;attach=182222
@@ -18,7 +17,7 @@
 #include <RF24.h>
 #include <SD.h>
 
-#define ARDUINO_COMMS  10
+#define ARDUINO_COMMS  2
 #define LED_G 6
 #define LED_B 9
 #define SD_CS 16
@@ -42,7 +41,7 @@
 
 
 RF24 radio(NRF_CE, NRF_CS);
-const byte rxAddr[6] = "00002";
+const byte rxAddr[6] = "00020";
 File dataFile;
 unsigned int messageIn = 0;
 float wx = 0;
@@ -144,6 +143,7 @@ void receiveEvent(int bytesIn) {
 }
 
 
+int startmillis;
 
 void setup(void){
   //=================================
@@ -186,6 +186,7 @@ void setup(void){
   // Ready!
   digitalWrite(LED_G, LOW);
   digitalWrite(LED_B, LOW);
+  startmillis = millis();
 }
 
 
@@ -204,6 +205,18 @@ void loop(void){
   //Check for any radio messages
   if (radio.available()){
     radio.read(&messageIn, sizeof(messageIn));
+
+    //TEMPORARY RADIO BYPASS
+    mode = DETUMBLE;
+    if (millis()-startmillis < 15000){
+      enableState = DISABLED;
+    } else {
+      enableState = ENABLED;
+    }
+    angleTarg = 0;
+    messageIn = constrain((angleTarg+PI)*16383.0/(2*PI),0,16383);
+    messageIn += enableState *  ((unsigned int)B10000000*256 + B00000000);
+    messageIn += mode *         (B01000000*256 + B00000000);
 
 
     unsigned int message = messageIn;

@@ -12,9 +12,9 @@
 #define RWS_I  A3
 #define RWS_V  A2
 
-#define ARDUINO_GYRO  8
-#define ARDUINO_COMMS  10
-#define ARDUINO_RWS   12
+#define ARDUINO_GYRO  1
+#define ARDUINO_COMMS  2
+#define ARDUINO_RWS   3
 
 #define NUM_GYRO_RX_FLOATS 7
 #define NUM_RWS_TX_FLOATS 7
