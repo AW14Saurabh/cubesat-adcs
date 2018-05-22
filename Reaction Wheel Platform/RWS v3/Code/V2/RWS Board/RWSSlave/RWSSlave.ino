@@ -115,6 +115,11 @@ void receiveEvent(int howMany) {
   message = message & ((unsigned int)B10111111*256 + B11111111);    
   angleTarg = constrain(message*2*PI/16383.0,0,2*PI);
 
+
+  //TEMPORARY COMMS BYPASS
+  //enableState = ENABLED;
+  //mode = POINT;
+  //angleTarg = -PI/2;
 }
 
 void requestEvent() {
@@ -146,12 +151,27 @@ void detumbleController(float reqWheelCombDH[], int dtMillis){
     
 }
 
+void calcEul(float theta[]){
+  theta[0] = atan2f(q0*q1 + q2*q3, 0.5f - q1*q1 - q2*q2);
+  theta[1] = asinf(-2.0f * (q1*q3 - q0*q2));
+  theta[2] = atan2f(q1*q2 + q0*q3, 0.5f - q2*q2 - q3*q3);
+}
 
 void pointController(float reqWheelCombDH[], int dtMillis){
   int i;
+  float theta[3];
+  calcEul(theta);
+  int axis = 2; //0 = roll, 1 = pitch, 2 = yaw
+  float error = angleTarg - theta[axis];
+  float P = -0.01;
+  float D = 0.05;
+  float axisDH = P*error + D*satW[axis];
+  axisDH *= (float)dtMillis/1000.0;
   for (i=0; i<3; i++){
     reqWheelCombDH[i] = 0;
   }
+  reqWheelCombDH[axis] = axisDH;
+  //reqWheelCombDH[axis+1] = axisDH;
 }
 
 
@@ -212,7 +232,7 @@ void calculateWheelWs(float reqWheelCombDH[], int dtMillis){
 
   
   //if pushbutton is pressed, reset motors to midpoint operation range
-  int pbVal = 500;
+  int pbVal = 754;
   if (digitalRead(PUSHBUTTON) == HIGH){
     for (i=0; i<4; i++){
       motorW[i] = pbVal;
@@ -257,20 +277,20 @@ void motorOut(){
 
 
 void motorDisable(){
-  /*
+  //set motor speeds to 0
   analogWrite(MOT1_SPD, 255);
   analogWrite(MOT2_SPD, 255);
   analogWrite(MOT3_SPD, 255);
   analogWrite(MOT4_SPD, 255);
-  */
-  
+}
+
+void motorReset(){
   //reset motors to midpoint operation range
-  int pbVal = 500;
+  int pbVal = 754;
   int i;
   for (i=0; i<4; i++){
     motorW[i] = pbVal;
   }
-  
 }
 
 
@@ -331,7 +351,8 @@ void loop() {
   if (enableState == ENABLED){
     motorOut();
   } else {
-    motorDisable();
+    //motorDisable();
+    motorReset();
     motorOut();
     digitalWrite(LED_G, LOW);
     digitalWrite(LED_B, LOW);
@@ -347,13 +368,8 @@ void loop() {
 
   
   
-  if (mode == POINT){
-    digitalWrite(LED_G, HIGH);
-    
-  }
-  
   //Debug printfs
-  
+  /*
   String strC = "c:" + String(angleTarg,4) + "," + String(mode) + "," + String(enableState) + " ";
   String strW = "w:" + String(satW[0],4) + "," + String(satW[1],4) + "," + String(satW[2],4) + " ";
   String strQ = "q:" + String(q0,6) + "," + String(q1,6) + "," + String(q2,6) + " " + String(q3,6) + " ";
@@ -362,7 +378,7 @@ void loop() {
   Serial.print(strC);
   Serial.print(strW);
   Serial.print(strQ);
-  
+  */
   Serial.println();
 
   delay(100);

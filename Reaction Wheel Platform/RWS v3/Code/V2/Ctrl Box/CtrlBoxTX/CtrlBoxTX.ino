@@ -32,7 +32,7 @@
 
 
 RF24 radio(NRF_CE, NRF_CS);
-const byte rxAddr[6] = "00020";
+const byte rxAddr[6] = "00062";
 Adafruit_L3GD20_Unified gyro = Adafruit_L3GD20_Unified(20); //assign unique ID
 
 int updateTime = 50; //ms

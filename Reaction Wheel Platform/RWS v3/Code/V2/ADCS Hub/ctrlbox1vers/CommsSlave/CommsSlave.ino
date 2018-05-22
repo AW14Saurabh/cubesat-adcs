@@ -31,7 +31,7 @@
 
 
 RF24 radio(NRF_CE, NRF_CS);
-const byte rxAddr[6] = "00002";
+const byte rxAddr[6] = "00001";
 File dataFile;
 
 

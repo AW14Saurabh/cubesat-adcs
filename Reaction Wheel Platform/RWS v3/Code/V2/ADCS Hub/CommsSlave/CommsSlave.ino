@@ -41,7 +41,7 @@
 
 
 RF24 radio(NRF_CE, NRF_CS);
-const byte rxAddr[6] = "00020";
+const byte rxAddr[6] = "00062";
 File dataFile;
 unsigned int messageIn = 0;
 float wx = 0;
@@ -206,9 +206,10 @@ void loop(void){
   if (radio.available()){
     radio.read(&messageIn, sizeof(messageIn));
 
+/*
     //TEMPORARY RADIO BYPASS
     mode = DETUMBLE;
-    if (millis()-startmillis < 15000){
+    if (millis()-startmillis < 5000){
       enableState = DISABLED;
     } else {
       enableState = ENABLED;
@@ -217,7 +218,7 @@ void loop(void){
     messageIn = constrain((angleTarg+PI)*16383.0/(2*PI),0,16383);
     messageIn += enableState *  ((unsigned int)B10000000*256 + B00000000);
     messageIn += mode *         (B01000000*256 + B00000000);
-
+*/
 
     unsigned int message = messageIn;
     enableState = message >> 15;
