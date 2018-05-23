@@ -27,7 +27,7 @@
 #define SIZE_INT 2
 #define TRANSMISSION_0 0
 #define TRANSMISSION_1 1
-
+#define MIN_RWS_TX_TIME 100 //ms
 
 
 union uByteSevenFloat {
@@ -54,12 +54,13 @@ union uByteTwoInt {
 
 
 
-
+unsigned long prevRWSMillis;
 
 
 void setup() {
   Wire.begin();        // join i2c bus (address optional for master)
-  Serial.begin(9600);  // start serial for output
+  //Serial.begin(9600);  // start serial for output
+  prevRWSMillis = millis();
 }
 
 
@@ -67,17 +68,7 @@ void setup() {
 void loop() {
   int i;
   byte data[100]; //big array to store input bytes
-
   // Request Data from Comms Arduino
-  Wire.requestFrom(ARDUINO_COMMS, NUM_COMMS_RX_UINTS*SIZE_UINT);    // request 2 bytes from Comms Arduino
-  i = 0;
-  while (Wire.available()) {
-    data[i] = Wire.read(); // receive a byte as character
-    i = i + 1;
-  }
-  for (i=0; i<NUM_COMMS_RX_UINTS*SIZE_UINT; i++){
-    uCommsRx.b[i] = data[i];
-  }
 
   // Request Data from Gyro Arduino
   Wire.requestFrom(ARDUINO_GYRO, NUM_GYRO_RX_FLOATS*SIZE_FLOAT);    // request 7 floats from Attitude Arduino
@@ -89,6 +80,31 @@ void loop() {
   for (i=0; i<NUM_GYRO_RX_FLOATS*SIZE_FLOAT; i++){
     uGyroRx.b[i] = data[i];
   }
+  
+  unsigned long currMillis = millis();
+  if (currMillis - prevRWSMillis > MIN_RWS_TX_TIME){
+    Wire.requestFrom(ARDUINO_COMMS, NUM_COMMS_RX_UINTS*SIZE_UINT);    // request 2 bytes from Comms Arduino
+    i = 0;
+    while (Wire.available()) {
+      data[i] = Wire.read(); // receive a byte as character
+      i = i + 1;
+    }
+    for (i=0; i<NUM_COMMS_RX_UINTS*SIZE_UINT; i++){
+      uCommsRx.b[i] = data[i];
+    }
+  
+    // Send Data to RWS Arduino
+    Wire.beginTransmission(ARDUINO_RWS);
+    for (i=0; i<NUM_GYRO_RX_FLOATS*SIZE_FLOAT; i++){  //forward data from gyro arduino to rws arduino
+      Wire.write(uGyroRx.b[i]);
+    }
+    for (i=0; i<NUM_COMMS_RX_UINTS*SIZE_UINT; i++){  //forward data from comms arduino to rws arduino
+      Wire.write(uCommsRx.b[i]);
+    }
+    Wire.endTransmission();
+  }
+
+
 
 
   // Request Data from RWS Arduino
@@ -101,23 +117,6 @@ void loop() {
   for (i=0; i<NUM_RWS_RX_INTS*SIZE_INT; i++){
     uRwsRx.b[i] = data[i];
   }
-
-  
-
-
-  // Send Data to RWS Arduino
-  Wire.beginTransmission(ARDUINO_RWS);
-  for (i=0; i<NUM_GYRO_RX_FLOATS*SIZE_FLOAT; i++){  //forward data from gyro arduino to rws arduino
-    Wire.write(uGyroRx.b[i]);
-  }
-  for (i=0; i<NUM_COMMS_RX_UINTS*SIZE_UINT; i++){  //forward data from comms arduino to rws arduino
-    Wire.write(uCommsRx.b[i]);
-  }
-  Wire.endTransmission();
-
-
-
-
 
 
 
@@ -154,6 +153,10 @@ void loop() {
   }
   Wire.endTransmission();
 
+
+
+
+
 //if i2c values are all messed up, check you have the right address + you're sending/rx'ing 32 bytes or less
 
 
@@ -162,7 +165,7 @@ void loop() {
 
 
 
-
+/*
   //Debug messages
   for (i=0; i<NUM_GYRO_RX_FLOATS; i++){
     Serial.print(uGyroRx.val[i]);
@@ -176,6 +179,6 @@ void loop() {
     Serial.print(" ");
   }
   Serial.println();
-
-  delay(100);
+*/
+//  delay(100);
 }

@@ -202,6 +202,7 @@ void setup(void){
 
 unsigned long previousGyroMillis = 0;
 unsigned long previousTxMillis = 0;
+float angleOut = 0;
 
 void loop(void){
   unsigned long currentMillis = millis();
@@ -255,10 +256,26 @@ void loop(void){
       digitalWrite(LED_B, HIGH);
     }
   }
+  
+  //angleOut = yawRad; //comment out if using below code
+  
+  if (Serial.available() > 0) {
+    char charIn = Serial.read();
+    if (charIn == 'a'){
+      angleOut = 0;
+    } else if (charIn == 'b'){
+      angleOut = PI/2;
+    } else if (charIn == 'c'){
+      angleOut = PI;
+    } else if (charIn == 'd'){
+      angleOut = -PI/2;
+    }
+  }
+  
   if (txDt >= MIN_TX_TIME) {
     previousTxMillis = currentMillis;
     
-    unsigned int message = constrain((yawRad+PI)*16383.0/(2*PI),0,16383);
+    unsigned int message = constrain((angleOut+PI)*16383.0/(2*PI),0,16383);
     message += enableState *  ((unsigned int)B10000000*256 + B00000000);
     message += mode *         (B01000000*256 + B00000000);
     radio.write(&message, sizeof(message));

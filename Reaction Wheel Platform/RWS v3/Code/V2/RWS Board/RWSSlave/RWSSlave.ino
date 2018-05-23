@@ -27,6 +27,7 @@
 #define MOTOR_MAX_ACCEL 248.8 //rad/s
 #define WHEEL_I 1.41E-05
 #define MAX_MOTOR_W 1376 //rad/s (measured)
+#define MOTOR_MIDDLE_SPEED 754 //rad/s (non-zero minimum speed)
 
 // Motor interface pins
 #define MOT1_SPD 10
@@ -139,7 +140,9 @@ void detumbleController(float reqWheelCombDH[], int dtMillis){
     //simple P controller
     float error[3];
     int i;
-    float P = -0.05;
+    float P = -0.05;  //calibrated for air bearing
+    //float P = -0.003;  //for stairwell suspension test
+    
     for (i=0; i<3; i++){
       error[i] = 0 - satW[i]; //target w is [0,0,0]
       reqWheelCombDH[i] = P*error[i];
@@ -161,17 +164,34 @@ void pointController(float reqWheelCombDH[], int dtMillis){
   int i;
   float theta[3];
   calcEul(theta);
-  int axis = 2; //0 = roll, 1 = pitch, 2 = yaw
+  int axis = 0; //0 = roll, 1 = pitch, 2 = yaw
+  //angleTarg = 0;
   float error = angleTarg - theta[axis];
-  float P = -0.01;
-  float D = 0.05;
+
+
+  //take shortest path (ignores current w)
+  while (error > PI){
+    error -= 2*PI;
+  }
+  while (error <= -PI){
+    error += 2*PI;
+  }
+  
+  Serial.print(angleTarg);
+  Serial.print(" ");
+  Serial.println(theta[axis]);
+  float P = -0.01;  //calibrated for air bearing
+  float D = 0.05;   //calibrated for air bearing
+  //float P = -0.0002;  //for stairwell suspension test //-0.001 for z
+  //float D = 0.002;   //for stairwell suspension test //0.003 for z
   float axisDH = P*error + D*satW[axis];
   axisDH *= (float)dtMillis/1000.0;
   for (i=0; i<3; i++){
     reqWheelCombDH[i] = 0;
   }
   reqWheelCombDH[axis] = axisDH;
-  //reqWheelCombDH[axis+1] = axisDH;
+  reqWheelCombDH[axis+1] = axisDH; //for rotation about +x+y axis
+  reqWheelCombDH[axis+2] = axisDH; //+x+y+z (untested)
 }
 
 
@@ -232,7 +252,7 @@ void calculateWheelWs(float reqWheelCombDH[], int dtMillis){
 
   
   //if pushbutton is pressed, reset motors to midpoint operation range
-  int pbVal = 754;
+  int pbVal = MOTOR_MIDDLE_SPEED;
   if (digitalRead(PUSHBUTTON) == HIGH){
     for (i=0; i<4; i++){
       motorW[i] = pbVal;
@@ -286,7 +306,7 @@ void motorDisable(){
 
 void motorReset(){
   //reset motors to midpoint operation range
-  int pbVal = 754;
+  int pbVal = MOTOR_MIDDLE_SPEED;
   int i;
   for (i=0; i<4; i++){
     motorW[i] = pbVal;
@@ -381,7 +401,7 @@ void loop() {
   */
   Serial.println();
 
-  delay(100);
+  delay(10);
 }
 
 

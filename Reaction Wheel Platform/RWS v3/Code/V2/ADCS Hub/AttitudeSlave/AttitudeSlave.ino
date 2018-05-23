@@ -178,7 +178,7 @@ void requestEvent() {
 
 
 void setup() {
-  Serial.begin(9600);
+  //Serial.begin(9600);
   Wire.begin(ARDUINO_GYRO);                // join i2c bus with address #8
   Wire.onRequest(requestEvent); // register event
   pinMode(LED_Y, OUTPUT);
@@ -216,7 +216,7 @@ void loop() {
     rollDeg = getRoll();
     pitchDeg = getPitch();
     yawDeg = getYaw();
-
+/*
     char strT[25];
     sprintf(strT, "%lu %d ", currentMillis, dt);
     String strW = "g:" + String(wx,4) + "," + String(wy,4) + "," + String(wz,4) + " ";
@@ -226,7 +226,7 @@ void loop() {
     Serial.print(strW);
     Serial.print(strR);
     Serial.println();
-
+*/
     if (ledOn){
       digitalWrite(LED_Y, LOW);
       ledOn = false;

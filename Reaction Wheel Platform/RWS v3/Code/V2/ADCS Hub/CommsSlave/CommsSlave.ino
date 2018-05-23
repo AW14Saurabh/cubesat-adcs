@@ -159,7 +159,7 @@ void setup(void){
   digitalWrite(NRF_CS, LOW);
   digitalWrite(SD_CS, HIGH);
   
-  Serial.begin(9600);
+  //Serial.begin(9600);
   Wire.begin(ARDUINO_COMMS);
   Wire.onRequest(requestEvent); // register event
   Wire.onReceive(receiveEvent); // register event
@@ -238,12 +238,14 @@ void loop(void){
   }
 
 
-
+/*
   String strC = "c:" + String(angleTarg,4) + "," + String(mode) + "," + String(enableState) + " ";
   String strW = "w:" + String(wx,4) + "," + String(wy,4) + "," + String(wz,4) + " ";
   String strQ = "q:" + String(q0,6) + "," + String(q1,6) + "," + String(q2,6) + " " + String(q3,6) + " ";
   String strWh = "wh:" + String(w1) + "," + String(w2) + "," + String(w3) + "," + String(w4) + " ";
   String strP = "p:" + String(current) + "," + String(voltage) + " ";
+  */
+  /*
   Serial.print(currentMillis);
   Serial.print(" ");
   Serial.print(strC);
@@ -252,8 +254,12 @@ void loop(void){
   Serial.print(strWh);
   Serial.print(strP);
   Serial.println();
-
-
+*/
+  String strC = String(angleTarg,4) + "," + String(mode) + "," + String(enableState) + ",";
+  String strW = String(wx,4) + "," + String(wy,4) + "," + String(wz,4) + ",";
+  String strQ = String(q0,6) + "," + String(q1,6) + "," + String(q2,6) + " " + String(q3,6) + ",";
+  String strWh = String(w1) + "," + String(w2) + "," + String(w3) + "," + String(w4) + ",";
+  String strP = String(current) + "," + String(voltage) + ",";
   
   dataFile = SD.open(FILE_NAME, FILE_WRITE);
   if(dataFile){
@@ -276,7 +282,7 @@ void loop(void){
   }
 
 
-  delay(updateTime);
+  //delay(updateTime);
   
 }
 
