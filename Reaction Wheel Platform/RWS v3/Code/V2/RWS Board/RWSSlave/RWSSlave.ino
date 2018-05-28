@@ -164,7 +164,7 @@ void pointController(float reqWheelCombDH[], int dtMillis){
   int i;
   float theta[3];
   calcEul(theta);
-  int axis = 0; //0 = roll, 1 = pitch, 2 = yaw
+  int axis = 2; //0 = roll, 1 = pitch, 2 = yaw
   //angleTarg = 0;
   float error = angleTarg - theta[axis];
 
@@ -190,8 +190,8 @@ void pointController(float reqWheelCombDH[], int dtMillis){
     reqWheelCombDH[i] = 0;
   }
   reqWheelCombDH[axis] = axisDH;
-  reqWheelCombDH[axis+1] = axisDH; //for rotation about +x+y axis
-  reqWheelCombDH[axis+2] = axisDH; //+x+y+z (untested)
+  //reqWheelCombDH[axis+1] = axisDH; //for rotation about +x+y axis
+  //reqWheelCombDH[axis+2] = axisDH; //+x+y+z (untested)
 }
 
 
@@ -401,7 +401,7 @@ void loop() {
   */
   Serial.println();
 
-  delay(10);
+  delay(100);
 }
 
 

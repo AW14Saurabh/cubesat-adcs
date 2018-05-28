@@ -9,8 +9,8 @@ function RWSModel()
     Datalog = initDatalog(Pr);
     
     for iteration = 1:Pr.simIters
-        St = detumbleControllerQuat(St,Pr);
-        %St = pointController(St,Pr);
+        %St = detumbleControllerQuat(St,Pr);
+        St = pointController(St,Pr);
         St = calcWheelSpeeds(St,Pr);
         St = updateStateModel(St,Pr);
         Datalog = updateDatalog(St,Datalog,iteration);
@@ -20,14 +20,14 @@ end
 
 function Pr = initParams() % things that don't change
     Pr.satThStart = angle2quat(0,0,0);	% initial heading angle of RWS (quaternion)
-    Pr.satWStart = [1.0,2.0,3.0];             % initial angular velocity of RWS
+    Pr.satWStart = [0.0,0.0,0.0];             % initial angular velocity of RWS
     Pr.motorWStart = [0,0,0,0];        % initial motor speeds (1x scalar per motor)
     
     Pr.wheelI = 1.41E-05;               % mass moment of inertia of motor + wheel (motor est. as uniform cylinder)
     Pr.satI = 2.2E-03;                	% mass moment of inertia of 1U satellite (approximated as a uniform 1.33kg 10cm^3 cube)
     Pr.simDt = 0.001;                     % simulation time step (s)
-    Pr.simDuration = 0.5;                 % length of simulation (s)
-    Pr.motorMaxW = 13300/60*360/180*pi;  % 2610T006B SC motor max speed (rad/s) %update this from characterisation data
+    Pr.simDuration = 5;                 % length of simulation (s)
+    Pr.motorMaxW = 6700/60*360/180*pi;  %13300 2610T006B SC motor max speed (rad/s) %update this from characterisation data
     Pr.targetTh = 90/180*pi;
     Pr.motorMaxT = 6*0.001;         % max torque of motor (N)
     %implied parameters
@@ -199,7 +199,7 @@ function plotDatalog(Pr,Datalog)
     hold on;
     plot(t,satW(:,2),'m');                  %pitch
     plot(t,satW(:,3),'r');                  %roll
-    title('Sat w');
+    title('Sat \omega');
     %axis([0,Pr.simDuration,-180,180]);
     hold off;
     
@@ -213,7 +213,7 @@ function plotDatalog(Pr,Datalog)
     hold on;
     plot(t,satTh(:,2),'m');                 %pitch
     plot(t,satTh(:,3),'r');                 %roll
-    title('Sat Th');
+    title('Sat Heading');
     axis([0,Pr.simDuration,-180,180]);
     
     % graph error in sat heading angle (roll pitch yaw)
@@ -225,7 +225,7 @@ function plotDatalog(Pr,Datalog)
     hold on;
     plot(t,satTh(:,2),'m');                 %pitch
     plot(t,satTh(:,3),'r');                 %roll
-    title('Sat Th Error');
+    title('Sat Heading Error');
     %axis([0,Pr.simDuration,-180,180]);
     
     
@@ -238,8 +238,8 @@ function plotDatalog(Pr,Datalog)
     arrowY = vrot(:,2);
     arrowZ = vrot(:,3);
     Os = zeros(Pr.simIters,1);
-    quiver3(Os(nth:nth:end),Os(nth:nth:end),Os(nth:nth:end),arrowX(nth:nth:end),arrowY(nth:nth:end),arrowZ(nth:nth:end),1);
-    title('RW-ADCS Heading');
+    quiver3(Os(nth:nth:end),Os(nth:nth:end),Os(nth:nth:end),arrowX(nth:nth:end),arrowY(nth:nth:end),arrowZ(nth:nth:end),1,'b');
+    title('Sat Heading');
     axis([-1,1,-1,1,-1,1]);
     hold on;
     
@@ -253,7 +253,7 @@ function plotDatalog(Pr,Datalog)
     plot(t,Datalog.motorW(:,2),'g'); %motor 2
     plot(t,Datalog.motorW(:,3),'b'); %motor 3
     plot(t,Datalog.motorW(:,4),'color', [0.8 0.8 0]); %motor 3
-    title('Motor Ws');
+    title('Motor \omegas');
     %axis([0,Pr.simDuration,-180,180]);
     
     %Animate RWS heading:

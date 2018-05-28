@@ -1,17 +1,18 @@
 
 function Grapher()
     clear;
-    [v,T,vT]=xlsread('2PointZ.xlsx');
+    [v,T,vT]=xlsread('0Control.xlsx');
     %v: Double
     %T and vT : cell
     %use v containing numbers 
     tSec = v(:,1)/1000;
     tRange = find(tSec);
-    tRange = find(tSec>5.7 & tSec<30);
+    tRange = find(tSec>53 & tSec<253);
     t = (tSec(tRange)-tSec(tRange(1)));
     wx = v(tRange,7);
     wy = v(tRange,8);
     wz = v(tRange,9);
+    targAng = v(tRange,3)
     ena = v(tRange,5)/1000*20-0.05;
     
     q0 = v(tRange,11);
@@ -24,6 +25,10 @@ function Grapher()
     pitch = eul(:,2);
     yaw = eul(:,1);
     
+    adjAng = find(targAng>pi);
+    targAng(adjAng) = targAng(adjAng)-(2*pi);
+
+    
     wh1 = v(tRange,16);
     wh2 = v(tRange,17);
     wh3 = v(tRange,18);
@@ -33,12 +38,10 @@ function Grapher()
     wh3 = 2*pi/6*(wh3-1.0806)/0.3832;
     wh4 = 2*pi/6*(wh4-1.0806)/0.3832;
     
-    current = -v(tRange,21)/267.31+2.0577;
-    voltage = v(tRange,22)*0; %to calibrate
-    
-    
-    
-    
+
+    current = -current/267.31+2.0577;
+    voltage = voltage*0.019+0.0328;
+    power = current.*voltage;
     
     
     
@@ -46,7 +49,7 @@ function Grapher()
     
     
     figure(1);
-    titleText = 'Air Bearing, Detumble CCW around Z+';
+    titleText = 'Air Bearing Control Test';
     
     subplot(2,2,1);
     hold off;
@@ -54,14 +57,14 @@ function Grapher()
     hold on;
     plot(t,wy,'m');
     plot(t,wz,'color', [0.8 0.8 0]);
-    ena = v(tRange,5)/1000*20-0.05;
-    plot(t,ena,'b');
-    title(titleText);
+    %ena = v(tRange,5)/1000*20-0.05;
+    %plot(t,ena,'b');
+    title('Satellite Angular Velocity');
     xlabel('Time (s)');
-    ylabel('Satellite \omega (rad/s)');
+    ylabel('\omega (rad/s)');
     legend('X-axis','Y-axis','Z-axis','Control');
     
-    subplot(2,2,2);
+    subplot(2,2,3);
     hold off;
     plot(t,roll,'r');
     hold on;
@@ -69,12 +72,12 @@ function Grapher()
     plot(t,yaw,'color', [0.8 0.8 0]);
     ena = v(tRange,5)/1000*200-0.5;
     plot(t,ena,'b');
-    title(titleText);
+    title('Satellite Heading');
     xlabel('Time (s)');
-    ylabel('Satellite Heading (rad)');
+    ylabel('Heading (rad)');
     legend('X-axis','Y-axis','Z-axis','Control');
 
-    subplot(2,2,3);
+    subplot(2,2,2);
     hold off;
     plot(t,wh1,'r');
     hold on;
@@ -83,9 +86,11 @@ function Grapher()
     plot(t,wh4,'c');
     ena = v(tRange,5)*50;
     plot(t,ena,'b');
-    title(titleText);
+    %ta = (targAng/pi+1)*200;
+    %plot(t,ta,'c');
+    title('Motor Speeds');
     xlabel('Time (s)');
-    ylabel('Wheel Speed (rad/s)');
+    ylabel('\omega (rad/s)');
     legend('Wheel 1','Wheel 2','Wheel 3', 'Wheel 4','Control');
     
     subplot(2,2,4);
@@ -95,10 +100,11 @@ function Grapher()
     plot(t,voltage,'r');
     ena = v(tRange,5)/1000*50;
     plot(t,ena,'b');
-    title(titleText);
+    %ta = (targAng/pi+1)*0.5;
+    %plot(t,ta,'c');
+    title('Total Motor Power Draw');
     xlabel('Time (s)');
-    ylabel('Arduino Units');
-    legend('Current','Voltage','Control');
-    
+    ylabel('Power (W)');
+    legend('Power','Control');
 end
 
