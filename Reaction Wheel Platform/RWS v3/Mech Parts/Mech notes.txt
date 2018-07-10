@@ -1,0 +1,14 @@
+
+Motor + mounting structure:
+https://a360.co/2NBigh4
+
+Full RWS structure:
+https://a360.co/2NBPvkp
+
+Per motor:
+- 6x M2x6 screws for mounting structure
+- 4x M2x16 screws to secure motor to mounting structure
+ - note that 'Top Plate' is used to hold nuts in place on top of the motor. A drop of glue is recommended to keep nuts in place, as if a nut comes loose due to vibration, it is v. difficult to put back into place without removing the aluminium wheel from the motor)
+
+ 
+Motor is Faulhaber 2610b-sc
