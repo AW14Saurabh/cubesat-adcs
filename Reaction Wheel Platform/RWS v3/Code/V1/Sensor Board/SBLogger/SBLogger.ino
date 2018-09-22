@@ -65,7 +65,7 @@ void setup() {
   pinMode(PB, INPUT);
   pinMode(RTC_CLK, INPUT);
 
-  //Serial.begin(9600);
+  Serial.begin(9600);
   Wire.begin();
 
   rtc.begin();  // Initialise DS3231  (Real Time Clock)
@@ -110,8 +110,6 @@ void setup() {
 
 
 
-unsigned long previousMillis = 0;
-int maxDt = 0;
 
 
 void loop() {
@@ -139,14 +137,6 @@ void loop() {
 
 
   
-  //=================================
-  // PROCESS DATA
-  //=================================
-  int dt = currentMillis - previousMillis;
-  previousMillis = currentMillis;
-  if (dt > maxDt && dt < 100){
-    maxDt = dt;
-  }
 
 
   //=================================
@@ -155,7 +145,7 @@ void loop() {
   char buf[25];
   strncpy(buf,"YYYY-MM-DD hh:mm:ss \0",25);
   char strT[25];
-  sprintf(strT, "%lu %d ", currentMillis, maxDt);
+  sprintf(strT, "%lu ", currentMillis);
   String strW = "g:" + String(wx,4) + "," + String(wy,4) + "," + String(wz,4) + " ";
   String strTP = "t:" + String(temp,2) + " p:" + String(pa,2) + " e:" + String(ele,2) + " ";
   String strA = "a:" + String(ax,2) + "," + String(ay,2) + "," + String(az,2) + " ";
@@ -168,7 +158,8 @@ void loop() {
   //=================================
 
   //Output to Serial when button is pressed (arduino sometimes bugs out w/ uploading when Serial is constantly in use)
-  /*
+    //Don't forget to uncomment Serial.begin!
+  
   if (digitalRead(PB) == HIGH){
     Serial.print(now.format(buf));
     Serial.print(strT);
@@ -178,7 +169,7 @@ void loop() {
     Serial.print(strM);
     Serial.println();
   }
-  */
+  
   //Write to SD card
   dataFile = SD.open(FILE_NAME, FILE_WRITE);
   if(dataFile){

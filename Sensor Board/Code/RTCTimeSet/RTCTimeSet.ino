@@ -9,22 +9,10 @@
 #include <I2Cdev.h>
 #include <RTClib.h>
 
-#define PWR_RST 4
-#define RED_LED 5
-#define GRN_LED 6
-#define MPU9_CS 7
-#define MPU6_CS 8
-#define PSH_BTN 9
-#define SD_CS 10
-
 
 DS3231 rtc;
 
 void setup() {
-  pinMode(MPU9_CS, OUTPUT);
-  pinMode(MPU6_CS, OUTPUT);
-  digitalWrite(MPU9_CS, HIGH);
-  digitalWrite(MPU6_CS, HIGH);
   
   //=================================
   // Join I2C bus (I2Cdev library doesn't do this automatically)
