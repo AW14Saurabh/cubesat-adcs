@@ -1,0 +1,92 @@
+/*
+  This program is to be uploaded to the measurement board to initiate measurements of
+  the magnetic field and save them to an SD card for later analysis
+
+------------------------------------------------------------------------------------
+  Configuration
+  
+  MOSI - pin 11
+  MISO - pin 12
+  CLK - pin 13
+  CS - pin 4
+  
+------------------------------------------------------------------------------------
+  Date        Name          Changelog
+  
+              Olivia
+              Junning
+  14th Mar    Tim           Logs Data from A0, A1, A2 and writes to log.txt
+  
+
+------------------------------------------------------------------------------------
+*/
+
+#include <SPI.h>
+#include <SD.h>
+#include <Wire.h>
+
+//enter SD CS pin on the Arduino here
+#define CHIPSELECTSD 4
+#define T_SDA     //enter SDA pin on the Arduino here
+#define T_SCL     //enter SCL pin on the Arduino here
+#define MPU9250_ADDRESS 0x68
+#define MAG_ADDRESS 0x0C
+#define GYRO_FULL_SCALE_250_DPS 0x00  
+#define GYRO_FULL_SCALE_500_DPS 0x08
+#define GYRO_FULL_SCALE_1000_DPS 0x10
+#define GYRO_FULL_SCALE_2000_DPS 0x18
+#define ACC_FULL_SCALE_2_G 0x00  
+#define ACC_FULL_SCALE_4_G 0x08
+#define ACC_FULL_SCALE_8_G 0x10
+#define ACC_FULL_SCALE_16_G 0x18
+
+byte timeStamp[6];
+byte timeStr[12];
+uint8_t Buf[14];
+uint8_t Mag[7];
+uint8_t ST1;
+int16_t Ax, Ay, Az, Gx, Gy, Gz, Bx, By, Bz;
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Program begun");
+  //SD.begin(4);                                          //initialise SD card
+    
+  if (!SD.begin(CHIPSELECTSD)) {
+    Serial.println("initalisation NOT successful");
+    while (1);                                            //don't do anything more
+  }
+  Serial.println("initalisation successful!");
+  
+  if (SD.exists("log.txt")) {
+    Serial.println("log.txt exists.");
+  } else {
+    Serial.println("log.txt doesn't exist.");
+  }
+}
+
+void loop() {
+  String dataString = "";                                 //make a string for assembling the data to log
+
+  for (int analogPin = 0; analogPin < 3; analogPin++) {   //read three sensors and append to the string
+    int sensor = analogRead(analogPin);
+    dataString += String(sensor);
+    if (analogPin < 2) {
+      dataString += ",";
+    }
+  }
+                                                          //open the file. note that only one file can be open at a time
+  File dataFile = SD.open("log.txt", FILE_WRITE);         //create a text file with name measurement.txt and able to be written to
+
+  if (dataFile) {                                         //if the file is available, write to it
+    dataFile.println(dataString);
+    dataFile.close();
+                                                          //print to the serial port too:
+    Serial.println(dataString);
+  }
+                                                          //if the file isn't open, pop up an error:
+  else {
+    Serial.println("error opening log.txt");
+  }
+    
+}
