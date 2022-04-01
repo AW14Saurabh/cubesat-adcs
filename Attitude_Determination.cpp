@@ -36,18 +36,11 @@ void Attitude_Determination::computeAngles()
     @brief  Instantiates a new Attitude_Determination class
 */
 /******************************************************************************/
-Attitude_Determination::Attitude_Determination()
+Attitude_Determination::Attitude_Determination() :
+    _gyro(Adafruit_L3GD20_Unified(ID)), _spin{0.0, 0.0, 0.0}, _bias{0.0, 0.0, 0.0},
+    _anglesRadian{0.0, 0.0, 0.0}, _anglesDegree{0.0, 0.0, 0.0},
+    _attitude{1.0, 0.0, 0.0, 0.0}, _anglesComputed(false)
 {
-    _gyro = Adafruit_L3GD20_Unified(20);
-    _spin = {0.0, 0.0, 0.0};
-    _bias = {0.0, 0.0, 0.0};
-    _anglesRadian = {0.0, 0.0, 0.0};
-    _anglesDegree = {0.0, 0.0, 0.0};
-
-    /* Reset Heading */
-    _attitude = {1.0, 0.0, 0.0, 0.0};
-    _anglesComputed = false;
-
     /* Initialize Gyro */
     _gyro.enableAutoRange(true);
     _gyro.begin();

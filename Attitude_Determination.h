@@ -6,8 +6,8 @@
 #ifndef __ATTITUDE_DETERMINATION_H__
 #define __ATTITUDE_DETERMINATION_H__
 
-#define ARDUINO_GYRO  1
-#define UUID 20
+#define ID 20
+#define MIN_SAMPLE_TIME 30
 
 #include <Adafruit_L3GD20_U_SOFTI2C.h>
 
@@ -37,7 +37,7 @@
 /*==============================================================================
     DATA TYPE FOR GYRO EVENT
     --------------------------------------------------------------------------*/
-    typedef union dataPacket_u
+    typedef struct dataPacket_s
     {
         axesData_t spin;
         quaternionData_t attitude;
