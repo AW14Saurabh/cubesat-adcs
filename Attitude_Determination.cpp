@@ -17,14 +17,35 @@
 void Attitude_Determination::computeAngles()
 {
     _anglesRadian.x = atan2f(_attitude.a * _attitude.b + _attitude.c * _attitude.d,
-        0.5f - _attitude.b * _attitude.b - _attitude.c * _attitude.c);
-    
+                             0.5f - _attitude.b * _attitude.b - _attitude.c * _attitude.c);
+
     _anglesRadian.y = asinf(-2.0f * (_attitude.b * _attitude.d - _attitude.a * _attitude.c));
-    
+
     _anglesRadian.z = atan2f(_attitude.b * _attitude.c + _attitude.a * _attitude.d,
-        0.5f - _attitude.c * _attitude.c - _attitude.d * _attitude.d);
+                             0.5f - _attitude.c * _attitude.c - _attitude.d * _attitude.d);
 
     _anglesComputed = true;
+}
+
+/******************************************************************************/
+/*!
+    @brief  See: https://en.wikipedia.org/wiki/Fast_inverse_square_root
+*/
+/******************************************************************************/
+float Attitude_Determination::inverseSqrt (float x)
+{
+    long i;
+    float x2, y;
+    const float threehalfs = 1.5f;
+
+    x2 = x * 0.5f;
+    y = x;
+    i = *(long *)&y;
+    i = 0x5f3759df - (i >> 1);
+    y = *(float *)&i;
+    y = y * (threehalfs - x2 * y * y);
+    y = y * (threehalfs - x2 * y * y);
+    return y;
 }
 
 /*******************************************************************************
@@ -36,10 +57,13 @@ void Attitude_Determination::computeAngles()
     @brief  Instantiates a new Attitude_Determination class
 */
 /******************************************************************************/
-Attitude_Determination::Attitude_Determination() :
-    _gyro(Adafruit_L3GD20_Unified(ID)), _spin{0.0, 0.0, 0.0}, _bias{0.0, 0.0, 0.0},
-    _anglesRadian{0.0, 0.0, 0.0}, _anglesDegree{0.0, 0.0, 0.0},
-    _attitude{1.0, 0.0, 0.0, 0.0}, _anglesComputed(false)
+Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified(ID)),
+                                                   _angVel{0.0, 0.0, 0.0},
+                                                   _bias{0.0, 0.0, 0.0},
+                                                   _anglesRadian{0.0, 0.0, 0.0},
+                                                   _anglesDegree{0.0, 0.0, 0.0},
+                                                   _attitude{1.0, 0.0, 0.0, 0.0},
+                                                   _anglesComputed(false)
 {
     /* Initialize Gyro */
     _gyro.enableAutoRange(true);
@@ -70,9 +94,9 @@ Attitude_Determination::Attitude_Determination() :
     @brief  Calculate the roll, pitch and yaw in degrees
 */
 /******************************************************************************/
-axesData_t Attitude_Determination::getAngles()
+angRPYData_t Attitude_Determination::getAngles()
 {
-    if ( !_anglesComputed )
+    if (!_anglesComputed)
         computeAngles();
     _anglesDegree.x = _anglesRadian.x * 57.29578f;
     _anglesDegree.y = _anglesRadian.y * 57.29578f;
@@ -88,29 +112,29 @@ axesData_t Attitude_Determination::getAngles()
 dataPacket_t Attitude_Determination::updateHeading(int32_t dt)
 {
     float normal;
-    axesData_t tmpSpn;
-    axesData_t tmpAtt = {_attitude.a, _attitude.b, _attitude.c};
-    float dtSec = (float) dt / 1000;
+    angVelData_t tmpAngVel;
+    attdData_t tmpAtt = {_attitude.a, _attitude.b, _attitude.c, 0.0};
+    float dtSec = (float)dt / 1000;
     dataPacket_t heading;
     sensors_event_t eventG;
     _gyro.getEvent(&eventG);
-    _spin.x = eventG.gyro.x - _bias.x;
-    _spin.y = eventG.gyro.y - _bias.y;
-    _spin.z = eventG.gyro.z - _bias.z;
-    heading.spin = _spin;
+    _angVel.x = eventG.gyro.x - _bias.x;
+    _angVel.y = eventG.gyro.y - _bias.y;
+    _angVel.z = eventG.gyro.z - _bias.z;
+    heading.angVel = _angVel;
     /* Integrate rate of change of quaternions */
-    tmpSpn.x = _spin.x * (0.5f * dtSec);
-    tmpSpn.y = _spin.y * (0.5f * dtSec);
-    tmpSpn.z = _spin.z * (0.5f * dtSec);
-    _attitude.a += (-tmpAtt.y * tmpSpn.x - tmpAtt.z * tmpSpn.y - _attitude.d * tmpSpn.z);
-    _attitude.b += ( tmpAtt.x * tmpSpn.x + tmpAtt.z * tmpSpn.z - _attitude.d * tmpSpn.y);
-    _attitude.c += ( tmpAtt.x * tmpSpn.y - tmpAtt.y * tmpSpn.z - _attitude.d * tmpSpn.x);
-    _attitude.d += ( tmpAtt.x * tmpSpn.z + tmpAtt.y * tmpSpn.y -     tmpAtt.z * tmpSpn.x);
+    tmpAngVel.x = _angVel.x * (0.5f * dtSec);
+    tmpAngVel.y = _angVel.y * (0.5f * dtSec);
+    tmpAngVel.z = _angVel.z * (0.5f * dtSec);
+    _attitude.a += (-tmpAtt.b * tmpAngVel.x - tmpAtt.c * tmpAngVel.y - _attitude.d * tmpAngVel.z);
+    _attitude.b += (tmpAtt.a * tmpAngVel.x + tmpAtt.c * tmpAngVel.z - _attitude.d * tmpAngVel.y);
+    _attitude.c += (tmpAtt.a * tmpAngVel.y - tmpAtt.b * tmpAngVel.z - _attitude.d * tmpAngVel.x);
+    _attitude.d += (tmpAtt.a * tmpAngVel.z + tmpAtt.b * tmpAngVel.y - tmpAtt.c * tmpAngVel.x);
     /* Normalize the quaternions */
     normal = inverseSqrt(_attitude.a * _attitude.a +
                          _attitude.b * _attitude.b +
                          _attitude.c * _attitude.c +
-                         _attitude.d * _attitude.d );
+                         _attitude.d * _attitude.d);
     _attitude.a *= normal;
     _attitude.b *= normal;
     _attitude.c *= normal;

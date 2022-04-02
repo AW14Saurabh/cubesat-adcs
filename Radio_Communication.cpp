@@ -14,7 +14,8 @@
 */
 /******************************************************************************/
 Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS)),
-    _message{0, 0, 0.0}, _rxAddr("00065")
+                                             _message{0, 0, 0.0},
+                                             _rxAddr("00065")
 {
     pinMode(NRF_CE, OUTPUT);
     pinMode(NRF_CS, OUTPUT);
@@ -38,9 +39,9 @@ messageData_t Radio_Communication::getMessage()
     {
         _radio.read(&_messageIn, sizeof(_messageIn));
         _message.enableState = _messageIn >> 15;
-        _messageIn &= (uint32_t) B01111111 * 256 + B11111111;
+        _messageIn &= (uint32_t)B01111111 * 256 + B11111111;
         _message.mode = _messageIn >> 14;
-        _messageIn &= (uint32_t) B10111111 * 256 + B11111111;
+        _messageIn &= (uint32_t)B10111111 * 256 + B11111111;
         _message.targetAngle = constrain(_messageIn * 2 * PI / 16383.0, 0, 2 * PI);
     }
     return _message;
