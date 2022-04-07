@@ -9,19 +9,19 @@
 #include <RF24.h>
 #include "Data.h"
 
-#define NRF_CE 9
-#define NRF_CS 10
+#define NRF_CE 7
+#define NRF_CS 8
 
 class Radio_Communication
 {
 private:
     RF24 _radio;
-    uint32_t _messageIn;
     messageData_t _message;
-    const uint8_t _rxAddr[6];
+    const uint8_t _rxAddr[2][6];
 
 public:
     Radio_Communication();
     messageData_t getMessage();
+    void sendMessage(angRPYData_t*);
 };
 #endif

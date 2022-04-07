@@ -1,25 +1,23 @@
 /*******************************************************************************
  * This library defines all the data structures used.
  ******************************************************************************/
+#ifndef __DATA_H__
+#define __DATA_H__
 
+#include<Arduino.h>
 /* States */
-#define DISABLED 0
-#define ENABLED 1
 #define DETUMBLE 0
 #define POINT 1
 
 /*==============================================================================
     DATA TYPE FOR AXES
     --------------------------------------------------------------------------*/
-template <typename T>
-struct axesData_s
+typedef struct axesData_s
 {
-    T x;
-    T y;
-    T z;
-};
-typedef axesData_s<float> angVelData_t, angRPYData_t, angMomData_t;
-typedef axesData_s<int>   motFreqData_t;
+    float x;
+    float y;
+    float z;
+} angVelData_t, angRPYData_t, angMomData_t;
 /*============================================================================*/
 
 /*==============================================================================
@@ -45,12 +43,13 @@ typedef struct dataPacket_s
 /*============================================================================*/
 
 /*==============================================================================
-    DATA TYPE FOR MESSAGE PACKET
+    DATA TYPE FOR MESSAGE PACKET FROM CONTROL BOX TO SATELLITE
     --------------------------------------------------------------------------*/
 typedef struct messageData_s
 {
-    int enableState;
-    int mode;
-    float targetAngle;
+    int laserEnable;
+    int opMode;
+    angRPYData_t targetAngles;
 } messageData_t;
 /*============================================================================*/
+#endif

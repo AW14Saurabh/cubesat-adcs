@@ -71,7 +71,7 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
     delay(1000);
 
     /* Calibrate Gyro */
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 1000; i++)
     {
         sensors_event_t event;
         _gyro.getEvent(&event);
@@ -80,9 +80,9 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
         _bias.z += event.gyro.z;
         delay(10);
     }
-    _bias.x /= 100;
-    _bias.y /= 100;
-    _bias.z /= 100;
+    _bias.x /= 1000;
+    _bias.y /= 1000;
+    _bias.z /= 1000;
 }
 
 /*******************************************************************************
@@ -117,19 +117,24 @@ dataPacket_t Attitude_Determination::updateHeading(int32_t dt)
     float dtSec = (float)dt / 1000;
     dataPacket_t heading;
     sensors_event_t eventG;
+
     _gyro.getEvent(&eventG);
     _angVel.x = eventG.gyro.x - _bias.x;
     _angVel.y = eventG.gyro.y - _bias.y;
     _angVel.z = eventG.gyro.z - _bias.z;
+
     heading.angVel = _angVel;
+
     /* Integrate rate of change of quaternions */
     tmpAngVel.x = _angVel.x * (0.5f * dtSec);
     tmpAngVel.y = _angVel.y * (0.5f * dtSec);
     tmpAngVel.z = _angVel.z * (0.5f * dtSec);
+
     _attitude.a += (-tmpAtt.b * tmpAngVel.x - tmpAtt.c * tmpAngVel.y - _attitude.d * tmpAngVel.z);
     _attitude.b += (tmpAtt.a * tmpAngVel.x + tmpAtt.c * tmpAngVel.z - _attitude.d * tmpAngVel.y);
     _attitude.c += (tmpAtt.a * tmpAngVel.y - tmpAtt.b * tmpAngVel.z - _attitude.d * tmpAngVel.x);
     _attitude.d += (tmpAtt.a * tmpAngVel.z + tmpAtt.b * tmpAngVel.y - tmpAtt.c * tmpAngVel.x);
+
     /* Normalize the quaternions */
     normal = inverseSqrt(_attitude.a * _attitude.a +
                          _attitude.b * _attitude.b +

@@ -15,12 +15,13 @@
 /******************************************************************************/
 Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS)),
                                              _message{0, 0, 0.0},
-                                             _rxAddr("00065")
+                                             _rxAddr{"00001", "00002"}
 {
     pinMode(NRF_CE, OUTPUT);
     pinMode(NRF_CS, OUTPUT);
     _radio.begin();
-    _radio.openReadingPipe(0, _rxAddr);
+    _radio.openWritingPipe(_rxAddr[1]);
+    _radio.openReadingPipe(0, _rxAddr[0]);
     _radio.startListening();
 }
 
@@ -37,12 +38,22 @@ messageData_t Radio_Communication::getMessage()
 {
     if (_radio.available())
     {
-        _radio.read(&_messageIn, sizeof(_messageIn));
-        _message.enableState = _messageIn >> 15;
-        _messageIn &= (uint32_t)B01111111 * 256 + B11111111;
-        _message.mode = _messageIn >> 14;
-        _messageIn &= (uint32_t)B10111111 * 256 + B11111111;
-        _message.targetAngle = constrain(_messageIn * 2 * PI / 16383.0, 0, 2 * PI);
+        delay(5);
+        _radio.startListening();
+        if (_radio.available())
+            _radio.read(&_message, sizeof(messageData_t));
     }
     return _message;
+}
+
+/******************************************************************************/
+/*!
+    @brief  Send angles to Control Box
+*/
+/******************************************************************************/
+void Radio_Communication::sendMessage(angRPYData_t* satAngles)
+{
+    delay(5);
+    _radio.stopListening();
+    _radio.write(satAngles, sizeof(angRPYData_t));
 }
