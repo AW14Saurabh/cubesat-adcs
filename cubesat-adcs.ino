@@ -24,9 +24,9 @@ void setup()
     motors = new Motor_Control();
     radio = new Radio_Communication();
     attitude = new Attitude_Determination();
-    digitalWrite(BEEPER, HIGH);
-    delay(10);
-    digitalWrite(BEEPER, LOW);
+    // digitalWrite(BEEPER, HIGH);
+    // delay(10);
+    // digitalWrite(BEEPER, LOW);
 }
 
 void loop()
@@ -37,7 +37,7 @@ void loop()
     // message = radio->getMessage();
     message = {0, 0, {0, 0, 0}};
 
-    digitalWrite(LASER, message.laserEnable);
+    // digitalWrite(LASER, message.laserEnable);
 
     if (dt >= MIN_SAMPLE_TIME)
     {
