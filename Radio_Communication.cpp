@@ -14,7 +14,7 @@
 */
 /******************************************************************************/
 Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS)),
-                                             _message{0, 0, 0.0},
+                                             _message{0, 0, {0,0,0}},
                                              _rxAddr{"00001", "00002"}
 {
     pinMode(NRF_CE, OUTPUT);

@@ -9,9 +9,9 @@ Attitude_Determination *attitude;
 Radio_Communication *radio;
 Motor_Control *motors;
 
-angRPYData_t angles;
-dataPacket_t heading;
-messageData_t message;
+angRPYData_t angles {0,0,0};
+dataPacket_t heading {{0,0,0},{1,0,0,0}};
+messageData_t message {0, 0, {0,0,0}};
 
 int32_t dt = 0;
 uint64_t previousMillis = 0ul;
@@ -34,7 +34,8 @@ void loop()
     currentMillis = millis();
     dt = currentMillis - previousMillis;
 
-    message = radio->getMessage();
+    // message = radio->getMessage();
+    message = {0, 0, {0, 0, 0}};
 
     digitalWrite(LASER, message.laserEnable);
 
@@ -45,6 +46,6 @@ void loop()
     }
 
     motors->updateMotor(heading, message, dt);
-    radio->sendMessage(&angles);
+    // radio->sendMessage(&angles);
     previousMillis = currentMillis;
 }
