@@ -34,9 +34,10 @@ void loop()
     currentMillis = millis();
     dt = currentMillis - previousMillis;
 
-    // message = radio->getMessage();
+    message = radio->getMessage();
+    Serial.println(message.targetAngles.x);
     message = {0, 0, {0, 0, 0}};
-
+    /*
     // digitalWrite(LASER, message.laserEnable);
 
     if (dt >= MIN_SAMPLE_TIME)
@@ -46,6 +47,7 @@ void loop()
     }
 
     motors->updateMotor(heading, message, dt);
-    // radio->sendMessage(&angles);
+    */
+    radio->sendMessage(&message.targetAngles);
     previousMillis = currentMillis;
 }
