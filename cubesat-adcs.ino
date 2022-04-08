@@ -21,12 +21,12 @@ void setup()
 {
     pinMode(BEEPER, OUTPUT);
     pinMode(LASER,  OUTPUT);
+    analogWrite(LASER, 200);
     motors = new Motor_Control();
     radio = new Radio_Communication();
     attitude = new Attitude_Determination();
-    // digitalWrite(BEEPER, HIGH);
-    // delay(10);
-    // digitalWrite(BEEPER, LOW);
+    tone(BEEPER, 5000, 500);
+    analogWrite(LASER, 0);
 }
 
 void loop()

@@ -9,7 +9,7 @@
 #define ID 20
 #define MIN_SAMPLE_TIME 30
 
-#include <Adafruit_L3GD20_U_SOFTI2C.h>
+#include <Adafruit_L3GD20_U.h>
 #include "Data.h"
 
 class Attitude_Determination
