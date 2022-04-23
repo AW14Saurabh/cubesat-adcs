@@ -20,6 +20,7 @@ Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS)),
     pinMode(NRF_CE, OUTPUT);
     pinMode(NRF_CS, OUTPUT);
     _radio.begin();
+    _radio.setRetries(15, 15);
     _radio.openWritingPipe(_rxAddr[1]);
     _radio.openReadingPipe(0, _rxAddr[0]);
     _radio.startListening();
@@ -36,13 +37,10 @@ Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS)),
 /******************************************************************************/
 messageData_t Radio_Communication::getMessage()
 {
-    if (_radio.available())
-    {
-        delay(5);
-        _radio.startListening();
-        if (_radio.available())
-            _radio.read(&_message, sizeof(messageData_t));
-    }
+    delay(5);
+    _radio.startListening();
+    while(!_radio.available());
+    _radio.read(&_message, sizeof(messageData_t));
     return _message;
 }
 
