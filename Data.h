@@ -33,21 +33,11 @@ typedef struct quaternionData_s
 /*============================================================================*/
 
 /*==============================================================================
-    DATA TYPE FOR GYRO EVENT
-    --------------------------------------------------------------------------*/
-typedef struct dataPacket_s
-{
-    angVelData_t angVel;
-    attdData_t attitude;
-} dataPacket_t;
-/*============================================================================*/
-
-/*==============================================================================
     DATA TYPE FOR MESSAGE PACKET FROM CONTROL BOX TO SATELLITE
     --------------------------------------------------------------------------*/
 typedef struct messageData_s
 {
-    int laserEnable;
+    bool laserDisable;
     int opMode;
     angRPYData_t targetAngles;
 } messageData_t;

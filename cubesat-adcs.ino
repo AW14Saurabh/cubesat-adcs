@@ -9,9 +9,10 @@ Attitude_Determination *attitude;
 Radio_Communication *radio;
 Motor_Control *motors;
 
+messageData_t message {1, 0, {0,0,0}};
+angVelData_t satAngVel {0,0,0};
+attdData_t satAttitude {1,0,0,0};
 angRPYData_t angles {0,0,0};
-dataPacket_t heading {{0,0,0},{1,0,0,0}};
-messageData_t message {0, 0, {0,0,0}};
 
 int32_t dt = 0;
 uint64_t previousMillis = 0ul;
@@ -23,10 +24,10 @@ void setup()
     pinMode(BEEPER, OUTPUT);
     pinMode(LASER,  OUTPUT);
     analogWrite(LASER, 200);
-    motors = new Motor_Control();
+    motors = new Motor_Control(&satAngVel, &angles);
     radio = new Radio_Communication();
     attitude = new Attitude_Determination();
-    tone(BEEPER, 5000, 5000);
+    tone(BEEPER, 5000, 500);
     analogWrite(LASER, 0);
 }
 
@@ -35,22 +36,18 @@ void loop()
     currentMillis = millis();
     dt = currentMillis - previousMillis;
 
-    message = radio->getMessage();
-    Serial.println(String("Laser: ") + String(message.laserEnable ? "Off" : "On"));
-    Serial.println(String("Satellite Operation: ") + String(message.opMode) + String(message.opMode ? " Detumbling" : " Pointing"));
+    radio->getMessage(&message);
 
-    Serial.println("Roll: " + String(message.targetAngles.x) + "\tPitch: " + String(message.targetAngles.y) + "\tYaw: " + String(message.targetAngles.z));
-    /*
-    // digitalWrite(LASER, message.laserEnable);
+    analogWrite(LASER, !message.laserDisable * 200);
 
     if (dt >= MIN_SAMPLE_TIME)
     {
-        heading = attitude->updateHeading(dt);
-        angles = attitude->getAngles(); //To Serial
+        attitude->updateHeading(&satAngVel, &satAttitude, dt);
+        attitude->getAngles(&angles, &satAttitude); //To Serial
     }
 
-    motors->updateMotor(heading, message, dt);
-    */
-    radio->sendMessage(&message.targetAngles);
+    motors->updateMotor(&message, dt);
+    radio->sendMessage(&angles);
+
     previousMillis = currentMillis;
 }

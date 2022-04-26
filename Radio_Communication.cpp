@@ -13,9 +13,7 @@
     @brief  Instantiates a new Radio_Communication class
 */
 /******************************************************************************/
-Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS)),
-                                             _message{0, 0, {0,0,0}},
-                                             _rxAddr{"00001", "00002"}
+Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS))
 {
     pinMode(NRF_CE, OUTPUT);
     pinMode(NRF_CS, OUTPUT);
@@ -35,13 +33,12 @@ Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS)),
     @brief  Get message from Control Box
 */
 /******************************************************************************/
-messageData_t Radio_Communication::getMessage()
+void Radio_Communication::getMessage(messageData_t *message)
 {
     delay(5);
     _radio.startListening();
     while(!_radio.available());
-    _radio.read(&_message, sizeof(messageData_t));
-    return _message;
+    _radio.read(message, sizeof(messageData_t));
 }
 
 /******************************************************************************/

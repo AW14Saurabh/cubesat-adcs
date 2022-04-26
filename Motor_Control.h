@@ -27,21 +27,19 @@
 class Motor_Control
 {
 private:
-    angVelData_t  _satAngVel;      //3 Axis Rotation, 1 Satellite
-    attdData_t    _satAttitude;
+    angVelData_t* _satAngVel;      //3 Axis Rotation, 1 Satellite
     angMomData_t  _satAngMom;
-    angRPYData_t  _satAngles;
+    angRPYData_t* _satAngles;
     float         _wheelAngVel[3]; //Single Axis Rotation, 3 Wheels
-    float           _dt;           //seconds interval
-    void computeAngles();
+    float         _dt;             //seconds interval
     void detumble();
-    void point(angRPYData_t);
+    void point(angRPYData_t*);
     void calcWheelAngVel();
     void setMotor();
 
 public:
-    Motor_Control();
-    void updateMotor(dataPacket_t, messageData_t, int);
+    Motor_Control(angVelData_t*, angRPYData_t*);
+    void updateMotor(messageData_t*, int);
 };
 
 #endif

@@ -16,12 +16,11 @@ class Radio_Communication
 {
 private:
     RF24 _radio;
-    messageData_t _message;
-    const uint8_t _rxAddr[2][6];
+    const uint8_t* _rxAddr[2] {"00001", "00002"};
 
 public:
     Radio_Communication();
-    messageData_t getMessage();
+    void getMessage(messageData_t*);
     void sendMessage(angRPYData_t*);
 };
 #endif

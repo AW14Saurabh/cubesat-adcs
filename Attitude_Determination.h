@@ -16,20 +16,15 @@ class Attitude_Determination
 {
 private:
     Adafruit_L3GD20_Unified _gyro;
-    angVelData_t _angVel;
     angVelData_t _bias;
-    angRPYData_t _anglesRadian;
-    angRPYData_t _anglesDegree;
-    attdData_t _attitude;
     bool _anglesComputed;
-    void computeAngles();
     float inverseSqrt(float);
 
 public:
     Attitude_Determination();
 
-    dataPacket_t updateHeading(int32_t);
-    angRPYData_t getAngles();
+    void getAngles(angRPYData_t*, attdData_t*);
+    void updateHeading(angVelData_t*, attdData_t*, int32_t);
 };
 
 #endif
