@@ -13,7 +13,6 @@ messageData_t message {1, 0, {0,0,0}};
 angVelData_t satAngVel {0.0,0.0,0.0};
 attdData_t satAttitude {1.0,0.0,0.0,0.0};
 angRPYData_t angles {0.0,0.0,0.0};
-angVelData_t bias {0.0, 0.0, 0.0};
 
 int32_t dt = 0;
 uint64_t previousMillis = 0ul;
@@ -29,7 +28,7 @@ void setup()
     // Serial.println("Radio On");
     motors = new Motor_Control(&satAngVel, &angles);
     // Serial.println("Motors On");
-    attitude = new Attitude_Determination(&bias);
+    attitude = new Attitude_Determination();
     // Serial.println("Gyro On");
     tone(BEEPER, 5000, 500);
     analogWrite(LASER, 0);
@@ -51,7 +50,7 @@ void loop()
         attitude->getAngles(&angles, &satAttitude); //To Serial
     }
 
-    motors->updateMotor(&bias, &message, dt);
+    motors->updateMotor(&message, dt);
     radio->sendMessage(&angles);
 
     previousMillis = currentMillis;
