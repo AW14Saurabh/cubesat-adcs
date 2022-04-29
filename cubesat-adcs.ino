@@ -13,6 +13,7 @@ messageData_t message {1, 0, {0,0,0}};
 angVelData_t satAngVel {0.0,0.0,0.0};
 attdData_t satAttitude {1.0,0.0,0.0,0.0};
 angRPYData_t angles {0.0,0.0,0.0};
+angVelData_t bias {0.0, 0.0, 0.0};
 
 int32_t dt = 0;
 uint64_t previousMillis = 0ul;
@@ -25,11 +26,11 @@ void setup()
     pinMode(LASER,  OUTPUT);
     analogWrite(LASER, 200);
     radio = new Radio_Communication();
-    Serial.println("Radio On");
+    // Serial.println("Radio On");
     motors = new Motor_Control(&satAngVel, &angles);
-    Serial.println("Motors On");
-    attitude = new Attitude_Determination();
-    Serial.println("Gyro On");
+    // Serial.println("Motors On");
+    attitude = new Attitude_Determination(&bias);
+    // Serial.println("Gyro On");
     tone(BEEPER, 5000, 500);
     analogWrite(LASER, 0);
     // delay(5000);
@@ -46,38 +47,12 @@ void loop()
 
     if (dt >= MIN_SAMPLE_TIME)
     {
-        attitude->getAngles(&angles, &satAttitude); //To Serial
         attitude->updateHeading(&satAngVel, &satAttitude, dt);
-        // printAttd();
-        // Serial.print("   -->   ");
-        // printAngles();
-        // Serial.println();
+        attitude->getAngles(&angles, &satAttitude); //To Serial
     }
 
-    motors->updateMotor(&message, dt);
+    motors->updateMotor(&bias, &message, dt);
     radio->sendMessage(&angles);
 
     previousMillis = currentMillis;
-}
-
-void printAttd()
-{
-  Serial.print("Quat W: ");
-  Serial.print(satAttitude.a);
-  Serial.print("  Quat X: ");
-  Serial.print(satAttitude.b);
-  Serial.print("  Quat Y: ");
-  Serial.print(satAttitude.c);
-  Serial.print("  Quat Z: ");
-  Serial.print(satAttitude.d);
-}
-
-void printAngles()
-{
-  Serial.print("angles R: ");
-  Serial.print(angles.x);
-  Serial.print("  P: ");
-  Serial.print(angles.y);
-  Serial.print("  Y: ");
-  Serial.print(angles.z);
 }

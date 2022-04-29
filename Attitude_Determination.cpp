@@ -39,8 +39,8 @@ float Attitude_Determination::inverseSqrt (float x)
     @brief  Instantiates a new Attitude_Determination class
 */
 /******************************************************************************/
-Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified(ID)),
-                                                   _bias{0.0, 0.0, 0.0},
+Attitude_Determination::Attitude_Determination(angVelData_t *bias) : _gyro(Adafruit_L3GD20_Unified(ID)),
+                                                   _bias(bias),
                                                    _anglesComputed(false)
 {
     /* Initialize Gyro */
@@ -52,14 +52,14 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
     {
         sensors_event_t event;
         _gyro.getEvent(&event);
-        _bias.x += event.gyro.x;
-        _bias.y += event.gyro.y;
-        _bias.z += event.gyro.z;
+        _bias->x += event.gyro.x;
+        _bias->y += event.gyro.y;
+        _bias->z += event.gyro.z;
         delay(10);
     }
-    _bias.x /= 1000;
-    _bias.y /= 1000;
-    _bias.z /= 1000;
+    _bias->x /= 1000;
+    _bias->y /= 1000;
+    _bias->z /= 1000;
     // Serial.println("Bias:\t" + String(_bias.x) + "\t" + String(_bias.y) + "\t" + String(_bias.z));
 }
 
@@ -101,9 +101,9 @@ void Attitude_Determination::updateHeading(angVelData_t *angVel, attdData_t *att
     sensors_event_t eventG;
 
     _gyro.getEvent(&eventG);
-    angVel->x = eventG.gyro.x - _bias.x;
-    angVel->y = eventG.gyro.y - _bias.y;
-    angVel->z = eventG.gyro.z - _bias.z;
+    angVel->x = eventG.gyro.x;
+    angVel->y = eventG.gyro.y;
+    angVel->z = eventG.gyro.z;
 
     /* Integrate rate of change of quaternions */
     tmpAngVel.x = angVel->x * (0.5f * dtSec);

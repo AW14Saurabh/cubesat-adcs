@@ -6,8 +6,8 @@
 
 #include<Arduino.h>
 /* States */
-#define DETUMBLE 0
-#define POINT 1
+#define DETUMBLE 1
+#define POINT 0
 
 /*==============================================================================
     DATA TYPE FOR AXES
@@ -38,7 +38,7 @@ typedef struct quaternionData_s
 typedef struct messageData_s
 {
     bool laserDisable;
-    int opMode;
+    bool opMode;
     angRPYData_t targetAngles;
 } messageData_t;
 /*============================================================================*/
