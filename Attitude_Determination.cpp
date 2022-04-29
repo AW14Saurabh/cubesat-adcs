@@ -46,7 +46,6 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
     /* Initialize Gyro */
     _gyro.enableAutoRange(true);
     _gyro.begin();
-    delay(1000);
 
     /* Calibrate Gyro */
     for (int i = 0; i < 1000; i++)
@@ -61,6 +60,7 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
     _bias.x /= 1000;
     _bias.y /= 1000;
     _bias.z /= 1000;
+    // Serial.println("Bias:\t" + String(_bias.x) + "\t" + String(_bias.y) + "\t" + String(_bias.z));
 }
 
 /*******************************************************************************
@@ -84,7 +84,7 @@ void Attitude_Determination::getAngles(angRPYData_t *ang, attdData_t *attd)
 
     ang->x *= 57.29578f;
     ang->y *= 57.29578f;
-    ang->z *= 57.29578f + 180.0f;
+    ang->z *= 57.29578f;
 }
 
 /******************************************************************************/

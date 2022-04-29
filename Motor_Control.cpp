@@ -15,10 +15,27 @@
 /******************************************************************************/
 void Motor_Control::detumble()
 {
-    float P = -0.003;
-    _satAngMom.x = P * (0 - _satAngVel->x) * _dt;
-    _satAngMom.y = P * (0 - _satAngVel->y) * _dt;
-    _satAngMom.z = P * (0 - _satAngVel->z) * _dt;
+    double P = -0.1;
+    // Serial.print(_satAngVel->x);
+    // Serial.print(_satAngVel->y);
+    // Serial.println(_satAngVel->z);
+    Serial.println("SatAngVel:\t\t" + String(_satAngVel->x) + "\t" + String(_satAngVel->y) + "\t" + String(_satAngVel->z));
+    Serial.println("Delta: " + String(_dt));
+    double error[3] {0.0, 0.0, 0.0};
+    error[0] = 0.0 - _satAngVel->x;
+    error[1] = 0.0 - _satAngVel->y;
+    error[2] = 0.0 - _satAngVel->z;
+    // Serial.print(error[0]);
+    // Serial.print(error[1]);
+    // Serial.println(error[2]);
+    Serial.println("Error:\t" + String(error[0]) + "\t" + String(error[1]) + "\t" + String(error[2]));
+    _satAngMom.x = P * error[0] * _dt;
+    _satAngMom.y = P * error[1] * _dt;
+    _satAngMom.z = P * error[2] * _dt;
+    // Serial.print(_satAngMom.x);
+    // Serial.print(_satAngMom.y);
+    // Serial.println(_satAngMom.z);
+    Serial.println("Momentum:\t" + String(_satAngMom.x) + "\t" + String(_satAngMom.y) + "\t" + String(_satAngMom.z));
 }
 
 /******************************************************************************/
@@ -106,15 +123,15 @@ void Motor_Control::setMotor()
         spd[i] = map(abs(_wheelAngVel[i]), 0, MAX_MOTOR_W, 0, MAX_MOTOR_PWM);
     }
 
-    digitalWrite(MOT1_IN1,  dir[0]);
-    digitalWrite(MOT2_IN1, !dir[0]);
-    digitalWrite(MOT3_IN1,  dir[1]);
-    digitalWrite(MOT1_IN2, !dir[1]);
-    digitalWrite(MOT2_IN2,  dir[2]);
-    digitalWrite(MOT3_IN2, !dir[2]);
-     analogWrite(MOT1_SPD,  spd[0]);
-     analogWrite(MOT2_SPD,  spd[1]);
-     analogWrite(MOT3_SPD,  spd[2]);
+    digitalWrite(MOT_R_IN1,  dir[0]);
+    digitalWrite(MOT_R_IN2, !dir[0]);
+    digitalWrite(MOT_P_IN1,  dir[1]);
+    digitalWrite(MOT_P_IN2, !dir[1]);
+    digitalWrite(MOT_Y_IN1,  dir[2]);
+    digitalWrite(MOT_Y_IN2, !dir[2]);
+    analogWrite(MOT_R_SPD,  spd[0]);
+    analogWrite(MOT_P_SPD,  spd[1]);
+    analogWrite(MOT_Y_SPD,  spd[2]);
 }
 
 /*******************************************************************************
@@ -132,25 +149,27 @@ Motor_Control::Motor_Control(angVelData_t *angVel, angRPYData_t *ang) : _satAngV
                                                                         _wheelAngVel{0,0,0},
                                                                         _dt (0)
 {
-    pinMode(MOT1_IN1, OUTPUT);
-    pinMode(MOT1_IN2, OUTPUT);
-    pinMode(MOT1_SPD, OUTPUT);
-    pinMode(MOT2_IN1, OUTPUT);
-    pinMode(MOT2_IN2, OUTPUT);
-    pinMode(MOT2_SPD, OUTPUT);
-    pinMode(MOT3_IN1, OUTPUT);
-    pinMode(MOT3_IN2, OUTPUT);
-    pinMode(MOT3_SPD, OUTPUT);
+    pinMode(MOT_Y_IN1, OUTPUT);
+    pinMode(MOT_Y_IN2, OUTPUT);
+    pinMode(MOT_Y_SPD, OUTPUT);
+    pinMode(MOT_R_IN1, OUTPUT);
+    pinMode(MOT_R_IN2, OUTPUT);
+    pinMode(MOT_R_SPD, OUTPUT);
+    pinMode(MOT_P_IN1, OUTPUT);
+    pinMode(MOT_P_IN2, OUTPUT);
+    pinMode(MOT_P_SPD, OUTPUT);
 
-    digitalWrite(MOT1_IN1,LOW);
-    digitalWrite(MOT2_IN1,LOW);
-    digitalWrite(MOT3_IN1,LOW);
-    digitalWrite(MOT1_IN2,HIGH);
-    digitalWrite(MOT2_IN2,HIGH);
-    digitalWrite(MOT3_IN2,HIGH);
-    analogWrite(MOT1_SPD, MAX_MOTOR_PWM);
-    analogWrite(MOT2_SPD, MAX_MOTOR_PWM);
-    analogWrite(MOT3_SPD, MAX_MOTOR_PWM);
+    digitalWrite(MOT_Y_IN1,LOW);
+    digitalWrite(MOT_R_IN1,LOW);
+    digitalWrite(MOT_P_IN1,LOW);
+    digitalWrite(MOT_Y_IN2,HIGH);
+    digitalWrite(MOT_R_IN2,HIGH);
+    digitalWrite(MOT_P_IN2,HIGH);
+    analogWrite(MOT_Y_SPD, MAX_MOTOR_PWM);
+    analogWrite(MOT_R_SPD, MAX_MOTOR_PWM);
+    analogWrite(MOT_P_SPD, MAX_MOTOR_PWM);
+    // Serial.println("Waiting 10 seconds to check motor output");
+    // delay(10000);
 }
 
 /*******************************************************************************
@@ -165,10 +184,10 @@ Motor_Control::Motor_Control(angVelData_t *angVel, angRPYData_t *ang) : _satAngV
 void Motor_Control::updateMotor(messageData_t *message, int dtMillis)
 {
     _dt = (float) dtMillis / 1000.0;
-
-    if (message->opMode == DETUMBLE)
+    // Serial.println("Delta: " + String(_dt));
+    if (message->opMode)
         detumble();
-    else if (message->opMode == POINT)
+    else
         point(&message->targetAngles);
     calcWheelAngVel();
     setMotor();
