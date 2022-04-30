@@ -15,7 +15,7 @@
 /******************************************************************************/
 void Motor_Control::detumble()
 {
-    double P = -0.03;
+    double P = 2.0;
     // Serial.println("SatAngVel:\t\t" + String(_satAngVel->x) + "\t" + String(_satAngVel->y) + "\t" + String(_satAngVel->z));
     _satAngMom.x = P * (0.0 - _satAngVel->x);
     _satAngMom.y = P * (0.0 - _satAngVel->y);
@@ -61,8 +61,8 @@ void Motor_Control::calcWheelAngVel()
     complex momentum distribution math involved.
     */
     float wheelAngVelDelta[3];
-    wheelAngVelDelta[0] = _satAngMom.x / WHEEL_I;
-    wheelAngVelDelta[1] = _satAngMom.y / WHEEL_I;
+    // wheelAngVelDelta[0] = _satAngMom.x / WHEEL_I;
+    // wheelAngVelDelta[1] = _satAngMom.y / WHEEL_I;
     wheelAngVelDelta[2] = _satAngMom.z / WHEEL_I;
     // Serial.println("WhlWD: " + String(wheelAngVelDelta[0], 4) + " " + String(wheelAngVelDelta[1], 4) + " " + String(wheelAngVelDelta[2], 4));
     /* Scale down angVelDelta if accel is too large */
@@ -79,12 +79,12 @@ void Motor_Control::calcWheelAngVel()
     // }
 
     /* If motors are saturated, don't update */
-    wheelAngVelDelta[0] = abs(_wheelAngVel[0] + wheelAngVelDelta[0]) < MAX_MOTOR_W ? wheelAngVelDelta[0] : 0;
-    wheelAngVelDelta[1] = abs(_wheelAngVel[1] + wheelAngVelDelta[1]) < MAX_MOTOR_W ? wheelAngVelDelta[1] : 0;
+    // wheelAngVelDelta[0] = abs(_wheelAngVel[0] + wheelAngVelDelta[0]) < MAX_MOTOR_W ? wheelAngVelDelta[0] : 0;
+    // wheelAngVelDelta[1] = abs(_wheelAngVel[1] + wheelAngVelDelta[1]) < MAX_MOTOR_W ? wheelAngVelDelta[1] : 0;
     wheelAngVelDelta[2] = abs(_wheelAngVel[2] + wheelAngVelDelta[2]) < MAX_MOTOR_W ? wheelAngVelDelta[2] : 0;
 
-    _wheelAngVel[0] += wheelAngVelDelta[0];
-    _wheelAngVel[1] += wheelAngVelDelta[1];
+    // _wheelAngVel[0] += wheelAngVelDelta[0];
+    // _wheelAngVel[1] += wheelAngVelDelta[1];
     _wheelAngVel[2] += wheelAngVelDelta[2];
     // Serial.println("WheelWDelta: " + String(wheelAngVelDelta[0]) + " " + String(wheelAngVelDelta[1]) + " " + String(wheelAngVelDelta[2]));
     // Serial.println("wheelW:      " + String(_wheelAngVel[0]) + " " + String(_wheelAngVel[1]) + " " + String(_wheelAngVel[2]));
@@ -97,24 +97,15 @@ void Motor_Control::calcWheelAngVel()
 /******************************************************************************/
 void Motor_Control::setMotor()
 {
-    bool dir[3];
-    float spd[3];
-    for (int i = 0; i < 3; i++)
-    {
-        dir[i] = _wheelAngVel[i] < 0; //Change < to >= to reverse the working.
-        spd[i] = map(abs(_wheelAngVel[i]), 0, MAX_MOTOR_W, 0, MAX_MOTOR_PWM);
-    }
-    // Serial.println("Direction:   " + String(dir[0]) + " " + String(dir[1]) + " " + String(dir[2]));
-    // Serial.println("PWM:         " + String(spd[0]) + " " + String(spd[1]) + " " + String(spd[2]));
-    digitalWrite(MOT_R_IN1,  dir[0]);
-    digitalWrite(MOT_R_IN2, !dir[0]);
-    digitalWrite(MOT_P_IN1,  dir[1]);
-    digitalWrite(MOT_P_IN2, !dir[1]);
-    digitalWrite(MOT_Y_IN1,  dir[2]);
-    digitalWrite(MOT_Y_IN2, !dir[2]);
-    analogWrite(MOT_R_SPD,  MAX_MOTOR_PWM);
-    analogWrite(MOT_P_SPD,  MAX_MOTOR_PWM);
-    analogWrite(MOT_Y_SPD,  MAX_MOTOR_PWM);
+    digitalWrite(MOT_R_IN1, _satAngMom.x < 0 ? LOW : HIGH);
+    digitalWrite(MOT_R_IN2, _satAngMom.x < 0 ? HIGH : LOW);
+    digitalWrite(MOT_P_IN1, _satAngMom.y < 0 ? HIGH : LOW);
+    digitalWrite(MOT_P_IN2, _satAngMom.y < 0 ? LOW : HIGH);
+    digitalWrite(MOT_Y_IN1, _satAngMom.z < 0 ? LOW : HIGH);
+    digitalWrite(MOT_Y_IN2, _satAngMom.z < 0 ? HIGH : LOW);
+     analogWrite(MOT_R_SPD, 255 * min(1.0, abs(_satAngMom.x)));
+     analogWrite(MOT_P_SPD, 255 * min(1.0, abs(_satAngMom.y)));
+     analogWrite(MOT_Y_SPD, 255 * min(1.0, abs(_satAngMom.z)));
 }
 
 /*******************************************************************************
@@ -148,11 +139,9 @@ Motor_Control::Motor_Control(angVelData_t *angVel, angRPYData_t *ang) : _satAngV
     digitalWrite(MOT_Y_IN2,HIGH);
     digitalWrite(MOT_R_IN2,HIGH);
     digitalWrite(MOT_P_IN2,HIGH);
-    analogWrite(MOT_Y_SPD, MAX_MOTOR_PWM);
-    analogWrite(MOT_R_SPD, MAX_MOTOR_PWM);
-    analogWrite(MOT_P_SPD, MAX_MOTOR_PWM);
-    // Serial.println("Waiting 10 seconds to check motor output");
-    // delay(10000);
+    analogWrite(MOT_Y_SPD, 180);
+    analogWrite(MOT_R_SPD, 180);
+    analogWrite(MOT_P_SPD, 180);
 }
 
 /*******************************************************************************
@@ -168,10 +157,10 @@ void Motor_Control::updateMotor(messageData_t *message, int dtMillis)
 {
     _dt = (float) dtMillis / 1000.0;
     // Serial.println("Delta: " + String(_dt));
-    if (message->opMode)
+    // if (message->opMode)
         detumble();
-    else
-        point(&message->targetAngles);
-    calcWheelAngVel();
+    // else
+        // point(&message->targetAngles);
+    // calcWheelAngVel();
     setMotor();
 }
