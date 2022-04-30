@@ -8,24 +8,28 @@
 
 #define ID 20
 #define MIN_SAMPLE_TIME 30
+#define FILTER_UPDATE_RATE_HZ 100
 
+#define __AVR_ATmega328P__
 #include <Adafruit_L3GD20_U.h>
+#include <Adafruit_LSM303_U.h>
+#include <Adafruit_Sensor_Calibration.h>
+#include <Adafruit_AHRS.h>
 #include "Data.h"
 
 class Attitude_Determination
 {
 private:
+    Adafruit_LSM303_Accel_Unified _accel;
+    Adafruit_LSM303_Mag_Unified _mag;
     Adafruit_L3GD20_Unified _gyro;
-    angVelData_t _biasVel;
-    angRPYData_t _biasAng;
-    bool _anglesComputed;
-    float inverseSqrt(float);
+    Adafruit_Mahony filter;
+    Adafruit_Sensor_Calibration_EEPROM cal;
 
 public:
     Attitude_Determination();
 
-    void getAngles(angRPYData_t*, angVelData_t*, int32_t);
-    void updateHeading(angVelData_t*, attdData_t*, int32_t);
+    void updateHeading(angVelData_t*, angRPYData_t*, attdData_t*);
 };
 
 #endif

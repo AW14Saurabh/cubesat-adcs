@@ -31,7 +31,6 @@ private:
     angMomData_t  _satAngMom;
     angRPYData_t* _satAngles;
     float         _wheelAngVel[3]; //Single Axis Rotation, 3 Wheels
-    float         _dt;             //seconds interval
     void detumble();
     void point(angRPYData_t*);
     void calcWheelAngVel();
@@ -39,7 +38,7 @@ private:
 
 public:
     Motor_Control(angVelData_t*, angRPYData_t*);
-    void updateMotor(messageData_t*, int);
+    void updateMotor(messageData_t*);
 };
 
 #endif

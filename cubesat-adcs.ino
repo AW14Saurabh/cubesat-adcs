@@ -14,48 +14,33 @@ angVelData_t satAngVel {0.0,0.0,0.0};
 attdData_t satAttitude {1.0,0.0,0.0,0.0};
 angRPYData_t angles {0.0,0.0,0.0};
 
-int32_t dt = 0;
-uint64_t previousMillis = 0ul;
-uint64_t currentMillis = 0ul;
-
 void setup()
 {
     Serial.begin(115200);
     pinMode(BEEPER, OUTPUT);
     pinMode(LASER,  OUTPUT);
     analogWrite(LASER, 200);
-    // Serial.println("Radio On");
     // motors = new Motor_Control(&satAngVel, &angles);
-    // Serial.println("Motors On");
     attitude = new Attitude_Determination();
     // radio = new Radio_Communication();
-    // Serial.println("Gyro On");
     tone(BEEPER, 5000, 500);
     analogWrite(LASER, 0);
-    // delay(200);
 }
 
 void loop()
 {
-    dt = currentMillis - previousMillis;
-    previousMillis = currentMillis;
-
     // radio->getMessage(&message);
     // Serial.print("Operation: " + String(message.opMode?"D":"P") + " Laser: " + String(message.laserDisable?"Off ":"On  "));
     // Serial.println("Target Angle: " + String(message.targetAngles.z));
-    // delay(100);
     // analogWrite(LASER, !message.laserDisable * 200);
 
-    attitude->updateHeading(&satAngVel, &satAttitude, dt);
+    attitude->updateHeading(&satAngVel, &angles, &satAttitude);
     Serial.println("AngVel   :\t" + String(satAngVel.x, 6) + "\t" + String(satAngVel.y, 6) + "\t" + String(satAngVel.z, 6));
-    // Serial.println("Attd: " + String(satAttitude.a) + " " + String(satAttitude.b) + " " + String(satAttitude.c) + " " + String(satAttitude.d));
-    attitude->getAngles(&angles, &satAngVel, dt); //To Serial
-    Serial.println("AnglesDeg:\t" + String(angles.x * 180/PI, 6) + "\t" + String(angles.y * 180/PI, 6) + "\t" + String(angles.z * 180/PI, 6));
+    // Serial.println("Attd     :\t" + String(satAttitude.a, 6) + "\t" + String(satAttitude.b, 6) + "\t" + String(satAttitude.c, 6) + "\t" + String(satAttitude.d));
+    // Serial.println("AnglesDeg:\t" + String(angles.x, 6) + "\t" + String(angles.y, 6) + "\t" + String(angles.z, 6));
 
-    // motors->updateMotor(&message, dt);
-    // Serial.println("Motors Updated");
+    // motors->updateMotor(&message);
     // radio->sendMessage(&satAngVel);
 
-    delay(100);
-    currentMillis = millis();
+    delay(10);
 }

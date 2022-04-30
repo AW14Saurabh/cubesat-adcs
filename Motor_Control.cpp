@@ -33,12 +33,9 @@ void Motor_Control::point(angRPYData_t *targetAng)
 {
     angRPYData_t error;
 
-    error.x = _satAngles->x - targetAng->x * PI / 180;
-    error.y = _satAngles->y - targetAng->y * PI / 180;
-    error.z = _satAngles->z - targetAng->z * PI / 180;
-
-    // while (error.z  >  PI) error.z -= 2 * PI;
-    // while (error.z <= -PI) error.z += 2 * PI;
+    error.x = _satAngles->x - targetAng->x;
+    error.y = _satAngles->y - targetAng->y;
+    error.z = _satAngles->z - targetAng->z;
 
     float P = 2.25;
     float D = 2.0;
@@ -61,8 +58,8 @@ void Motor_Control::calcWheelAngVel()
     complex momentum distribution math involved.
     */
     float wheelAngVelDelta[3];
-    // wheelAngVelDelta[0] = _satAngMom.x / WHEEL_I;
-    // wheelAngVelDelta[1] = _satAngMom.y / WHEEL_I;
+    wheelAngVelDelta[0] = _satAngMom.x / WHEEL_I;
+    wheelAngVelDelta[1] = _satAngMom.y / WHEEL_I;
     wheelAngVelDelta[2] = _satAngMom.z / WHEEL_I;
     // Serial.println("WhlWD: " + String(wheelAngVelDelta[0], 4) + " " + String(wheelAngVelDelta[1], 4) + " " + String(wheelAngVelDelta[2], 4));
     /* Scale down angVelDelta if accel is too large */
@@ -79,12 +76,12 @@ void Motor_Control::calcWheelAngVel()
     // }
 
     /* If motors are saturated, don't update */
-    // wheelAngVelDelta[0] = abs(_wheelAngVel[0] + wheelAngVelDelta[0]) < MAX_MOTOR_W ? wheelAngVelDelta[0] : 0;
-    // wheelAngVelDelta[1] = abs(_wheelAngVel[1] + wheelAngVelDelta[1]) < MAX_MOTOR_W ? wheelAngVelDelta[1] : 0;
+    wheelAngVelDelta[0] = abs(_wheelAngVel[0] + wheelAngVelDelta[0]) < MAX_MOTOR_W ? wheelAngVelDelta[0] : 0;
+    wheelAngVelDelta[1] = abs(_wheelAngVel[1] + wheelAngVelDelta[1]) < MAX_MOTOR_W ? wheelAngVelDelta[1] : 0;
     wheelAngVelDelta[2] = abs(_wheelAngVel[2] + wheelAngVelDelta[2]) < MAX_MOTOR_W ? wheelAngVelDelta[2] : 0;
 
-    // _wheelAngVel[0] += wheelAngVelDelta[0];
-    // _wheelAngVel[1] += wheelAngVelDelta[1];
+    _wheelAngVel[0] += wheelAngVelDelta[0];
+    _wheelAngVel[1] += wheelAngVelDelta[1];
     _wheelAngVel[2] += wheelAngVelDelta[2];
     // Serial.println("WheelWDelta: " + String(wheelAngVelDelta[0]) + " " + String(wheelAngVelDelta[1]) + " " + String(wheelAngVelDelta[2]));
     // Serial.println("wheelW:      " + String(_wheelAngVel[0]) + " " + String(_wheelAngVel[1]) + " " + String(_wheelAngVel[2]));
@@ -120,8 +117,7 @@ void Motor_Control::setMotor()
 Motor_Control::Motor_Control(angVelData_t *angVel, angRPYData_t *ang) : _satAngVel(angVel),
                                                                         _satAngles(ang),
                                                                         _satAngMom{0,0,0},
-                                                                        _wheelAngVel{0,0,0},
-                                                                        _dt (0)
+                                                                        _wheelAngVel{0,0,0}
 {
     pinMode(MOT_Y_IN1, OUTPUT);
     pinMode(MOT_Y_IN2, OUTPUT);
@@ -153,10 +149,8 @@ Motor_Control::Motor_Control(angVelData_t *angVel, angRPYData_t *ang) : _satAngV
     @brief  Update motors from gathered data
 */
 /******************************************************************************/
-void Motor_Control::updateMotor(messageData_t *message, int dtMillis)
+void Motor_Control::updateMotor(messageData_t *message)
 {
-    _dt = (float) dtMillis / 1000.0;
-    // Serial.println("Delta: " + String(_dt));
     if (message->opMode)
         detumble();
     else
