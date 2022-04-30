@@ -20,7 +20,7 @@ uint64_t currentMillis = 0ul;
 
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(115200);
     pinMode(BEEPER, OUTPUT);
     pinMode(LASER,  OUTPUT);
     analogWrite(LASER, 200);
@@ -29,10 +29,10 @@ void setup()
     motors = new Motor_Control(&satAngVel, &angles);
     // Serial.println("Motors On");
     attitude = new Attitude_Determination();
-    // Serial.println("Gyro On");
+    Serial.println("Gyro On");
     tone(BEEPER, 5000, 500);
     analogWrite(LASER, 0);
-    // delay(5000);
+    // delay(200);
 }
 
 void loop()
@@ -41,17 +41,18 @@ void loop()
     dt = currentMillis - previousMillis;
 
     radio->getMessage(&message);
-    Serial.println("Operation: " + String(message.opMode));
+    Serial.print("Operation: " + String(message.opMode) + " Laser: " + message.laserDisable?"Off ":"On ");
+    Serial.println("Target Angle: " + String(message.targetAngles.z));
+    // delay(100);
     analogWrite(LASER, !message.laserDisable * 200);
 
-    if (dt >= MIN_SAMPLE_TIME)
-    {
-        attitude->updateHeading(&satAngVel, &satAttitude, dt);
-        attitude->getAngles(&angles, &satAttitude); //To Serial
-    }
+    attitude->updateHeading(&satAngVel, &satAttitude, dt);
+    attitude->getAngles(&angles, &satAttitude); //To Serial
 
     motors->updateMotor(&message, dt);
+    // Serial.println("Motors Updated");
     radio->sendMessage(&angles);
 
     previousMillis = currentMillis;
+    delay(1000);
 }

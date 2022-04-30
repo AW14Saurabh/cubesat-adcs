@@ -18,10 +18,11 @@ Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS))
     pinMode(NRF_CE, OUTPUT);
     pinMode(NRF_CS, OUTPUT);
     _radio.begin();
+    _radio.setPALevel(RF24_PA_LOW);  // RF24_PA_MAX is default.
     _radio.setRetries(15, 15);
     _radio.openWritingPipe(_rxAddr[1]);
-    _radio.openReadingPipe(0, _rxAddr[0]);
-    _radio.startListening();
+    _radio.openReadingPipe(1, _rxAddr[0]);
+    // _radio.startListening();
 }
 
 /*******************************************************************************
@@ -37,7 +38,10 @@ void Radio_Communication::getMessage(messageData_t *message)
 {
     delay(5);
     _radio.startListening();
-    while(!_radio.available());
+    while(!_radio.available())
+    {
+        // Serial.println("Waiting for radio");
+    };
     _radio.read(message, sizeof(messageData_t));
 }
 

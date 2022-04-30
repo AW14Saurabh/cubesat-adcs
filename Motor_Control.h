@@ -21,7 +21,7 @@
 
 #define MOTOR_MAX_ACCEL 134.74
 #define WHEEL_I 2.835E-05 //N.m
-#define MAX_MOTOR_W 2970
+#define MAX_MOTOR_W 2400
 #define MAX_MOTOR_PWM 255
 
 class Motor_Control

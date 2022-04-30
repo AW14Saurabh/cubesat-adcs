@@ -15,7 +15,7 @@
 /******************************************************************************/
 void Motor_Control::detumble()
 {
-    double P = -0.1;
+    double P = -0.03;
     // Serial.println("SatAngVel:\t\t" + String(_satAngVel->x) + "\t" + String(_satAngVel->y) + "\t" + String(_satAngVel->z));
     _satAngMom.x = P * (0.0 - _satAngVel->x);
     _satAngMom.y = P * (0.0 - _satAngVel->y);
@@ -64,39 +64,30 @@ void Motor_Control::calcWheelAngVel()
     wheelAngVelDelta[0] = _satAngMom.x / WHEEL_I;
     wheelAngVelDelta[1] = _satAngMom.y / WHEEL_I;
     wheelAngVelDelta[2] = _satAngMom.z / WHEEL_I;
-
+    // Serial.println("WhlWD: " + String(wheelAngVelDelta[0], 4) + " " + String(wheelAngVelDelta[1], 4) + " " + String(wheelAngVelDelta[2], 4));
     /* Scale down angVelDelta if accel is too large */
-    float maxAngVelDelta = 0;
-    for (int i = 0; i < 3; i++)
-        maxAngVelDelta = max(abs(wheelAngVelDelta[i]), maxAngVelDelta);
-    float maxVelDeltaAllowed = MOTOR_MAX_ACCEL * _dt;
-    Serial.println("Delta Time: " + String(_dt));
-    if (maxAngVelDelta > maxVelDeltaAllowed)
-    {
-        wheelAngVelDelta[0] *= maxVelDeltaAllowed / maxAngVelDelta;
-        wheelAngVelDelta[1] *= maxVelDeltaAllowed / maxAngVelDelta;
-        wheelAngVelDelta[2] *= maxVelDeltaAllowed / maxAngVelDelta;
-    }
+    // float maxAngVelDelta = 0;
+    // for (int i = 0; i < 3; i++)
+    //     maxAngVelDelta = max(abs(wheelAngVelDelta[i]), maxAngVelDelta);
+    // float maxVelDeltaAllowed = MOTOR_MAX_ACCEL * _dt;
+    // Serial.println("Delta Time: " + String(_dt));
+    // if (maxAngVelDelta > maxVelDeltaAllowed)
+    // {
+    //     wheelAngVelDelta[0] *= maxVelDeltaAllowed / maxAngVelDelta;
+    //     wheelAngVelDelta[1] *= maxVelDeltaAllowed / maxAngVelDelta;
+    //     wheelAngVelDelta[2] *= maxVelDeltaAllowed / maxAngVelDelta;
+    // }
 
     /* If motors are saturated, don't update */
-    // float maxAngVel = 0;
-    // for (int i = 0; i < 3; i++)
-    //     maxAngVel = max(abs(_wheelAngVel[i] + wheelAngVelDelta[i]), maxAngVel);
-    // if (maxAngVel > MAX_MOTOR_W)
-    // {
-    //     wheelAngVelDelta[0] = 0;
-    //     wheelAngVelDelta[1] = 0;
-    //     wheelAngVelDelta[2] = 0;
-    // }
-    wheelAngVelDelta[0] = (_wheelAngVel[0] + wheelAngVelDelta[0]) < MAX_MOTOR_W ? wheelAngVelDelta[0] : 0;
-    wheelAngVelDelta[1] = (_wheelAngVel[1] + wheelAngVelDelta[1]) < MAX_MOTOR_W ? wheelAngVelDelta[1] : 0;
-    wheelAngVelDelta[2] = (_wheelAngVel[2] + wheelAngVelDelta[2]) < MAX_MOTOR_W ? wheelAngVelDelta[2] : 0;
+    wheelAngVelDelta[0] = abs(_wheelAngVel[0] + wheelAngVelDelta[0]) < MAX_MOTOR_W ? wheelAngVelDelta[0] : 0;
+    wheelAngVelDelta[1] = abs(_wheelAngVel[1] + wheelAngVelDelta[1]) < MAX_MOTOR_W ? wheelAngVelDelta[1] : 0;
+    wheelAngVelDelta[2] = abs(_wheelAngVel[2] + wheelAngVelDelta[2]) < MAX_MOTOR_W ? wheelAngVelDelta[2] : 0;
 
     _wheelAngVel[0] += wheelAngVelDelta[0];
     _wheelAngVel[1] += wheelAngVelDelta[1];
     _wheelAngVel[2] += wheelAngVelDelta[2];
-    Serial.println("WheelWDelta: " + String(wheelAngVelDelta[0]) + " " + String(wheelAngVelDelta[1]) + " " + String(wheelAngVelDelta[2]));
-    Serial.println("wheelW:      " + String(_wheelAngVel[0]) + " " + String(_wheelAngVel[1]) + " " + String(_wheelAngVel[2]));
+    // Serial.println("WheelWDelta: " + String(wheelAngVelDelta[0]) + " " + String(wheelAngVelDelta[1]) + " " + String(wheelAngVelDelta[2]));
+    // Serial.println("wheelW:      " + String(_wheelAngVel[0]) + " " + String(_wheelAngVel[1]) + " " + String(_wheelAngVel[2]));
 }
 
 /******************************************************************************/
@@ -113,8 +104,8 @@ void Motor_Control::setMotor()
         dir[i] = _wheelAngVel[i] < 0; //Change < to >= to reverse the working.
         spd[i] = map(abs(_wheelAngVel[i]), 0, MAX_MOTOR_W, 0, MAX_MOTOR_PWM);
     }
-    Serial.println("Direction:   " + String(dir[0]) + " " + String(dir[1]) + " " + String(dir[2]));
-    Serial.println("PWM:         " + String(spd[0]) + " " + String(spd[1]) + " " + String(spd[2]));
+    // Serial.println("Direction:   " + String(dir[0]) + " " + String(dir[1]) + " " + String(dir[2]));
+    // Serial.println("PWM:         " + String(spd[0]) + " " + String(spd[1]) + " " + String(spd[2]));
     digitalWrite(MOT_R_IN1,  dir[0]);
     digitalWrite(MOT_R_IN2, !dir[0]);
     digitalWrite(MOT_P_IN1,  dir[1]);
