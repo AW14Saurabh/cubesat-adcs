@@ -72,19 +72,19 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
     @brief  Calculate the roll, pitch and yaw in degrees
 */
 /******************************************************************************/
-void Attitude_Determination::getAngles(angRPYData_t *ang, attdData_t *attd)
+void Attitude_Determination::getAngles(angRPYData_t *ang, attdData_t *q)
 {
     if (!_anglesComputed)
     {
-        ang->x = atan2f(attd->a * attd->b + attd->c * attd->d, 0.5f - attd->b * attd->b - attd->c * attd->c);
-        ang->y = asinf(-2.0f * (attd->b * attd->d - attd->a * attd->c));
-        ang->z = atan2f(attd->b * attd->c + attd->a * attd->d, 0.5f - attd->c * attd->c - attd->d * attd->d);
+        ang->x = atan2(q->a*q->b + q->c*q->d, 0.5f - q->b*q->b - q->c*q->c);
+        ang->y = asin(-2.0f*(q->b*q->d - q->a*q->c));
+        ang->z = atan2(q->b*q->c + q->a*q->d, 0.5f - q->c*q->c - q->d*q->d);
         _anglesComputed = true;
     }
 
-    ang->x *= 57.29578f;
-    ang->y *= 57.29578f;
-    ang->z *= 57.29578f;
+    // ang->x *= 57.29578f;
+    // ang->y *= 57.29578f;
+    // ang->z *= 57.29578f;
 }
 
 /******************************************************************************/
@@ -92,34 +92,40 @@ void Attitude_Determination::getAngles(angRPYData_t *ang, attdData_t *attd)
     @brief  Update the Heading from gyro reading
 */
 /******************************************************************************/
-void Attitude_Determination::updateHeading(angVelData_t *angVel, attdData_t *attd, int32_t dt)
+void Attitude_Determination::updateHeading(angVelData_t *w, attdData_t *q, int32_t dt)
 {
     float normal;
-    angVelData_t tmpAngVel;
-    attdData_t tmpAtt = {attd->a, attd->b, attd->c, 0.0};
+    angVelData_t tw {0.0, 0.0, 0.0};
+    attdData_t tq {q->a, q->b, q->c, q->d};
     float dtSec = (float)dt / 1000;
+    // Serial.println("Delta: " + String(dtSec));
     sensors_event_t eventG;
 
     _gyro.getEvent(&eventG);
-    angVel->x = eventG.gyro.x - _bias.x;
-    angVel->y = eventG.gyro.y - _bias.y;
-    angVel->z = eventG.gyro.z - _bias.z;
+    w->x = eventG.gyro.x - _bias.x;
+    w->y = eventG.gyro.y - _bias.y;
+    w->z = eventG.gyro.z - _bias.z;
+
+    tw.x = w->x;
+    tw.y = w->y;
+    tw.z = w->z;
 
     /* Integrate rate of change of quaternions */
-    tmpAngVel.x = angVel->x * (0.5f * dtSec);
-    tmpAngVel.y = angVel->y * (0.5f * dtSec);
-    tmpAngVel.z = angVel->z * (0.5f * dtSec);
+    /* Pre-multiply common factors */
+    w->x *= (0.5f * dtSec);
+    w->y *= (0.5f * dtSec);
+    w->z *= (0.5f * dtSec);
 
-    attd->a += (-tmpAtt.b * tmpAngVel.x - tmpAtt.c * tmpAngVel.y - attd->d * tmpAngVel.z);
-    attd->b += (tmpAtt.a * tmpAngVel.x + tmpAtt.c * tmpAngVel.z - attd->d * tmpAngVel.y);
-    attd->c += (tmpAtt.a * tmpAngVel.y - tmpAtt.b * tmpAngVel.z - attd->d * tmpAngVel.x);
-    attd->d += (tmpAtt.a * tmpAngVel.z + tmpAtt.b * tmpAngVel.y - tmpAtt.c * tmpAngVel.x);
+    q->a += (-tq.b*tw.x - tq.c*tw.y - tq.d*tw.z);
+    q->b += ( tq.a*tw.x + tq.c*tw.z - tq.d*tw.y);
+    q->c += ( tq.a*tw.y - tq.b*tw.z + tq.d*tw.x);
+    q->d += ( tq.a*tw.z + tq.b*tw.y - tq.c*tw.x);
 
     /* Normalize the quaternions */
-    normal = inverseSqrt(attd->a * attd->a + attd->b * attd->b + attd->c * attd->c + attd->d * attd->d);
-    attd->a *= normal;
-    attd->b *= normal;
-    attd->c *= normal;
-    attd->d *= normal;
+    normal = inverseSqrt(q->a*q->a + q->b*q->b + q->c*q->c + q->d*q->d);
+    q->a *= normal;
+    q->b *= normal;
+    q->c *= normal;
+    q->d *= normal;
     _anglesComputed = false;
 }
