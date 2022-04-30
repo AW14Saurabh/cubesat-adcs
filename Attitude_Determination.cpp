@@ -40,7 +40,8 @@ float Attitude_Determination::inverseSqrt (float x)
 */
 /******************************************************************************/
 Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified(ID)),
-                                                   _bias({0.0, 0.0, 0.0}),
+                                                   _biasVel({0.0, 0.0, 0.0}),
+                                                   _biasAng({0.0,0.0,0.0}),
                                                    _anglesComputed(false)
 {
     /* Initialize Gyro */
@@ -48,19 +49,25 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
     _gyro.begin();
 
     /* Calibrate Gyro */
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < 500; i++)
     {
         sensors_event_t event;
         _gyro.getEvent(&event);
-        _bias.x += event.gyro.x;
-        _bias.y += event.gyro.y;
-        _bias.z += event.gyro.z;
+        _biasVel.x += event.gyro.x;
+        _biasVel.y += event.gyro.y;
+        _biasVel.z += event.gyro.z;
         delay(10);
+        _biasAng.x += _biasVel.x * 0.01;
+        _biasAng.y += _biasVel.y * 0.01;
+        _biasAng.z += _biasVel.z * 0.01;
     }
-    _bias.x /= 1000;
-    _bias.y /= 1000;
-    _bias.z /= 1000;
-    // Serial.println("Bias:\t" + String(_bias.x) + "\t" + String(_bias.y) + "\t" + String(_bias.z));
+    _biasVel.x /= 500;
+    _biasVel.y /= 500;
+    _biasVel.z /= 500;
+    _biasAng.x /= 500;
+    _biasAng.y /= 500;
+    _biasAng.z /= 500;
+    // Serial.println("Bias:\t" + String(_biasVel.x) + "\t" + String(_biasVel.y) + "\t" + String(_biasVel.z));
 }
 
 /*******************************************************************************
@@ -72,16 +79,20 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
     @brief  Calculate the roll, pitch and yaw in degrees
 */
 /******************************************************************************/
-void Attitude_Determination::getAngles(angRPYData_t *ang, attdData_t *q)
+void Attitude_Determination::getAngles(angRPYData_t *ang, angVelData_t *w, int32_t dt)
 {
+    float dtSec = (float)dt / 1000.0;
     if (!_anglesComputed)
     {
-        ang->x = atan2(q->a*q->b + q->c*q->d, 0.5f - q->b*q->b - q->c*q->c);
-        ang->y = asin(-2.0f*(q->b*q->d - q->a*q->c));
-        ang->z = atan2(q->b*q->c + q->a*q->d, 0.5f - q->c*q->c - q->d*q->d);
+        // ang->x = atan2(q->a*q->b + q->c*q->d, 0.5f - q->b*q->b - q->c*q->c);
+        // ang->y = asin(-2.0f*(q->b*q->d - q->a*q->c));
+        // ang->z = atan2(q->b*q->c + q->a*q->d, 0.5f - q->c*q->c - q->d*q->d);
+        ang->x += (w->x * dtSec) - _biasAng.x;
+        ang->y += (w->y * dtSec) - _biasAng.y;
+        ang->z += (w->z * dtSec) - _biasAng.z;
         _anglesComputed = true;
     }
-
+    Serial.println("AnglesRad:\t" + String(ang->x, 6) + "\t" + String(ang->y, 6) + "\t" + String(ang->z, 6));
     // ang->x *= 57.29578f;
     // ang->y *= 57.29578f;
     // ang->z *= 57.29578f;
@@ -102,9 +113,9 @@ void Attitude_Determination::updateHeading(angVelData_t *w, attdData_t *q, int32
     sensors_event_t eventG;
 
     _gyro.getEvent(&eventG);
-    w->x = eventG.gyro.x - _bias.x;
-    w->y = eventG.gyro.y - _bias.y;
-    w->z = eventG.gyro.z - _bias.z;
+    w->x = eventG.gyro.x - _biasVel.x;
+    w->y = eventG.gyro.y - _biasVel.y;
+    w->z = eventG.gyro.z - _biasVel.z;
 
     tw.x = w->x;
     tw.y = w->y;

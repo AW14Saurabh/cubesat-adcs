@@ -15,7 +15,7 @@
 /******************************************************************************/
 void Motor_Control::detumble()
 {
-    double P = 2.0;
+    float P = 2.0;
     // Serial.println("SatAngVel:\t\t" + String(_satAngVel->x) + "\t" + String(_satAngVel->y) + "\t" + String(_satAngVel->z));
     _satAngMom.x = P * (0.0 - _satAngVel->x);
     _satAngMom.y = P * (0.0 - _satAngVel->y);
@@ -33,18 +33,18 @@ void Motor_Control::point(angRPYData_t *targetAng)
 {
     angRPYData_t error;
 
-    error.x = targetAng->x * PI / 180 - _satAngles->x;
-    error.y = targetAng->y * PI / 180 - _satAngles->y;
-    error.z = targetAng->z * PI / 180 - _satAngles->z;
+    error.x = _satAngles->x - targetAng->x * PI / 180;
+    error.y = _satAngles->y - targetAng->y * PI / 180;
+    error.z = _satAngles->z - targetAng->z * PI / 180;
 
-    while (error.z  >  PI) error.z -= 2 * PI;
-    while (error.z <= -PI) error.z += 2 * PI;
+    // while (error.z  >  PI) error.z -= 2 * PI;
+    // while (error.z <= -PI) error.z += 2 * PI;
 
-    float P = -0.001;
-    float D =  0.003;
-    _satAngMom.x = (P * error.x + D * _satAngVel->x) * _dt;
-    _satAngMom.y = (P * error.y + D * _satAngVel->y) * _dt;
-    _satAngMom.z = (P * error.z + D * _satAngVel->z) * _dt;
+    float P = 2.25;
+    float D = 2.0;
+    _satAngMom.x = D * (P * error.x + _satAngVel->x);
+    _satAngMom.y = D * (P * error.y + _satAngVel->y);
+    _satAngMom.z = D * (P * error.z + _satAngVel->z);
 }
 
 /******************************************************************************/
@@ -157,10 +157,10 @@ void Motor_Control::updateMotor(messageData_t *message, int dtMillis)
 {
     _dt = (float) dtMillis / 1000.0;
     // Serial.println("Delta: " + String(_dt));
-    // if (message->opMode)
+    if (message->opMode)
         detumble();
-    // else
-        // point(&message->targetAngles);
+    else
+        point(&message->targetAngles);
     // calcWheelAngVel();
     setMotor();
 }
