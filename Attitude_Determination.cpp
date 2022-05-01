@@ -53,7 +53,7 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
     @brief  Update the Heading from gyro reading
 */
 /******************************************************************************/
-void Attitude_Determination::updateHeading(angVelData_t *w, angRPYData_t *ang, attdData_t *q)
+void Attitude_Determination::updateHeading(angVelData_t *w /*, angRPYData_t *ang, attdData_t *q*/)
 {
     sensors_event_t eventG, eventA, eventM;
 
@@ -80,5 +80,5 @@ void Attitude_Determination::updateHeading(angVelData_t *w, angRPYData_t *ang, a
     // ang->y += w->y * 0.1;
     // ang->z += w->z * 0.1;
 
-    filter.getQuaternion(&q->a, &q->b, &q->c, &q->d);
+    // filter.getQuaternion(&q->a, &q->b, &q->c, &q->d);
 }

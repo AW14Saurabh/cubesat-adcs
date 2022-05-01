@@ -30,7 +30,7 @@ private:
 public:
     Attitude_Determination();
 
-    void updateHeading(angVelData_t*, angRPYData_t*, attdData_t*);
+    void updateHeading(angVelData_t* /*, angRPYData_t*, attdData_t* */);
 };
 
 #endif

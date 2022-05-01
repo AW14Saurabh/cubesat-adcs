@@ -11,8 +11,8 @@ Motor_Control *motors;
 
 messageData_t message {1, 0, {0,0,0}};
 angVelData_t satAngVel {0.0,0.0,0.0};
-attdData_t satAttitude {1.0,0.0,0.0,0.0};
-angRPYData_t angles {0.0,0.0,0.0};
+// attdData_t satAttitude {1.0,0.0,0.0,0.0};
+// angRPYData_t angles {0.0,0.0,0.0};
 
 void setup()
 {
@@ -22,7 +22,7 @@ void setup()
     analogWrite(LASER, 200);
     attitude = new Attitude_Determination();
     Serial.println("Gyro On");
-    motors = new Motor_Control(&satAngVel, &angles);
+    motors = new Motor_Control(&satAngVel/*, &angles*/);
     Serial.println("Motors On");
     radio = new Radio_Communication();
     Serial.println("Radio On");
@@ -37,7 +37,7 @@ void loop()
     // Serial.println("Target Angle: " + String(message.targetAngles.z));
     analogWrite(LASER, !message.laserDisable * 200);
 
-    attitude->updateHeading(&satAngVel, &angles, &satAttitude);
+    attitude->updateHeading(&satAngVel/*, &angles, &satAttitude*/);
     // Serial.println("AngVel: " + String(satAngVel.x, 2) + " " + String(satAngVel.y, 2) + " " + String(satAngVel.z, 2));
     // Serial.println(String(satAttitude.a, 6) + "\t" + String(satAttitude.b, 6) + "\t" + String(satAttitude.c, 6) + "\t" + String(satAttitude.d));
     // Serial.println(String(angles.x, 6) + " " + String(angles.y, 6) + " " + String(angles.z, 6));

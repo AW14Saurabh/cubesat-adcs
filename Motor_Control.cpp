@@ -27,20 +27,20 @@ void Motor_Control::detumble()
             only affects yaw angle. Target Angles are in degrees.
 */
 /******************************************************************************/
-void Motor_Control::point(angRPYData_t *targetAng)
-{
-    angRPYData_t error;
+// void Motor_Control::point(angRPYData_t *targetAng)
+// {
+//     angRPYData_t error;
 
-    error.x = _satAngles->x - targetAng->x;
-    error.y = _satAngles->y - targetAng->y;
-    error.z = _satAngles->z - targetAng->z;
+//     error.x = _satAngles->x - targetAng->x;
+//     error.y = _satAngles->y - targetAng->y;
+//     error.z = _satAngles->z - targetAng->z;
 
-    float P = 2.25;
-    float D = 2.0;
-    _satAngMom.x = P * error.x + D * _satAngVel->x;
-    _satAngMom.y = P * error.y + D * _satAngVel->y;
-    _satAngMom.z = P * error.z + D * _satAngVel->z;
-}
+//     float P = 2.25;
+//     float D = 2.0;
+//     _satAngMom.x = P * error.x + D * _satAngVel->x;
+//     _satAngMom.y = P * error.y + D * _satAngVel->y;
+//     _satAngMom.z = P * error.z + D * _satAngVel->z;
+// }
 
 /******************************************************************************/
 /*!
@@ -105,8 +105,8 @@ void Motor_Control::setMotor()
     @brief  Instantiates a new Motor_Control class
 */
 /******************************************************************************/
-Motor_Control::Motor_Control(angVelData_t *angVel, angRPYData_t *ang) : _satAngVel(angVel),
-                                                                        _satAngles(ang),
+Motor_Control::Motor_Control(angVelData_t *angVel /*, angRPYData_t *ang */) : _satAngVel(angVel),
+                                                                        // _satAngles(ang),
                                                                         _satAngMom{0,0,0},
                                                                         _whlAngVel{0,0,0}
 {

@@ -29,7 +29,7 @@ class Motor_Control
 private:
     angVelData_t* _satAngVel;      //3 Axis Rotation, 1 Satellite
     angMomData_t  _satAngMom;
-    angRPYData_t* _satAngles;
+    // angRPYData_t* _satAngles;
     float         _whlAngVel[3]; //Single Axis Rotation, 3 Wheels
     void detumble();
     void point(angRPYData_t*);
@@ -37,7 +37,7 @@ private:
     void setMotor();
 
 public:
-    Motor_Control(angVelData_t*, angRPYData_t*);
+    Motor_Control(angVelData_t* /*, angRPYData_t* */);
     void updateMotor(messageData_t*);
 };
 
