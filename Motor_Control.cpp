@@ -15,7 +15,7 @@
 /******************************************************************************/
 void Motor_Control::detumble()
 {
-    float P = 2.0;
+    float P = 1.0;
     _satAngMom.x = P * (0.0 - _satAngVel->x);
     _satAngMom.y = P * (0.0 - _satAngVel->y);
     _satAngMom.z = P * (0.0 - _satAngVel->z);

@@ -42,5 +42,5 @@ void loop()
     motors->updateMotor(&message);
     radio->sendMessage(&satAngVel);
 
-    delay(10);
+    delay(100);
 }
