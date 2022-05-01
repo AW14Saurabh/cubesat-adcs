@@ -51,11 +51,11 @@ void Attitude_Determination::updateHeading(angVelData_t *w, angRPYData_t *ang, a
     cal.calibrate(eventM);
     cal.calibrate(eventG);
 
-    w->x = eventG.gyro.x * SENSORS_RADS_TO_DPS;
-    w->y = eventG.gyro.y * SENSORS_RADS_TO_DPS;
-    w->z = eventG.gyro.z * SENSORS_RADS_TO_DPS;
+    w->x = eventG.gyro.x;
+    w->y = eventG.gyro.y;
+    w->z = eventG.gyro.z;
 
-    filter.update(w->x, w->y, w->z,
+    filter.update(w->x * SENSORS_RADS_TO_DPS, w->y * SENSORS_RADS_TO_DPS, w->z * SENSORS_RADS_TO_DPS,
                   eventA.acceleration.x, eventA.acceleration.y, eventA.acceleration.z,
                   eventM.magnetic.x, eventM.magnetic.y, eventM.magnetic.z);
 

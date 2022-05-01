@@ -16,11 +16,9 @@
 void Motor_Control::detumble()
 {
     float P = 2.0;
-    // Serial.println("SatAngVel:\t\t" + String(_satAngVel->x) + "\t" + String(_satAngVel->y) + "\t" + String(_satAngVel->z));
     _satAngMom.x = P * (0.0 - _satAngVel->x);
     _satAngMom.y = P * (0.0 - _satAngVel->y);
     _satAngMom.z = P * (0.0 - _satAngVel->z);
-    // Serial.println("Momentum:\t" + String(_satAngMom.x) + "\t" + String(_satAngMom.y) + "\t" + String(_satAngMom.z));
 }
 
 /******************************************************************************/
@@ -96,8 +94,8 @@ void Motor_Control::setMotor()
 {
     digitalWrite(MOT_R_IN1, _satAngMom.x < 0 ? LOW : HIGH);
     digitalWrite(MOT_R_IN2, _satAngMom.x < 0 ? HIGH : LOW);
-    digitalWrite(MOT_P_IN1, _satAngMom.y < 0 ? HIGH : LOW);
-    digitalWrite(MOT_P_IN2, _satAngMom.y < 0 ? LOW : HIGH);
+    digitalWrite(MOT_P_IN1, _satAngMom.y < 0 ? LOW : HIGH);
+    digitalWrite(MOT_P_IN2, _satAngMom.y < 0 ? HIGH : LOW);
     digitalWrite(MOT_Y_IN1, _satAngMom.z < 0 ? LOW : HIGH);
     digitalWrite(MOT_Y_IN2, _satAngMom.z < 0 ? HIGH : LOW);
      analogWrite(MOT_R_SPD, 255 * min(1.0, abs(_satAngMom.x)));

@@ -35,7 +35,7 @@ void loop()
     analogWrite(LASER, !message.laserDisable * 200);
 
     attitude->updateHeading(&satAngVel, &angles, &satAttitude);
-    // Serial.println(">R:" + String(satAngVel.x, 6) + "\n>P:" + String(satAngVel.y, 6) + "\n>Y:" + String(satAngVel.z, 6));
+    // Serial.println(">R:" + String(satAngVel.x, 6) + " >P:" + String(satAngVel.y, 6) + " >Y:" + String(satAngVel.z, 6));
     // Serial.println(String(satAttitude.a, 6) + "\t" + String(satAttitude.b, 6) + "\t" + String(satAttitude.c, 6) + "\t" + String(satAttitude.d));
     // Serial.println(String(angles.x, 6) + " " + String(angles.y, 6) + " " + String(angles.z, 6));
 
