@@ -22,7 +22,7 @@ Radio_Communication::Radio_Communication() : _radio(RF24(NRF_CE, NRF_CS))
     _radio.setRetries(15, 15);
     _radio.openWritingPipe(_rxAddr[1]);
     _radio.openReadingPipe(1, _rxAddr[0]);
-    // _radio.startListening();
+    _radio.startListening();
 }
 
 /*******************************************************************************

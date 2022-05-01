@@ -44,11 +44,18 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
                                                    _anglesComputed(false)
 {
     /* Initialize Gyro */
-    _gyro.enableAutoRange(true);
-    _gyro.begin();
-
+     _gyro.enableAutoRange(true);
+    _gyro.begin(GYRO_RANGE_2000DPS);
+    // if(!_gyro.begin())
+    // {
+    //   /* There was a problem detecting the L3GD20 ... check your connections */
+    //   Serial.println("Ooops, no L3GD20 detected ... Check your wiring!");
+    //   while(1);
+    // }
+    // Serial.println("Gyro init");
+    // delay(1000);
     /* Calibrate Gyro */
-    for (int i = 0; i < 1000; i++)
+    for (int i = 0; i < 100; i++)
     {
         sensors_event_t event;
         _gyro.getEvent(&event);
@@ -57,9 +64,9 @@ Attitude_Determination::Attitude_Determination() : _gyro(Adafruit_L3GD20_Unified
         _bias.z += event.gyro.z;
         delay(10);
     }
-    _bias.x /= 1000;
-    _bias.y /= 1000;
-    _bias.z /= 1000;
+    _bias.x /= 100;
+    _bias.y /= 100;
+    _bias.z /= 100;
     // Serial.println("Bias:\t" + String(_bias.x) + "\t" + String(_bias.y) + "\t" + String(_bias.z));
 }
 
@@ -112,9 +119,9 @@ void Attitude_Determination::updateHeading(angVelData_t *w, attdData_t *q, int32
 
     /* Integrate rate of change of quaternions */
     /* Pre-multiply common factors */
-    w->x *= (0.5f * dtSec);
-    w->y *= (0.5f * dtSec);
-    w->z *= (0.5f * dtSec);
+    tw.x *= (0.5f * dtSec);
+    tw.y *= (0.5f * dtSec);
+    tw.z *= (0.5f * dtSec);
 
     q->a += (-tq.b*tw.x - tq.c*tw.y - tq.d*tw.z);
     q->b += ( tq.a*tw.x + tq.c*tw.z - tq.d*tw.y);

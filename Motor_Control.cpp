@@ -15,11 +15,11 @@
 /******************************************************************************/
 void Motor_Control::detumble()
 {
-    double P = 2.0;
+    // double P = 1.0;
     // Serial.println("SatAngVel:\t\t" + String(_satAngVel->x) + "\t" + String(_satAngVel->y) + "\t" + String(_satAngVel->z));
-    _satAngMom.x = P * (0.0 - _satAngVel->x);
-    _satAngMom.y = P * (0.0 - _satAngVel->y);
-    _satAngMom.z = P * (0.0 - _satAngVel->z);
+    _satAngMom.x = /*P*/0.5 * (0.0 - _satAngVel->x);
+    _satAngMom.y = /*P*/0.5 * (0.0 - _satAngVel->y);
+    _satAngMom.z = /*P*/2.0 * (0.0 - _satAngVel->z);
     // Serial.println("Momentum:\t" + String(_satAngMom.x) + "\t" + String(_satAngMom.y) + "\t" + String(_satAngMom.z));
 }
 
@@ -97,8 +97,8 @@ void Motor_Control::calcWheelAngVel()
 /******************************************************************************/
 void Motor_Control::setMotor()
 {
-    digitalWrite(MOT_R_IN1, _satAngMom.x < 0 ? LOW : HIGH);
-    digitalWrite(MOT_R_IN2, _satAngMom.x < 0 ? HIGH : LOW);
+    digitalWrite(MOT_R_IN1, _satAngMom.x < 0 ? HIGH : LOW);
+    digitalWrite(MOT_R_IN2, _satAngMom.x < 0 ? LOW : HIGH);
     digitalWrite(MOT_P_IN1, _satAngMom.y < 0 ? HIGH : LOW);
     digitalWrite(MOT_P_IN2, _satAngMom.y < 0 ? LOW : HIGH);
     digitalWrite(MOT_Y_IN1, _satAngMom.z < 0 ? LOW : HIGH);
@@ -133,15 +133,21 @@ Motor_Control::Motor_Control(angVelData_t *angVel, angRPYData_t *ang) : _satAngV
     pinMode(MOT_P_IN2, OUTPUT);
     pinMode(MOT_P_SPD, OUTPUT);
 
-    digitalWrite(MOT_Y_IN1,LOW);
     digitalWrite(MOT_R_IN1,LOW);
-    digitalWrite(MOT_P_IN1,LOW);
-    digitalWrite(MOT_Y_IN2,HIGH);
     digitalWrite(MOT_R_IN2,HIGH);
+    delay(10);
+    digitalWrite(MOT_P_IN1,LOW);
     digitalWrite(MOT_P_IN2,HIGH);
-    analogWrite(MOT_Y_SPD, 180);
-    analogWrite(MOT_R_SPD, 180);
-    analogWrite(MOT_P_SPD, 180);
+    delay(10);
+    digitalWrite(MOT_Y_IN1,LOW);
+    digitalWrite(MOT_Y_IN2,HIGH);
+    delay(10);
+    analogWrite(MOT_Y_SPD, 0);
+    delay(10);
+    analogWrite(MOT_R_SPD, 0);
+    delay(10);
+    analogWrite(MOT_P_SPD, 0);
+    delay(10);
 }
 
 /*******************************************************************************
