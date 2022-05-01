@@ -74,6 +74,7 @@ void Motor_Control::calcWheelAngVel()
     _whlAngVel[0] += whlAngVelD[0];
     _whlAngVel[1] += whlAngVelD[1];
     _whlAngVel[2] += whlAngVelD[2];
+    Serial.println("wheelW: " + String(_whlAngVel[0], 2) + " " + String(_whlAngVel[1], 2) + " " + String(_whlAngVel[2], 2));
 }
 
 /******************************************************************************/

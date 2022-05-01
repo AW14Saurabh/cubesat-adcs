@@ -25,6 +25,7 @@ private:
     Adafruit_L3GD20_Unified _gyro;
     Adafruit_Mahony filter;
     Adafruit_Sensor_Calibration_EEPROM cal;
+    angVelData_t _bias;
 
 public:
     Attitude_Determination();

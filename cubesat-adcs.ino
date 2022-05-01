@@ -16,13 +16,16 @@ angRPYData_t angles {0.0,0.0,0.0};
 
 void setup()
 {
-    // Serial.begin(115200);
+    Serial.begin(115200);
     pinMode(BEEPER, OUTPUT);
     pinMode(LASER,  OUTPUT);
     analogWrite(LASER, 200);
-    motors = new Motor_Control(&satAngVel, &angles);
     attitude = new Attitude_Determination();
+    Serial.println("Gyro On");
+    motors = new Motor_Control(&satAngVel, &angles);
+    Serial.println("Motors On");
     radio = new Radio_Communication();
+    Serial.println("Radio On");
     tone(BEEPER, 5000, 500);
     analogWrite(LASER, 0);
 }
@@ -35,7 +38,7 @@ void loop()
     analogWrite(LASER, !message.laserDisable * 200);
 
     attitude->updateHeading(&satAngVel, &angles, &satAttitude);
-    // Serial.println(">R:" + String(satAngVel.x, 6) + " >P:" + String(satAngVel.y, 6) + " >Y:" + String(satAngVel.z, 6));
+    // Serial.println("AngVel: " + String(satAngVel.x, 2) + " " + String(satAngVel.y, 2) + " " + String(satAngVel.z, 2));
     // Serial.println(String(satAttitude.a, 6) + "\t" + String(satAttitude.b, 6) + "\t" + String(satAttitude.c, 6) + "\t" + String(satAttitude.d));
     // Serial.println(String(angles.x, 6) + " " + String(angles.y, 6) + " " + String(angles.z, 6));
 
