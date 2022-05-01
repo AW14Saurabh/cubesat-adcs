@@ -20,8 +20,8 @@
 #define MOT_R_SPD 6 // PWM
 
 #define MOTOR_MAX_ACCEL 134.74
-#define WHEEL_I 2.835E-05 //N.m
-#define MAX_MOTOR_W 2400
+#define WHEEL_I 1.4175E-05 //N.m
+#define MAX_MOTOR_W 311
 #define MAX_MOTOR_PWM 255
 
 class Motor_Control
@@ -30,7 +30,7 @@ private:
     angVelData_t* _satAngVel;      //3 Axis Rotation, 1 Satellite
     angMomData_t  _satAngMom;
     angRPYData_t* _satAngles;
-    float         _wheelAngVel[3]; //Single Axis Rotation, 3 Wheels
+    float         _whlAngVel[3]; //Single Axis Rotation, 3 Wheels
     void detumble();
     void point(angRPYData_t*);
     void calcWheelAngVel();

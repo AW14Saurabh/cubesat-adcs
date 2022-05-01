@@ -37,9 +37,9 @@ void Motor_Control::point(angRPYData_t *targetAng)
 
     float P = 2.25;
     float D = 2.0;
-    _satAngMom.x = D * (P * error.x + _satAngVel->x);
-    _satAngMom.y = D * (P * error.y + _satAngVel->y);
-    _satAngMom.z = D * (P * error.z + _satAngVel->z);
+    _satAngMom.x = P * error.x + D * _satAngVel->x;
+    _satAngMom.y = P * error.y + D * _satAngVel->y;
+    _satAngMom.z = P * error.z + D * _satAngVel->z;
 }
 
 /******************************************************************************/
@@ -55,34 +55,25 @@ void Motor_Control::calcWheelAngVel()
     to current wheel angular velocity. Since motors are on the axes there is no
     complex momentum distribution math involved.
     */
-    float wheelAngVelDelta[3];
-    wheelAngVelDelta[0] = _satAngMom.x / WHEEL_I;
-    wheelAngVelDelta[1] = _satAngMom.y / WHEEL_I;
-    wheelAngVelDelta[2] = _satAngMom.z / WHEEL_I;
-    // Serial.println("WhlWD: " + String(wheelAngVelDelta[0], 4) + " " + String(wheelAngVelDelta[1], 4) + " " + String(wheelAngVelDelta[2], 4));
+    float whlAngVelD[3];
+    whlAngVelD[0] = _satAngMom.x / WHEEL_I;
+    whlAngVelD[1] = _satAngMom.y / WHEEL_I;
+    whlAngVelD[2] = _satAngMom.z / WHEEL_I;
+
     /* Scale down angVelDelta if accel is too large */
-    // float maxAngVelDelta = 0;
-    // for (int i = 0; i < 3; i++)
-    //     maxAngVelDelta = max(abs(wheelAngVelDelta[i]), maxAngVelDelta);
-    // float maxVelDeltaAllowed = MOTOR_MAX_ACCEL * _dt;
-    // Serial.println("Delta Time: " + String(_dt));
-    // if (maxAngVelDelta > maxVelDeltaAllowed)
-    // {
-    //     wheelAngVelDelta[0] *= maxVelDeltaAllowed / maxAngVelDelta;
-    //     wheelAngVelDelta[1] *= maxVelDeltaAllowed / maxAngVelDelta;
-    //     wheelAngVelDelta[2] *= maxVelDeltaAllowed / maxAngVelDelta;
-    // }
+    
+    whlAngVelD[0] = copysign(min(abs(whlAngVelD[0]), MOTOR_MAX_ACCEL * 0.1), whlAngVelD[0]);
+    whlAngVelD[1] = copysign(min(abs(whlAngVelD[1]), MOTOR_MAX_ACCEL * 0.1), whlAngVelD[1]);
+    whlAngVelD[2] = copysign(min(abs(whlAngVelD[2]), MOTOR_MAX_ACCEL * 0.1), whlAngVelD[2]);
 
     /* If motors are saturated, don't update */
-    wheelAngVelDelta[0] = abs(_wheelAngVel[0] + wheelAngVelDelta[0]) < MAX_MOTOR_W ? wheelAngVelDelta[0] : 0;
-    wheelAngVelDelta[1] = abs(_wheelAngVel[1] + wheelAngVelDelta[1]) < MAX_MOTOR_W ? wheelAngVelDelta[1] : 0;
-    wheelAngVelDelta[2] = abs(_wheelAngVel[2] + wheelAngVelDelta[2]) < MAX_MOTOR_W ? wheelAngVelDelta[2] : 0;
+    whlAngVelD[0] = copysign(min(abs(whlAngVelD[0] + _whlAngVel[0]), MAX_MOTOR_W) - abs(_whlAngVel[0]), whlAngVelD[0]);
+    whlAngVelD[1] = copysign(min(abs(whlAngVelD[1] + _whlAngVel[1]), MAX_MOTOR_W) - abs(_whlAngVel[1]), whlAngVelD[1]);
+    whlAngVelD[2] = copysign(min(abs(whlAngVelD[2] + _whlAngVel[2]), MAX_MOTOR_W) - abs(_whlAngVel[2]), whlAngVelD[2]);
 
-    _wheelAngVel[0] += wheelAngVelDelta[0];
-    _wheelAngVel[1] += wheelAngVelDelta[1];
-    _wheelAngVel[2] += wheelAngVelDelta[2];
-    // Serial.println("WheelWDelta: " + String(wheelAngVelDelta[0]) + " " + String(wheelAngVelDelta[1]) + " " + String(wheelAngVelDelta[2]));
-    // Serial.println("wheelW:      " + String(_wheelAngVel[0]) + " " + String(_wheelAngVel[1]) + " " + String(_wheelAngVel[2]));
+    _whlAngVel[0] += whlAngVelD[0];
+    _whlAngVel[1] += whlAngVelD[1];
+    _whlAngVel[2] += whlAngVelD[2];
 }
 
 /******************************************************************************/
@@ -92,15 +83,16 @@ void Motor_Control::calcWheelAngVel()
 /******************************************************************************/
 void Motor_Control::setMotor()
 {
-    digitalWrite(MOT_R_IN1, _satAngMom.x < 0 ? LOW : HIGH);
-    digitalWrite(MOT_R_IN2, _satAngMom.x < 0 ? HIGH : LOW);
-    digitalWrite(MOT_P_IN1, _satAngMom.y < 0 ? LOW : HIGH);
-    digitalWrite(MOT_P_IN2, _satAngMom.y < 0 ? HIGH : LOW);
-    digitalWrite(MOT_Y_IN1, _satAngMom.z < 0 ? LOW : HIGH);
-    digitalWrite(MOT_Y_IN2, _satAngMom.z < 0 ? HIGH : LOW);
-     analogWrite(MOT_R_SPD, 255 * min(1.0, abs(_satAngMom.x)));
-     analogWrite(MOT_P_SPD, 255 * min(1.0, abs(_satAngMom.y)));
-     analogWrite(MOT_Y_SPD, 255 * min(1.0, abs(_satAngMom.z)));
+    digitalWrite(MOT_R_IN1, _whlAngVel[0] < 0 ? LOW : HIGH);
+    digitalWrite(MOT_R_IN2, _whlAngVel[0] < 0 ? HIGH : LOW);
+    digitalWrite(MOT_P_IN1, _whlAngVel[1] < 0 ? LOW : HIGH);
+    digitalWrite(MOT_P_IN2, _whlAngVel[1] < 0 ? HIGH : LOW);
+    digitalWrite(MOT_Y_IN1, _whlAngVel[2] < 0 ? LOW : HIGH);
+    digitalWrite(MOT_Y_IN2, _whlAngVel[2] < 0 ? HIGH : LOW);
+    analogWrite(MOT_R_SPD, map(abs(_whlAngVel[0]), 0, MAX_MOTOR_W, 0, MAX_MOTOR_PWM));
+    analogWrite(MOT_P_SPD, map(abs(_whlAngVel[1]), 0, MAX_MOTOR_W, 0, MAX_MOTOR_PWM));
+    analogWrite(MOT_Y_SPD, map(abs(_whlAngVel[2]), 0, MAX_MOTOR_W, 0, MAX_MOTOR_PWM));
+    
 }
 
 /*******************************************************************************
@@ -115,7 +107,7 @@ void Motor_Control::setMotor()
 Motor_Control::Motor_Control(angVelData_t *angVel, angRPYData_t *ang) : _satAngVel(angVel),
                                                                         _satAngles(ang),
                                                                         _satAngMom{0,0,0},
-                                                                        _wheelAngVel{0,0,0}
+                                                                        _whlAngVel{0,0,0}
 {
     pinMode(MOT_Y_IN1, OUTPUT);
     pinMode(MOT_Y_IN2, OUTPUT);
@@ -153,6 +145,6 @@ void Motor_Control::updateMotor(messageData_t *message)
     detumble();
     // else
     // point(&message->targetAngles);
-    // calcWheelAngVel();
+    calcWheelAngVel();
     setMotor();
 }
