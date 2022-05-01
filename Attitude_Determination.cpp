@@ -59,9 +59,9 @@ void Attitude_Determination::updateHeading(angVelData_t *w, angRPYData_t *ang, a
                   eventA.acceleration.x, eventA.acceleration.y, eventA.acceleration.z,
                   eventM.magnetic.x, eventM.magnetic.y, eventM.magnetic.z);
 
-    ang->x += filter.getRoll();
-    ang->y += filter.getPitch();
-    ang->z += filter.getYaw();
+    ang->x = filter.getRoll();
+    ang->y = filter.getPitch();
+    ang->z = filter.getYaw();
 
     filter.getQuaternion(&q->a, &q->b, &q->c, &q->d);
 }

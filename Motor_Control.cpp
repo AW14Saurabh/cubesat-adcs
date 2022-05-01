@@ -151,10 +151,10 @@ Motor_Control::Motor_Control(angVelData_t *angVel, angRPYData_t *ang) : _satAngV
 /******************************************************************************/
 void Motor_Control::updateMotor(messageData_t *message)
 {
-    if (message->opMode)
-        detumble();
-    else
-        point(&message->targetAngles);
+    // if (message->opMode)
+    detumble();
+    // else
+    // point(&message->targetAngles);
     // calcWheelAngVel();
     setMotor();
 }
